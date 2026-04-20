@@ -138,33 +138,91 @@ main{margin-left:var(--sidebar);flex:1;min-width:0;display:flex;flex-direction:c
 .q-cell-inner{display:flex;align-items:center;gap:10px}
 .table-empty{padding:60px 20px;text-align:center;color:var(--text3);font-size:13px}
 
-/* ── DEPOT SPLIT VIEW ── */
-.depot-grid{display:flex;flex-direction:column;gap:16px}
-.depot-bottom{display:grid;grid-template-columns:1fr 300px;gap:0;background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;min-height:260px}
-.dash-chart-area{padding:16px;border-right:1px solid var(--border);display:flex;flex-direction:column}
-.dash-chart-title{display:flex;align-items:center;gap:10px;margin-bottom:4px}
-.dash-chart-ticker{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--gold)}
-.dash-chart-name{font-size:12px;color:var(--text2)}
-.dash-chart-price{font-size:26px;font-weight:700;color:var(--text);margin-top:4px;line-height:1}
-.dash-chart-chg{font-size:13px;margin-top:3px}
-.dash-chart-canvas-wrap{flex:1;margin-top:10px;min-height:0}
-canvas#depotChart{width:100%!important;height:100%!important;min-height:160px}
-.dash-winners-side{padding:12px;overflow-y:auto;border-left:1px solid var(--border)}
-.wl-section-title{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.wl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.wl-item{display:flex;align-items:center;justify-content:space-between;padding:7px 8px;border-radius:8px;cursor:pointer;transition:background .1s;margin-bottom:2px;gap:8px}
-.wl-item:hover{background:var(--surface)}
-.wl-ticker{font-family:var(--mono);font-weight:700;font-size:11px;color:var(--gold)}
-.wl-name{font-size:10px;color:var(--text3);margin-top:1px;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.wl-right{text-align:right;flex-shrink:0}
-.wl-price{font-family:var(--mono);font-size:11px;color:var(--text2)}
-.wl-chg{font-family:var(--mono);font-size:11px;font-weight:600;margin-top:1px}
-.wl-chg.pos{color:var(--green)}.wl-chg.neg{color:var(--red)}.wl-chg.neu{color:var(--text3)}
-.depot-empty-bottom{display:flex;align-items:center;justify-content:center;min-height:200px;color:var(--text3);font-size:13px;gap:10px;grid-column:1/-1}
-.chart-periods{display:flex;gap:4px;margin-top:10px}
-.per-btn{background:transparent;border:1px solid var(--border);border-radius:5px;padding:3px 9px;font-family:var(--mono);font-size:10px;color:var(--text2);cursor:pointer;transition:all .15s}
-.per-btn.active{background:var(--gold-dim);border-color:var(--gold);color:var(--gold)}
-@media(max-width:900px){.depot-bottom{grid-template-columns:1fr}.dash-chart-area{border-right:none;border-bottom:1px solid var(--border)}}
+/* ── DEPOT 3-SPALTEN-LAYOUT ── */
+.depot-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr 260px;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+/* Spalte 1: Positionsliste */
+.depot-col-positions {
+  display: flex; flex-direction: column;
+  border-right: 1px solid var(--border);
+  min-height: 0;
+}
+.depot-col-positions .col-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0; background: var(--bg2);
+}
+.depot-positions-scroll {
+  overflow-y: auto; flex: 1;
+}
+/* Kompakte Positionstabelle */
+.pos-table { width: 100%; border-collapse: collapse; }
+.pos-table th {
+  font-family: var(--mono); font-size: 9px; text-transform: uppercase;
+  letter-spacing: .8px; color: var(--text3); padding: 8px 12px;
+  text-align: right; background: var(--bg2);
+  border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2;
+}
+.pos-table th:first-child { text-align: left; }
+.pos-table td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.pos-table td:first-child { text-align: left; }
+.pos-table tr:last-child td { border-bottom: none; }
+.pos-table tr { cursor: pointer; transition: background .1s; }
+.pos-table tr:hover td { background: var(--surface); }
+.pos-table tr.sel td { background: var(--gold-dim); }
+
+/* Spalte 2: Chart */
+.depot-col-chart {
+  display: flex; flex-direction: column; padding: 16px;
+  border-right: 1px solid var(--border); min-height: 0;
+}
+.depot-col-chart .chart-meta { flex-shrink: 0; }
+.depot-chart-wrap { flex: 1; min-height: 0; margin-top: 10px; }
+.depot-chart-wrap canvas { width: 100% !important; height: 100% !important; min-height: 200px; }
+
+/* Spalte 3: Gewinner/Verlierer */
+.depot-col-wl {
+  display: flex; flex-direction: column; min-height: 0;
+}
+.depot-col-wl .col-header {
+  padding: 12px 14px; border-bottom: 1px solid var(--border);
+  flex-shrink: 0; background: var(--bg2);
+  font-family: var(--mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--text3);
+}
+.depot-wl-scroll { overflow-y: auto; flex: 1; padding: 8px; }
+
+/* Fixe Höhe für den Depot-Screen */
+.depot-screen-inner {
+  display: flex; flex-direction: column;
+  height: calc(100vh - var(--topbar) - 48px - 68px); /* viewport - topbar - padding - perfbar */
+  min-height: 500px;
+}
+.depot-layout { flex: 1; min-height: 0; }
+
+.depot-empty-col {
+  display: flex; align-items: center; justify-content: center;
+  height: 100%; color: var(--text3); font-size: 12px;
+  flex-direction: column; gap: 8px; padding: 20px; text-align: center;
+}
+
+@media(max-width:1100px){
+  .depot-layout{grid-template-columns:320px 1fr 220px;}
+}
+@media(max-width:900px){
+  .depot-layout{grid-template-columns:1fr;}
+  .depot-col-positions,.depot-col-chart{border-right:none;border-bottom:1px solid var(--border);}
+  .depot-screen-inner{height:auto;}
+}
 
 /* ── WATCHLIST ── */
 .list-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
@@ -404,7 +462,8 @@ window._fb={auth:getAuth(app),db:getFirestore(app),createUserWithEmailAndPasswor
 
     <!-- DEPOT -->
     <div class="screen active" id="screen-depot">
-      <div class="perf-bar" id="perfBar" style="display:none">
+      <!-- Performance-Leiste -->
+      <div class="perf-bar" id="perfBar" style="display:none;margin-bottom:12px">
         <div class="perf-item"><div class="perf-label">Depotwert</div><div class="perf-value" id="perfTotal">—</div></div>
         <div class="perf-divider"></div>
         <div class="perf-item"><div class="perf-label">Einstand</div><div class="perf-value" id="perfCost">—</div></div>
@@ -413,54 +472,79 @@ window._fb={auth:getAuth(app),db:getFirestore(app),createUserWithEmailAndPasswor
         <div class="perf-divider"></div>
         <div class="perf-item"><div class="perf-label">Tag G/V</div><div class="perf-value" id="perfDay">—</div></div>
         <div class="perf-divider"></div>
-        <div class="perf-item"><div class="perf-label">Beste heute</div><div id="perfBest">—</div></div>
+        <div class="perf-item"><div class="perf-label">Beste</div><div id="perfBest">—</div></div>
         <div class="perf-divider"></div>
-        <div class="perf-item"><div class="perf-label">Schlechteste heute</div><div id="perfWorst">—</div></div>
+        <div class="perf-item"><div class="perf-label">Schlechteste</div><div id="perfWorst">—</div></div>
       </div>
 
-      <div class="depot-grid">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title" id="depotTableTitle">Positionen</div>
-              <div class="card-sub" id="depotCount">—</div>
+      <!-- 3-Spalten-Layout -->
+      <div class="depot-screen-inner">
+        <div class="depot-layout">
+
+          <!-- Spalte 1: Positionen -->
+          <div class="depot-col-positions">
+            <div class="col-header">
+              <div>
+                <span class="card-title" id="depotTableTitle">Positionen</span>
+                <span class="card-sub" id="depotCount" style="margin-left:8px">—</span>
+              </div>
+              <div style="display:flex;gap:6px">
+                <button class="refresh-btn" onclick="document.getElementById('pfImportFile').click()" title="CSV / PDF importieren">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  Import
+                </button>
+                <button class="refresh-btn" id="depotRefBtn" onclick="loadDepot()">
+                  <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 4v5h5M20 20v-5h-5M4 9a9 9 0 0115 0M20 15a9 9 0 01-15 0"/></svg>
+                  Laden
+                </button>
+              </div>
             </div>
-            <div style="display:flex;gap:8px">
-              <button class="refresh-btn" onclick="document.getElementById('pfImportFile').click()">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                Import
-              </button>
-              <button class="refresh-btn" id="depotRefBtn" onclick="loadDepot()">
-                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 4v5h5M20 20v-5h-5M4 9a9 9 0 0115 0M20 15a9 9 0 01-15 0"/></svg>
-                Laden
-              </button>
+            <div class="depot-positions-scroll">
+              <table class="pos-table">
+                <thead><tr>
+                  <th>Aktie</th><th>Anz.</th><th>Kurs</th>
+                  <th>G/V €</th><th>G/V %</th><th>Tag</th><th></th>
+                </tr></thead>
+                <tbody id="depotBody">
+                  <tr><td colspan="7" class="table-empty">Leer — importiere CSV</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
-          <table class="quote-table">
-            <thead><tr>
-              <th>Position</th><th>Anzahl</th><th>Kaufkurs</th>
-              <th>Akt. Kurs</th><th>Einstand</th><th>Akt. Wert</th>
-              <th>G/V €</th><th>G/V %</th><th>Tag %</th><th></th>
-            </tr></thead>
-            <tbody id="depotBody"><tr><td colspan="10" class="table-empty">Depot leer — importiere oder füge Positionen hinzu</td></tr></tbody>
-          </table>
-        </div>
 
-        <!-- Import-Hinweis wenn leer -->
-        <div class="pf-import-hint" id="depotImportHint" style="display:none">
-          <div class="pf-hint-icon">📂</div>
-          <div class="pf-hint-title">Positionen importieren</div>
-          <div class="pf-hint-sub">Scalable Capital CSV wird direkt erkannt · Format: <code>Ticker;Anzahl;Kaufkurs;Datum</code></div>
-        </div>
-
-        <!-- Chart + Gewinner/Verlierer -->
-        <div class="depot-bottom" id="depotBottom">
-          <div class="depot-empty-bottom">
-            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:28px;height:28px"><path stroke-linecap="round" d="M3 3v18h18"/><path stroke-linecap="round" d="M7 16l4-4 4 4 4-6"/></svg>
-            Position anklicken für Chart
+          <!-- Spalte 2: Chart -->
+          <div class="depot-col-chart" id="depotChartCol">
+            <div class="depot-empty-col" id="depotChartEmpty">
+              <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:32px;height:32px;opacity:.3"><path stroke-linecap="round" d="M3 3v18h18"/><path stroke-linecap="round" d="M7 16l4-4 4 4 4-6"/></svg>
+              Position anklicken
+            </div>
+            <div id="depotChartContent" style="display:none;flex:1;display:none;flex-direction:column">
+              <div class="chart-meta" id="depotChartMeta"></div>
+              <div class="chart-periods" id="cPer" style="margin-top:8px">
+                <button class="per-btn active" data-r="D" data-d="7">1W</button>
+                <button class="per-btn" data-r="D" data-d="30">1M</button>
+                <button class="per-btn" data-r="D" data-d="90">3M</button>
+                <button class="per-btn" data-r="W" data-d="365">1J</button>
+              </div>
+              <div class="depot-chart-wrap">
+                <canvas id="depotChart"></canvas>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+
+          <!-- Spalte 3: Gewinner/Verlierer -->
+          <div class="depot-col-wl">
+            <div class="col-header">Heute</div>
+            <div class="depot-wl-scroll" id="depotWLScroll">
+              <div class="depot-empty-col" style="height:100%">
+                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:24px;height:24px;opacity:.3"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                Kurse laden
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /depot-layout -->
+      </div><!-- /depot-screen-inner -->
       <input type="file" id="pfImportFile" accept=".csv,.pdf" style="display:none">
     </div>
 
@@ -881,9 +965,11 @@ async function loadDepot(){
   renderPfSelector();
 
   if(!pf.positions.length){
-    document.getElementById('depotBody').innerHTML='<tr><td colspan="10" class="table-empty">Noch keine Positionen — importiere CSV oder füge manuell hinzu</td></tr>';
+    document.getElementById('depotBody').innerHTML='<tr><td colspan="7" class="table-empty">Keine Positionen — importiere CSV oder füge manuell hinzu</td></tr>';
     document.getElementById('perfBar').style.display='none';
-    document.getElementById('depotBottom').innerHTML='<div class="depot-empty-bottom"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:28px;height:28px"><path stroke-linecap="round" d="M3 3v18h18"/><path stroke-linecap="round" d="M7 16l4-4 4 4 4-6"/></svg>Keine Positionen</div>';
+    document.getElementById('depotChartEmpty').style.display='flex';
+    document.getElementById('depotChartContent').style.display='none';
+    document.getElementById('depotWLScroll').innerHTML='<div class="depot-empty-col" style="height:200px"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:24px;height:24px;opacity:.3"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>Leer</div>';
     return;
   }
 
@@ -909,28 +995,22 @@ function renderDepotTable(){
   document.getElementById('depotBody').innerHTML=pf.positions.map(pos=>{
     const d=DD[pos.ticker];
     const logo=logoHtml(pos.ticker,d?.logo||null);
-    const q=d?.q||{};
-    const cur=q.c||null;
-    const dp=q.dp??0;
+    const q=d?.q||{};const cur=q.c||null,dp=q.dp??0;
     const cost=pos.shares*pos.buyPrice;
     const val=cur?pos.shares*cur:null;
     const pnl=val!=null?val-cost:null;
     const pct=pnl!=null?(pnl/cost)*100:null;
     const pnlCls=pnl==null?'':pnl>=0?'pos':'neg';
     const dayCls=dp>0?'pos':dp<0?'neg':'neu';
-    const arrow=dp>0?'▲':dp<0?'▼':'';
     const sel=selDepotTicker===pos.ticker?' sel':'';
     return`<tr class="${sel}" onclick="openDepotDetail('${pos.ticker}')">
-      <td><div class="q-cell-inner">${logo}<div><div class="q-tick">${e(pos.ticker)}</div><div class="q-name">${e(pos.name||pos.ticker)}</div></div></div></td>
-      <td class="q-sm">${fN(pos.shares,pos.shares%1===0?0:3)}</td>
-      <td class="q-sm">${fN(pos.buyPrice)}</td>
-      <td class="q-sm">${cur?fN(cur):'<span style="color:var(--text3)">—</span>'}</td>
-      <td class="q-sm">${fN(cost)}</td>
-      <td class="q-sm">${val!=null?fN(val):'—'}</td>
-      <td><span class="q-chg ${pnlCls}">${pnl!=null?(pnl>=0?'▲ +':'▼ ')+fN(Math.abs(pnl)):'—'}</span></td>
-      <td><span class="q-chg ${pnlCls}">${pct!=null?(pct>=0?'+':'')+fN(pct,2)+'%':'—'}</span></td>
-      <td><span class="q-chg ${dayCls}">${arrow} ${fN(Math.abs(dp))}%</span></td>
-      <td><button class="pf-del-btn" onclick="event.stopPropagation();pfDeletePos('${activePortfolio().id}','${pos.id}')" title="Entfernen">✕</button></td>
+      <td><div class="q-cell-inner">${logo}<div><div class="q-tick" style="font-size:12px">${e(pos.ticker)}</div><div class="q-name">${e(pos.name||pos.ticker)}</div></div></div></td>
+      <td class="q-sm" style="font-size:11px">${fN(pos.shares,pos.shares%1===0?0:2)}</td>
+      <td class="q-sm" style="font-size:11px">${cur?fN(cur):'<span style="color:var(--text3)">—</span>'}</td>
+      <td><span class="q-chg ${pnlCls}" style="font-size:11px">${pnl!=null?(pnl>=0?'+':'')+fN(pnl):'—'}</span></td>
+      <td><span class="q-chg ${pnlCls}" style="font-size:11px">${pct!=null?(pct>=0?'+':'')+fN(pct,1)+'%':'—'}</span></td>
+      <td><span class="q-chg ${dayCls}" style="font-size:11px">${dp>0?'▲':dp<0?'▼':''} ${fN(Math.abs(dp),1)}%</span></td>
+      <td><button class="pf-del-btn" onclick="event.stopPropagation();pfDeletePos('${pf.id}','${pos.id}')" title="Entfernen">✕</button></td>
     </tr>`;
   }).join('');
 }
@@ -971,7 +1051,9 @@ function renderPerfBar2(){
 
 async function openDepotDetail(ticker){
   selDepotTicker=ticker;
+  // Zeile markieren
   document.querySelectorAll('#depotBody tr').forEach(r=>r.classList.toggle('sel',r.onclick?.toString().includes(`'${ticker}'`)));
+
   const pos=activePortfolio().positions.find(p=>p.ticker===ticker);
   const d=DD[ticker]||{};const q=d.q||{},dp=q.dp??0,cls=dp>0?'pos':dp<0?'neg':'neu';
   const logo=logoHtml(ticker,d.logo||null);
@@ -982,28 +1064,36 @@ async function openDepotDetail(ticker){
   const pct=pnl!=null&&cost?(pnl/cost)*100:null;
   const pnlCls=pnl==null?'':pnl>=0?'pos':'neg';
 
-  document.getElementById('depotBottom').innerHTML=`
-    <div class="dash-chart-area">
-      <div class="dash-chart-title">${logo}<div>
-        <span class="dash-chart-ticker">${e(ticker)}</span>
-        <span class="dash-chart-name">${e(pos?.name||ticker)}</span>
-      </div></div>
-      <div class="dash-chart-price">${cur?fN(cur):'—'}</div>
-      <div style="display:flex;gap:14px;margin-top:4px;flex-wrap:wrap">
-        <span class="q-chg ${cls}">${dp>0?'▲':'▼'} ${fN(Math.abs(dp))}% heute</span>
-        ${pnl!=null?`<span class="q-chg ${pnlCls}">${pnl>=0?'▲ +':'▼ '}${fN(Math.abs(pnl))} € (${fN(Math.abs(pct||0),2)}%) ges.</span>`:''}
-      </div>
-      <div class="chart-periods" id="cPer">
-        <button class="per-btn active" data-r="D" data-d="7">1W</button>
-        <button class="per-btn" data-r="D" data-d="30">1M</button>
-        <button class="per-btn" data-r="D" data-d="90">3M</button>
-        <button class="per-btn" data-r="W" data-d="365">1J</button>
-      </div>
-      <div class="dash-chart-canvas-wrap"><canvas id="depotChart"></canvas></div>
-    </div>
-    <div class="dash-winners-side">${buildDepotWL(ticker)}</div>`;
+  // Chart-Panel befüllen
+  document.getElementById('depotChartEmpty').style.display='none';
+  const cc=document.getElementById('depotChartContent');
+  cc.style.display='flex';
 
-  document.querySelectorAll('.per-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.per-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');loadDepotChart(ticker,b.dataset.r,parseInt(b.dataset.d));}));
+  document.getElementById('depotChartMeta').innerHTML=`
+    <div style="display:flex;align-items:center;gap:10px">
+      ${logo}
+      <div>
+        <span style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--gold)">${e(ticker)}</span>
+        <span style="font-size:12px;color:var(--text2);margin-left:6px">${e(pos?.name||ticker)}</span>
+      </div>
+    </div>
+    <div style="font-size:26px;font-weight:700;margin-top:6px;line-height:1">${cur?fN(cur):'—'}</div>
+    <div style="display:flex;gap:14px;margin-top:4px;flex-wrap:wrap">
+      <span class="q-chg ${cls}">${dp>0?'▲':'▼'} ${fN(Math.abs(dp),2)}% heute</span>
+      ${pnl!=null?`<span class="q-chg ${pnlCls}">${pnl>=0?'+':''} ${fN(pnl)} € (${fN(pct||0,1)}%) ges.</span>`:''}
+    </div>`;
+
+  // Periode-Buttons verdrahten
+  document.querySelectorAll('#cPer .per-btn').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('#cPer .per-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');loadDepotChart(ticker,b.dataset.r,parseInt(b.dataset.d));
+    };
+  });
+
+  // Gewinner/Verlierer-Liste
+  document.getElementById('depotWLScroll').innerHTML=buildDepotWL(ticker);
+
   await loadDepotChart(ticker,'D',7);
 }
 
@@ -1080,32 +1170,66 @@ async function parseScalableCSV(lines){
   toast('Scalable Capital-Format erkannt…');
   const hdr=lines[0].split(';').map(h=>h.replace(/"/g,'').trim().toLowerCase());
   const C={date:hdr.indexOf('date'),desc:hdr.indexOf('description'),type:hdr.indexOf('type'),isin:hdr.indexOf('isin'),shares:hdr.indexOf('shares'),price:hdr.indexOf('price'),status:hdr.indexOf('status'),asset:hdr.indexOf('assettype')};
-  const buys={};
+
+  // Käufe UND Verkäufe erfassen → Netto berechnen
+  const positions={};
   for(let i=1;i<lines.length;i++){
     const parts=lines[i].split(';').map(s=>s.replace(/^"|"$/g,'').trim());
     if(parts.length<10)continue;
-    const status=parts[C.status]?.toLowerCase(),asset=parts[C.asset]?.toLowerCase(),type=parts[C.type]?.toLowerCase();
+    const status=parts[C.status]?.toLowerCase(),asset=parts[C.asset]?.toLowerCase();
+    const type=parts[C.type]?.toLowerCase();
     const desc=parts[C.desc]||'',isin=parts[C.isin];
     if(status!=='executed'||asset!=='security')continue;
-    if(!['buy','savings plan','sparplan'].includes(type))continue;
     if(!isin||isin.length!==12||isDerivative(desc))continue;
+
+    const isBuy=['buy','savings plan','sparplan'].includes(type);
+    const isSell=['sell','savings plan sell','verkauf','sale'].includes(type)||type==='sell';
+    if(!isBuy&&!isSell)continue;
+
     const sh=parseDeNum(parts[C.shares]),pr=parseDeNum(parts[C.price]);
     if(isNaN(sh)||isNaN(pr)||sh<=0||pr<=0)continue;
-    if(!buys[isin]){buys[isin]={isin,desc:desc.replace(/"/g,''),shares:0,totalCost:0,date:parts[C.date]||''};}
-    buys[isin].shares+=sh;buys[isin].totalCost+=sh*pr;
+
+    if(!positions[isin]){positions[isin]={isin,desc:desc.replace(/"/g,''),netShares:0,buyShares:0,totalCost:0,date:parts[C.date]||''};}
+
+    if(isBuy){
+      positions[isin].netShares+=sh;
+      positions[isin].buyShares+=sh;
+      positions[isin].totalCost+=sh*pr;
+    } else {
+      // Verkauf: Stücke abziehen
+      positions[isin].netShares-=sh;
+    }
   }
-  const positions=Object.values(buys);
-  if(!positions.length){toast('Keine Aktienkäufe gefunden','error');return;}
-  toast(`${positions.length} Positionen gefunden — suche Ticker…`);
+
+  // Nur Positionen mit Netto-Bestand > 0.001 importieren
+  const openPositions=Object.values(positions).filter(p=>p.netShares>0.001);
+  const closedCount=Object.values(positions).filter(p=>p.netShares<=0.001).length;
+
+  if(!openPositions.length){
+    toast(`Keine offenen Positionen gefunden (${closedCount} bereits vollständig verkauft)`, 'error');
+    return;
+  }
+
+  toast(`${openPositions.length} offene Position(en) gefunden (${closedCount} verkaufte ausgeschlossen) — suche Ticker…`);
   const pf=activePortfolio();
   let added=0;
-  for(const pos of positions){
+  for(const pos of openPositions){
+    // Durchschnittlicher Kaufkurs nur aus den Käufen
+    const avgBuy=pos.buyShares>0?pos.totalCost/pos.buyShares:0;
     let ticker=await isinToTicker(pos.isin)||pos.desc.split(' ')[0].toUpperCase();
-    if(pf.positions.some(p=>p.ticker===ticker&&Math.abs(p.shares-pos.shares)<0.001))continue;
-    pf.positions.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),ticker,name:pos.desc,isin:pos.isin,shares:Math.round(pos.shares*1000)/1000,buyPrice:Math.round(pos.totalCost/pos.shares*100)/100,buyDate:pos.date});
+    // Duplikat vermeiden
+    if(pf.positions.some(p=>p.ticker===ticker))continue;
+    pf.positions.push({
+      id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),
+      ticker, name:pos.desc, isin:pos.isin,
+      shares:Math.round(pos.netShares*1000)/1000,
+      buyPrice:Math.round(avgBuy*100)/100,
+      buyDate:pos.date
+    });
     added++;
   }
-  savePF();loadDepot();toast(`${added} Positionen aus Scalable Capital importiert`);
+  savePF();loadDepot();
+  toast(`${added} offene Positionen importiert · ${closedCount} bereits verkaufte übersprungen`);
 }
 
 function parseGenericCSV(lines){
