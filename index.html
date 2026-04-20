@@ -119,9 +119,30 @@ main { margin-left:var(--sidebar);flex:1;min-width:0;display:flex;flex-direction
 .dash-chart-canvas-wrap { flex:1; margin-top:12px; min-height:0; }
 canvas#dashChart { width:100%!important; height:100%!important; min-height:160px; }
 
-.dash-metrics-side {
-  padding:14px; display:flex; flex-direction:column; gap:8px; overflow-y:auto;
+.dash-winners-side {
+  padding:14px; display:flex; flex-direction:column; overflow-y:auto;
+  border-left:1px solid var(--border);
 }
+.wl-section-title {
+  font-family:var(--mono); font-size:10px; text-transform:uppercase;
+  letter-spacing:1.5px; color:var(--text3); margin-bottom:6px;
+  display:flex; align-items:center; gap:6px;
+}
+.wl-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.wl-item {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8px 10px; border-radius:8px; cursor:pointer;
+  transition:background .1s; margin-bottom:2px;
+}
+.wl-item:hover { background:var(--surface); }
+.wl-ticker { font-family:var(--mono); font-weight:700; font-size:12px; color:var(--gold); }
+.wl-name { font-size:11px; color:var(--text3); margin-top:1px; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.wl-right { text-align:right; flex-shrink:0; }
+.wl-price { font-family:var(--mono); font-size:12px; color:var(--text2); }
+.wl-chg { font-family:var(--mono); font-size:12px; font-weight:600; margin-top:1px; }
+.wl-chg.pos { color:var(--green); }
+.wl-chg.neg { color:var(--red); }
+.wl-chg.neu { color:var(--text3); }
 .metric { background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 12px; }
 .metric-label { font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:4px; }
 .metric-value { font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text); }
@@ -262,6 +283,25 @@ textarea.form-input { min-height:90px;resize:vertical; }
 .rpt-stamp { font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:10px; }
 .rpt-err { color:var(--red);font-size:12px;padding:8px 0; }
 
+/* PORTFOLIO */
+.pf-toolbar { display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap; }
+.pf-summary { display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px; }
+.pf-sum-item { background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px 18px; }
+.pf-sum-label { font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:6px; }
+.pf-sum-value { font-family:var(--mono);font-size:20px;font-weight:700;color:var(--text); }
+.pf-sum-value.pos { color:var(--green); }
+.pf-sum-value.neg { color:var(--red); }
+.pf-add-form { background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:16px; }
+.pf-add-row { display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:12px;align-items:end; }
+.pf-import-hint { background:var(--panel);border:1px dashed var(--border2);border-radius:12px;padding:32px;text-align:center;margin-bottom:20px; }
+.pf-hint-icon { font-size:32px;margin-bottom:10px; }
+.pf-hint-title { font-size:15px;font-weight:600;color:var(--text);margin-bottom:8px; }
+.pf-hint-sub { font-size:12px;color:var(--text2);line-height:1.6; }
+.pf-hint-sub code { background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font-family:var(--mono);font-size:11px;color:var(--gold); }
+.pf-del-btn { background:transparent;border:none;cursor:pointer;color:var(--text3);padding:4px 8px;border-radius:4px;transition:color .15s;font-size:14px; }
+.pf-del-btn:hover { color:var(--red); }
+@media(max-width:900px){ .pf-summary{grid-template-columns:repeat(2,1fr);} .pf-add-row{grid-template-columns:1fr 1fr;} }
+
 /* SETTINGS */
 .set-wrap { max-width:560px; }
 .set-lbl { font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin:20px 0 10px; }
@@ -346,7 +386,11 @@ window._fb={auth:getAuth(app),db:getFirestore(app),createUserWithEmailAndPasswor
     </button>
     <button class="nav-item" data-nav="report">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M9 17H7a2 2 0 01-2-2V5a2 2 0 012-2h10a2 2 0 012 2v3m-6 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M9 9h6M9 13h3"/></svg>
-      <span class="nav-label">Wochenbericht</span>
+      <span class="nav-label">News zu Deinen Werten</span>
+    </button>
+    <button class="nav-item" data-nav="portfolio">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M19 21H5a2 2 0 01-2-2V7l7-4 7 4v12a2 2 0 01-2 2z"/><path stroke-linecap="round" d="M9 21V12h6v9"/></svg>
+      <span class="nav-label">Musterdepot</span>
     </button>
     <div class="nav-section">System</div>
     <button class="nav-item" data-nav="settings">
@@ -500,6 +544,104 @@ window._fb={auth:getAuth(app),db:getFirestore(app),createUserWithEmailAndPasswor
       <div id="rptBody"></div>
     </div>
 
+    <!-- MUSTERDEPOT -->
+    <div class="screen" id="screen-portfolio">
+      <div class="pf-toolbar">
+        <button class="btn-gold" onclick="document.getElementById('pfImportFile').click()">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          CSV / PDF importieren
+        </button>
+        <button class="btn-outline" onclick="pfAddManual()">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
+          Manuell hinzufügen
+        </button>
+        <button class="btn-outline" onclick="pfExportCSV()">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3v13m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+          Export CSV
+        </button>
+        <input type="file" id="pfImportFile" accept=".csv,.pdf" style="display:none">
+      </div>
+
+      <!-- Zusammenfassung -->
+      <div class="pf-summary" id="pfSummary" style="display:none">
+        <div class="pf-sum-item">
+          <div class="pf-sum-label">Depotwert</div>
+          <div class="pf-sum-value" id="pfTotalValue">—</div>
+        </div>
+        <div class="pf-sum-item">
+          <div class="pf-sum-label">Einstand</div>
+          <div class="pf-sum-value" id="pfTotalCost">—</div>
+        </div>
+        <div class="pf-sum-item">
+          <div class="pf-sum-label">Gewinn / Verlust</div>
+          <div class="pf-sum-value" id="pfTotalPnl">—</div>
+        </div>
+        <div class="pf-sum-item">
+          <div class="pf-sum-label">Performance</div>
+          <div class="pf-sum-value" id="pfTotalPct">—</div>
+        </div>
+      </div>
+
+      <!-- Manuell hinzufügen -->
+      <div class="pf-add-form" id="pfAddForm" style="display:none">
+        <div class="pf-add-row">
+          <div>
+            <label class="form-lbl">Ticker</label>
+            <input type="text" id="pfTicker" class="form-input mono" placeholder="AAPL" maxlength="12">
+          </div>
+          <div>
+            <label class="form-lbl">Anzahl</label>
+            <input type="number" id="pfShares" class="form-input" placeholder="10" min="0.001" step="any">
+          </div>
+          <div>
+            <label class="form-lbl">Kaufkurs</label>
+            <input type="number" id="pfBuyPrice" class="form-input" placeholder="150,00" min="0" step="any">
+          </div>
+          <div>
+            <label class="form-lbl">Kaufdatum</label>
+            <input type="date" id="pfBuyDate" class="form-input">
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:8px">
+            <button class="btn-primary" onclick="pfSaveManual()">Hinzufügen</button>
+            <button class="btn-secondary" onclick="pfCancelManual()">Abbrechen</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Import-Hilfe -->
+      <div class="pf-import-hint" id="pfImportHint">
+        <div class="pf-hint-icon">📂</div>
+        <div class="pf-hint-title">CSV oder PDF importieren</div>
+        <div class="pf-hint-sub">CSV-Format: <code>Ticker;Anzahl;Kaufkurs;Datum</code><br>Beispiel: <code>AAPL;10;145.50;2024-01-15</code><br>Trennzeichen: Semikolon oder Komma · Datum optional</div>
+        <div class="pf-hint-sub" style="margin-top:8px">PDF: Export aus deiner Bank (Comdirect, ING, Flatex etc.) — Positionen werden automatisch erkannt</div>
+      </div>
+
+      <!-- Tabelle -->
+      <div class="card" id="pfTableCard" style="display:none">
+        <div class="card-header">
+          <div class="card-title">Positionen</div>
+          <button class="refresh-btn" id="pfRefreshBtn" onclick="pfLoadPrices()">
+            <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 4v5h5M20 20v-5h-5M4 9a9 9 0 0115 0M20 15a9 9 0 01-15 0"/></svg>
+            Kurse laden
+          </button>
+        </div>
+        <table class="quote-table" id="pfTable">
+          <thead><tr>
+            <th>Position</th>
+            <th>Anzahl</th>
+            <th>Kaufkurs</th>
+            <th>Akt. Kurs</th>
+            <th>Einstand</th>
+            <th>Akt. Wert</th>
+            <th>G/V €</th>
+            <th>G/V %</th>
+            <th></th>
+          </tr></thead>
+          <tbody id="pfBody"></tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- SETTINGS -->
     <div class="screen" id="screen-settings">
       <div class="set-wrap">
@@ -551,7 +693,7 @@ function fN(n,d=2){if(n==null||isNaN(n))return'—';return Number(n).toLocaleStr
 function fB(n){if(!n||isNaN(n))return'—';if(n>=1e12)return(n/1e12).toFixed(2)+' Bio.';if(n>=1e9)return(n/1e9).toFixed(2)+' Mrd.';if(n>=1e6)return(n/1e6).toFixed(2)+' Mio.';return n.toLocaleString('de-DE')}
 function toast(m,t='success'){const el=document.getElementById('toast');el.textContent=m;el.className='toast show '+t;setTimeout(()=>el.classList.remove('show'),2000)}
 
-const SCREEN_CFG={dashboard:{t:'Dashboard',s:'Live-Übersicht deiner Favoriten'},list:{t:'Favoriten',s:'Deine Aktienliste'},form:{t:'Neue Aktie',s:''},detail:{t:'Details',s:''},report:{t:'Wochenbericht',s:'Neuigkeiten der letzten 7 Tage'},settings:{t:'Einstellungen',s:''}};
+const SCREEN_CFG={dashboard:{t:'Dashboard',s:'Live-Übersicht deiner Favoriten'},list:{t:'Favoriten',s:'Deine Aktienliste'},form:{t:'Neue Aktie',s:''},detail:{t:'Details',s:''},report:{t:'News zu Deinen Werten',s:'Neuigkeiten der letzten 7 Tage'},portfolio:{t:'Musterdepot',s:'Positionen, Kaufkurse & Performance'},settings:{t:'Einstellungen',s:''}};
 
 function navigate(sc,opts={}){
   ST.cur=sc;
@@ -566,6 +708,7 @@ function navigate(sc,opts={}){
   if(sc==='form')renderForm(opts.id);
   if(sc==='detail'&&opts.id)renderDetail(opts.id);
   if(sc==='report')startRpt();
+  if(sc==='portfolio')renderPortfolio();
   if(sc==='settings')loadApiUI();
   window.scrollTo({top:0,behavior:'instant'});
 }
@@ -715,7 +858,7 @@ async function openDetail(ticker){
   selTicker=ticker;
   document.querySelectorAll('.quote-table tr').forEach(r=>{r.classList.toggle('sel',r.onclick?.toString().includes(`'${ticker}'`));});
   const s=ST.stocks.find(x=>x.ticker===ticker);
-  const d=DD[ticker]||{};const q=d.q||{},m=d.m||{},dp=q.dp??0,cls=dp>0?'pos':dp<0?'neg':'neu';
+  const d=DD[ticker]||{};const q=d.q||{},dp=q.dp??0,cls=dp>0?'pos':dp<0?'neg':'neu';
   const bottom=document.getElementById('dashBottom');
   bottom.innerHTML=`
     <div class="dash-chart-area">
@@ -735,11 +878,53 @@ async function openDetail(ticker){
         <canvas id="dashChart"></canvas>
       </div>
     </div>
-    <div class="dash-metrics-side">
-      ${[['52W Hoch',m['52WeekHigh']?fN(m['52WeekHigh']):'—'],['52W Tief',m['52WeekLow']?fN(m['52WeekLow']):'—'],['Marktk.',m.marketCapitalization?fB(m.marketCapitalization*1e6):'—'],['KGV',m.peNormalizedAnnual?fN(m.peNormalizedAnnual,1):'—'],['KBV',m.pbAnnual?fN(m.pbAnnual,1):'—'],['Dividende',m.dividendYieldIndicatedAnnual?fN(m.dividendYieldIndicatedAnnual,2)+'%':'—'],['Beta',m.beta?fN(m.beta,2):'—'],['Ø Vol.',m['10DayAverageTradingVolume']?fB(m['10DayAverageTradingVolume']*1e6):'—']].map(([l,v])=>`<div class="metric"><div class="metric-label">${l}</div><div class="metric-value">${v}</div></div>`).join('')}
-    </div>`;
+    <div class="dash-winners-side">${buildWinnersLosersList(ticker)}</div>`;
   document.querySelectorAll('.per-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.per-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');loadChart(ticker,b.dataset.r,parseInt(b.dataset.d));}));
   await loadChart(ticker,'D',7);
+}
+
+function buildWinnersLosersList(activeTicker){
+  const rows = ST.stocks.map(s=>{
+    const d=DD[s.ticker];
+    if(!d||d.err||!d.q||!d.q.c) return null;
+    return { ticker:s.ticker, name:s.name, dp:d.q.dp??0, c:d.q.c };
+  }).filter(Boolean);
+
+  if(!rows.length) return '<div style="color:var(--text3);font-size:12px;padding:16px;text-align:center">Kurse noch nicht geladen</div>';
+
+  const sorted = [...rows].sort((a,b)=>b.dp-a.dp);
+  const winners = sorted.filter(r=>r.dp>0);
+  const losers  = sorted.filter(r=>r.dp<0);
+  const neutral = sorted.filter(r=>r.dp===0);
+
+  const item = (r,cls) => {
+    const active = r.ticker===activeTicker ? 'background:var(--gold-dim);' : '';
+    return `<div class="wl-item" style="${active}" onclick="openDetail('${r.ticker}')">
+      <div>
+        <div class="wl-ticker">${e(r.ticker)}</div>
+        <div class="wl-name">${e(r.name)}</div>
+      </div>
+      <div class="wl-right">
+        <div class="wl-price">${fN(r.c)}</div>
+        <div class="wl-chg ${cls}">${r.dp>0?'▲':r.dp<0?'▼':''} ${fN(Math.abs(r.dp))}%</div>
+      </div>
+    </div>`;
+  };
+
+  let html='';
+  if(winners.length){
+    html+=`<div class="wl-section-title"><span class="wl-dot" style="background:var(--green)"></span>Gewinner</div>`;
+    html+=winners.map(r=>item(r,'pos')).join('');
+  }
+  if(losers.length){
+    html+=`<div class="wl-section-title" style="margin-top:12px"><span class="wl-dot" style="background:var(--red)"></span>Verlierer</div>`;
+    html+=losers.map(r=>item(r,'neg')).join('');
+  }
+  if(neutral.length){
+    html+=`<div class="wl-section-title" style="margin-top:12px"><span class="wl-dot" style="background:var(--text3)"></span>Unverändert</div>`;
+    html+=neutral.map(r=>item(r,'neu')).join('');
+  }
+  return html;
 }
 
 async function loadChart(ticker,res,days){
@@ -832,6 +1017,183 @@ async function startRpt(){
     catch(err){const id='re'+i;body.innerHTML+=`<div class="rpt-card open" id="${id}"><div class="rpt-hdr"><div class="rpt-tick">${e(s.ticker)}</div><div class="rpt-name">${e(s.name)}</div></div><div class="rpt-body"><div class="rpt-err">⚠️ ${e(err.message)}</div></div></div>`;}
   }
   cbtn.style.display='none';meta.innerHTML=rptAbort?'<div class="prog-txt">Abgebrochen</div>':`<div class="prog-wrap"><div class="prog-fill" style="width:100%"></div></div><div class="prog-txt prog-done">✓ Bericht abgeschlossen (${total} Aktien)</div>`;
+}
+
+/* PORTFOLIO */
+const PF_KEY='portfolio-v1';
+let pfPositions=[];
+let pfPrices={};
+
+function pfLoad(){try{pfPositions=JSON.parse(localStorage.getItem(PF_KEY)||'[]')}catch{pfPositions=[];}}
+function pfSave(){localStorage.setItem(PF_KEY,JSON.stringify(pfPositions));if(window._sfb)window._sfb_pf&&window._sfb_pf();}
+
+function renderPortfolio(){
+  pfLoad();
+  const hasData=pfPositions.length>0;
+  document.getElementById('pfImportHint').style.display=hasData?'none':'block';
+  document.getElementById('pfTableCard').style.display=hasData?'block':'none';
+  document.getElementById('pfSummary').style.display=hasData?'grid':'none';
+  if(hasData){renderPfTable();pfLoadPrices();}
+}
+
+function pfAddManual(){
+  document.getElementById('pfAddForm').style.display='block';
+  document.getElementById('pfImportHint').style.display='none';
+  document.getElementById('pfTicker').focus();
+}
+function pfCancelManual(){document.getElementById('pfAddForm').style.display='none';}
+
+function pfSaveManual(){
+  const tk=document.getElementById('pfTicker').value.trim().toUpperCase();
+  const sh=parseFloat(document.getElementById('pfShares').value);
+  const bp=parseFloat(document.getElementById('pfBuyPrice').value);
+  const dt=document.getElementById('pfBuyDate').value;
+  if(!tk||isNaN(sh)||sh<=0||isNaN(bp)||bp<=0){toast('Bitte alle Felder ausfüllen','error');return;}
+  pfPositions.push({id:Date.now().toString(36),ticker:tk,shares:sh,buyPrice:bp,buyDate:dt||new Date().toISOString().slice(0,10)});
+  pfSave();pfCancelManual();renderPortfolio();toast(`${tk} hinzugefügt`);
+}
+
+async function pfLoadPrices(){
+  const btn=document.getElementById('pfRefreshBtn');if(btn)btn.classList.add('spinning');
+  const tickers=[...new Set(pfPositions.map(p=>p.ticker))];
+  await Promise.allSettled(tickers.map(async t=>{
+    try{const r=await fhGet(`/quote?symbol=${fhSym(t)}`);pfPrices[t]=r.c||null;}
+    catch{pfPrices[t]=null;}
+  }));
+  renderPfTable();
+  if(btn)btn.classList.remove('spinning');
+}
+
+function renderPfTable(){
+  const tbody=document.getElementById('pfBody');if(!tbody)return;
+  let totalVal=0,totalCost=0;
+  tbody.innerHTML=pfPositions.map((p,i)=>{
+    const cur=pfPrices[p.ticker]||null;
+    const cost=p.shares*p.buyPrice;
+    const val=cur?p.shares*cur:null;
+    const pnl=val!=null?val-cost:null;
+    const pct=pnl!=null?(pnl/cost)*100:null;
+    if(val!=null){totalVal+=val;totalCost+=cost;}
+    const pnlCls=pnl==null?'':pnl>=0?'pos':'neg';
+    const arrow=pnl==null?'':pnl>=0?'▲':'▼';
+    return`<tr>
+      <td><div class="q-tick">${e(p.ticker)}</div><div class="q-name">${fmtDateShort(p.buyDate)}</div></td>
+      <td class="q-sm">${fN(p.shares,p.shares%1===0?0:3)}</td>
+      <td class="q-sm">${fN(p.buyPrice)}</td>
+      <td class="q-sm">${cur?fN(cur):'<span style="color:var(--text3)">—</span>'}</td>
+      <td class="q-sm">${fN(cost)}</td>
+      <td class="q-sm">${val!=null?fN(val):'—'}</td>
+      <td><span class="q-chg ${pnlCls}">${pnl!=null?arrow+' '+fN(Math.abs(pnl)):'—'}</span></td>
+      <td><span class="q-chg ${pnlCls}">${pct!=null?arrow+' '+fN(Math.abs(pct),2)+'%':'—'}</span></td>
+      <td><button class="pf-del-btn" onclick="pfDelete(${i})" title="Entfernen">✕</button></td>
+    </tr>`;
+  }).join('');
+  // Summary
+  if(totalCost>0){
+    const tPnl=totalVal-totalCost,tPct=(tPnl/totalCost)*100;
+    document.getElementById('pfTotalValue').textContent=fN(totalVal)+' €';
+    document.getElementById('pfTotalCost').textContent=fN(totalCost)+' €';
+    const pnlEl=document.getElementById('pfTotalPnl');
+    pnlEl.textContent=(tPnl>=0?'▲ +':'▼ ')+fN(Math.abs(tPnl))+' €';
+    pnlEl.className='pf-sum-value '+(tPnl>=0?'pos':'neg');
+    const pctEl=document.getElementById('pfTotalPct');
+    pctEl.textContent=(tPct>=0?'+':'')+fN(tPct,2)+'%';
+    pctEl.className='pf-sum-value '+(tPct>=0?'pos':'neg');
+  }
+}
+
+function fmtDateShort(d){if(!d)return'';try{return new Date(d).toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit',year:'2-digit'});}catch{return d;}}
+
+function pfDelete(i){
+  if(!confirm('Position entfernen?'))return;
+  pfPositions.splice(i,1);pfSave();renderPortfolio();
+}
+
+function pfExportCSV(){
+  const lines=['Ticker;Anzahl;Kaufkurs;Kaufdatum',...pfPositions.map(p=>`${p.ticker};${p.shares};${p.buyPrice};${p.buyDate}`)];
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'}));
+  a.download=`musterdepot-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();toast('CSV exportiert');
+}
+
+// CSV/PDF Import
+document.getElementById('pfImportFile').addEventListener('change',async ev=>{
+  const f=ev.target.files[0];if(!f)return;
+  const name=f.name.toLowerCase();
+  if(name.endsWith('.csv')){
+    const txt=await f.text();parsePfCSV(txt);
+  } else if(name.endsWith('.pdf')){
+    await parsePfPDF(f);
+  }
+  ev.target.value='';
+});
+
+function parsePfCSV(txt){
+  const lines=txt.split(/\r?\n/).filter(l=>l.trim());
+  let added=0;
+  lines.forEach(line=>{
+    // Semikolon oder Komma als Trennzeichen
+    const sep=line.includes(';')?';':',';
+    const parts=line.split(sep).map(s=>s.trim().replace(/['"]/g,''));
+    if(parts.length<3)return;
+    const tk=parts[0].toUpperCase();
+    const sh=parseFloat(parts[1].replace(',','.'));
+    const bp=parseFloat(parts[2].replace(',','.'));
+    const dt=parts[3]||new Date().toISOString().slice(0,10);
+    // Kopfzeile überspringen
+    if(isNaN(sh)||isNaN(bp)||sh<=0||bp<=0)return;
+    if(tk.match(/^[A-Z0-9.\-]{1,12}$/)){
+      pfPositions.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),ticker:tk,shares:sh,buyPrice:bp,buyDate:dt});
+      added++;
+    }
+  });
+  if(added>0){pfSave();renderPortfolio();toast(`${added} Position(en) importiert`);}
+  else toast('Keine gültigen Positionen gefunden','error');
+}
+
+async function parsePfPDF(file){
+  toast('PDF wird analysiert…');
+  // PDF.js laden
+  if(!window.pdfjsLib){
+    await new Promise((res,rej)=>{
+      const s=document.createElement('script');
+      s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      s.onload=res;s.onerror=rej;document.head.appendChild(s);
+    });
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+  const buf=await file.arrayBuffer();
+  const pdf=await window.pdfjsLib.getDocument({data:buf}).promise;
+  let fullText='';
+  for(let i=1;i<=pdf.numPages;i++){
+    const page=await pdf.getPage(i);
+    const content=await page.getTextContent();
+    fullText+=content.items.map(x=>x.str).join(' ')+'\n';
+  }
+  // Ticker-Muster erkennen: Buchstaben+Zahlen gefolgt von Anzahl und Kurs
+  // Heuristik für gängige Depotauszüge (Comdirect, ING, Flatex)
+  const lines=fullText.split(/\n/);
+  let added=0;
+  lines.forEach(line=>{
+    // Suche nach Muster: TICKER ... Anzahl ... Kurs
+    const m=line.match(/([A-Z]{2,5}(?:\.[A-Z]{2})?)\s+[\w\s]*?([\d]+(?:[.,]\d+)?)\s+(?:Stk|St|Anteile)?\s*([\d]+(?:[.,]\d{2})?)/i);
+    if(m){
+      const tk=m[1].toUpperCase();
+      const sh=parseFloat(m[2].replace(',','.'));
+      const bp=parseFloat(m[3].replace(',','.'));
+      if(!isNaN(sh)&&!isNaN(bp)&&sh>0&&bp>0&&tk.length>=2){
+        pfPositions.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),ticker:tk,shares:sh,buyPrice:bp,buyDate:new Date().toISOString().slice(0,10)});
+        added++;
+      }
+    }
+  });
+  if(added>0){pfSave();renderPortfolio();toast(`${added} Position(en) aus PDF importiert`);}
+  else{
+    toast('Keine Positionen erkannt — CSV-Import empfohlen','error');
+    // Rohtext anzeigen zum Debugging
+    console.log('PDF Text:', fullText.slice(0,500));
+  }
 }
 
 /* FIREBASE */
