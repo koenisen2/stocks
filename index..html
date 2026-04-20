@@ -1,0 +1,2670 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Aktien">
+<title>Aktien — Favoriten</title>
+
+<!-- Inline PWA Manifest -->
+<link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"Aktien Favoriten","short_name":"Aktien","start_url":".","display":"standalone","background_color":"%230a0b0f","theme_color":"%230a0b0f","orientation":"portrait","icons":[{"src":"data:image/svg%2Bxml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22%3E%3Crect width=%22512%22 height=%22512%22 rx=%22112%22 fill=%22%230a0b0f%22/%3E%3Cpath d=%22M256 120l35 85 92 7-70 61 22 89-79-48-79 48 22-89-70-61 92-7z%22 fill=%22%23d4a85a%22/%3E%3Cpath d=%22M140 370h232%22 stroke=%22%23d4a85a%22 stroke-width=%2216%22 stroke-linecap=%22round%22/%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml","purpose":"any"}]}'>
+
+<!-- App Icon -->
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0b0f'/><path d='M50 22l7 17 18 1-14 12 4 18-15-10-15 10 4-18-14-12 18-1z' fill='%23d4a85a'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=Figtree:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0b0f;
+    --surface: #15171e;
+    --surface-2: #1c1f28;
+    --surface-3: #262934;
+    --border: #2a2d37;
+    --border-strong: #3a3e4a;
+    --text: #e8e6df;
+    --text-dim: #9a9db0;
+    --text-subtle: #585b66;
+    --accent: #d4a85a;
+    --accent-hover: #e4b86a;
+    --accent-soft: rgba(212, 168, 90, 0.12);
+    --success: #6fae7e;
+    --danger: #d97559;
+    --danger-soft: rgba(217, 117, 89, 0.12);
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --font-display: 'Bricolage Grotesque', sans-serif;
+    --font-body: 'Figtree', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+  }
+
+  body {
+    max-width: 960px;
+    margin: 0 auto;
+    min-height: 100vh;
+    position: relative;
+    background-image:
+      radial-gradient(circle at 10% 0%, rgba(212, 168, 90, 0.08), transparent 50%),
+      radial-gradient(circle at 90% 100%, rgba(111, 174, 126, 0.04), transparent 50%);
+  }
+
+  /* App shell */
+  #app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: var(--safe-top);
+    padding-bottom: calc(80px + var(--safe-bottom));
+  }
+
+  /* Top bar */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+    position: sticky;
+    top: var(--safe-top);
+    background: linear-gradient(to bottom, var(--bg) 85%, transparent);
+    z-index: 10;
+  }
+
+  .top-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+
+  .top-title .accent { color: var(--accent); }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: var(--text-dim);
+    transition: all 0.15s;
+  }
+
+  .icon-btn:hover, .icon-btn:active {
+    color: var(--text);
+    border-color: var(--border-strong);
+    background: var(--surface-2);
+  }
+
+  .icon-btn svg { width: 18px; height: 18px; }
+
+  /* Screens */
+  .screen {
+    flex: 1;
+    padding: 4px 20px 20px;
+    display: none;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .screen.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Stats card */
+  .stats-card {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 20px 22px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stats-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+
+  .stats-value {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .stats-value .accent { color: var(--accent); }
+
+  .stats-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 6px 12px;
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Search + sort row */
+  .toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+
+  .search-box {
+    flex: 1;
+    position: relative;
+  }
+
+  .search-box input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 11px 14px 11px 38px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    transition: border-color 0.15s;
+  }
+
+  .search-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .search-box svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-subtle);
+    width: 16px;
+    height: 16px;
+  }
+
+  .sort-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 11px 14px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .sort-btn:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+
+  .sort-btn svg { width: 14px; height: 14px; }
+
+  /* Stock cards */
+  .stocks { display: flex; flex-direction: column; gap: 8px; }
+
+  .stock-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .stock-card:hover, .stock-card:active {
+    border-color: var(--border-strong);
+    background: var(--surface-2);
+    transform: translateY(-1px);
+  }
+
+  .ticker-badge {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+
+  .stock-main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .stock-name {
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .stock-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .stock-meta .sector {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-subtle);
+  }
+
+  .priority-stars {
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .chevron {
+    color: var(--text-subtle);
+    flex-shrink: 0;
+  }
+
+  /* Forms */
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-subtle);
+    margin-bottom: 8px;
+  }
+
+  .form-group input, .form-group textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 16px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    transition: border-color 0.15s;
+  }
+
+  .form-group input.ticker {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .form-group textarea {
+    min-height: 90px;
+    resize: vertical;
+    font-family: var(--font-body);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 10px;
+  }
+
+  /* Ticker lookup */
+  .form-lookup-wrapper {
+    position: relative;
+    margin-bottom: 18px;
+  }
+
+  .form-lookup-wrapper .form-group { margin-bottom: 0; }
+
+  .form-lookup-wrapper .form-row { margin-bottom: 0; }
+
+  .search-hint {
+    font-size: 11px;
+    color: var(--text-subtle);
+    margin-top: 8px;
+    padding-left: 2px;
+    font-style: italic;
+  }
+
+  .input-spinner-wrap {
+    position: relative;
+  }
+
+  .input-spinner {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+
+  .input-spinner.show { opacity: 1; }
+
+  @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+  .suggestions {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 50;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+    animation: fadeIn 0.15s ease-out;
+  }
+
+  .suggestions.show { display: block; }
+
+  .suggestion-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.1s;
+  }
+
+  .suggestion-item:last-child { border-bottom: none; }
+  .suggestion-item:hover, .suggestion-item.active { background: var(--surface-3); }
+
+  .suggestion-ticker {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    flex-shrink: 0;
+    min-width: 64px;
+    letter-spacing: 0.5px;
+  }
+
+  .suggestion-name {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .suggestion-exchange {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    padding: 3px 7px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+
+  .suggestions-status {
+    padding: 16px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .suggestions-status.error { color: var(--danger); }
+
+  /* Star picker */
+  .star-picker {
+    display: flex;
+    gap: 8px;
+  }
+
+  .star-picker button {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: var(--text-subtle);
+    transition: all 0.15s;
+  }
+
+  .star-picker button.active {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .star-picker button:hover {
+    border-color: var(--border-strong);
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 15px;
+    padding: 14px 22px;
+    border-radius: 12px;
+    transition: all 0.15s;
+    width: 100%;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover { border-color: var(--border-strong); background: var(--surface-2); }
+
+  .btn-danger {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid var(--danger);
+  }
+
+  .btn-danger:hover { background: var(--danger-soft); }
+
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .btn-row .btn { flex: 1; }
+
+  /* Detail screen */
+  .detail-hero {
+    text-align: center;
+    padding: 20px 0 30px;
+  }
+
+  .detail-ticker {
+    font-family: var(--font-mono);
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .detail-name {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  .detail-stars {
+    color: var(--accent);
+    font-size: 18px;
+    letter-spacing: 4px;
+  }
+
+  .detail-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+
+  .detail-section-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-subtle);
+    margin-bottom: 8px;
+  }
+
+  .detail-section-value {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+
+  .detail-section-value.muted {
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  /* Settings */
+  .settings-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .settings-item:hover { border-color: var(--border-strong); background: var(--surface-2); }
+
+  .settings-item-main .title {
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 3px;
+    font-weight: 500;
+  }
+
+  .settings-item-main .sub {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .settings-item.danger .title { color: var(--danger); }
+
+  .settings-section-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-subtle);
+    margin: 20px 4px 10px;
+  }
+
+  .settings-section-title:first-child { margin-top: 0; }
+
+  .about-card {
+    text-align: center;
+    padding: 24px 20px;
+    color: var(--text-subtle);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .about-card .logo {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  /* Empty states */
+  .empty {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--text-subtle);
+  }
+
+  .empty-icon {
+    font-size: 48px;
+    opacity: 0.3;
+    margin-bottom: 16px;
+  }
+
+  .empty-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+
+  .empty-sub {
+    font-size: 13px;
+    color: var(--text-subtle);
+    max-width: 260px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* Bottom nav */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 520px;
+    background: rgba(10, 11, 15, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    padding: 10px 16px calc(10px + var(--safe-bottom));
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 20;
+  }
+
+  .nav-item {
+    background: none;
+    border: none;
+    color: var(--text-subtle);
+    cursor: pointer;
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    border-radius: 10px;
+    transition: color 0.15s;
+    flex: 1;
+  }
+
+  .nav-item svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .nav-item-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .nav-item.active { color: var(--accent); }
+
+  .nav-item-fab {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg) !important;
+    margin-top: -18px;
+    box-shadow: 0 4px 20px rgba(212, 168, 90, 0.35);
+    padding: 0;
+  }
+
+  .nav-item-fab svg { width: 26px; height: 26px; }
+
+  .nav-item-fab:active { transform: scale(0.94); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: calc(90px + var(--safe-bottom));
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--surface-3);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    opacity: 0;
+    transition: all 0.25s;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .toast.success { border-color: var(--success); }
+  .toast.error { border-color: var(--danger); }
+
+  /* Screen title for sub-screens */
+  .screen-title {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 22px;
+    letter-spacing: -0.3px;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-dim);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    margin-bottom: 16px;
+    font-family: var(--font-body);
+  }
+
+  .back-link:hover { color: var(--text); }
+  .back-link svg { width: 14px; height: 14px; }
+
+  /* ============ REPORT ============ */
+  .report-btn {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 15px 20px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    transition: all 0.15s;
+  }
+  .report-btn:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+  .report-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .progress-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 12px; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
+  .progress-text {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .progress-text.done { color: var(--success); }
+
+  .report-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    animation: fadeIn 0.25s ease-out;
+  }
+  .report-card-header {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .report-card-header:hover { background: var(--surface-2); }
+  .report-card-ticker {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--accent);
+    min-width: 64px;
+    letter-spacing: 0.5px;
+  }
+  .report-card-name { flex: 1; font-size: 14px; font-weight: 500; }
+  .report-card-chevron { color: var(--text-subtle); transition: transform 0.2s; font-size: 12px; }
+  .report-card.open .report-card-chevron { transform: rotate(90deg); }
+
+  .report-card-body {
+    padding: 0 20px 20px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    display: none;
+    border-top: 1px solid var(--border);
+  }
+  .report-card.open .report-card-body { display: block; padding-top: 16px; }
+
+  .report-card-body h3 {
+    color: var(--accent);
+    font-size: 12px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 18px 0 6px;
+  }
+  .report-card-body h3:first-child { margin-top: 0; }
+  .report-card-body p { margin-bottom: 6px; color: var(--text); }
+  .report-card-body ul { padding-left: 18px; margin: 4px 0 8px; }
+  .report-card-body li { margin-bottom: 4px; color: var(--text); }
+  .report-card-body strong { color: var(--text); font-weight: 600; }
+
+  .report-error { color: var(--danger); font-style: italic; padding: 10px 0; }
+  .report-stamp { font-family: var(--font-mono); font-size: 10px; color: var(--text-subtle); margin-top: 12px; }
+
+  /* ============ DESKTOP ============ */
+  @media (min-width: 768px) {
+    body {
+      padding: 0;
+    }
+
+    #app {
+      padding-top: calc(var(--safe-top) + 8px);
+      padding-bottom: 60px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .top-bar {
+      padding: 28px 0 20px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      gap: 20px;
+    }
+
+    .top-title { font-size: 34px; }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .desktop-nav-item {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .desktop-nav-item:hover { color: var(--text); background: var(--surface); }
+    .desktop-nav-item.active { color: var(--accent); background: var(--accent-soft); }
+
+    .desktop-add-btn {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .desktop-add-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(212, 168, 90, 0.3);
+    }
+
+    .desktop-add-btn svg { width: 16px; height: 16px; }
+
+    .screen { padding: 20px 0; }
+
+    /* Stats card enlarged */
+    .stats-card {
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      border-radius: 20px;
+    }
+
+    .stats-value { font-size: 56px; }
+    .stats-label { font-size: 11px; margin-bottom: 6px; }
+
+    /* Toolbar */
+    .toolbar { margin-bottom: 20px; gap: 12px; }
+    .search-box input { padding: 13px 16px 13px 42px; font-size: 15px; }
+    .sort-btn { padding: 13px 18px; font-size: 12px; }
+
+    /* Stock cards — richer row */
+    .stocks { gap: 10px; }
+
+    .stock-card {
+      padding: 18px 22px;
+      gap: 18px;
+      border-radius: 14px;
+    }
+
+    .ticker-badge {
+      width: 62px;
+      height: 62px;
+      font-size: 14px;
+    }
+
+    .stock-name { font-size: 17px; margin-bottom: 5px; }
+    .stock-meta { gap: 14px; font-size: 13px; }
+    .stock-meta .sector { font-size: 11px; }
+    .priority-stars { font-size: 13px; }
+
+    /* Form — centered, card-like */
+    #screen-form, #screen-detail, #screen-settings {
+      max-width: 620px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 36px;
+      margin-top: 20px;
+    }
+
+    #screen-report {
+      max-width: 780px;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
+    .screen-title { font-size: 30px; margin-bottom: 26px; }
+
+    .form-row { grid-template-columns: 160px 1fr; gap: 14px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group input, .form-group textarea { padding: 14px 18px; font-size: 15px; }
+
+    /* Suggestions prominence on desktop */
+    .suggestions {
+      max-height: 360px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+    }
+    .suggestion-item { padding: 14px 18px; }
+    .suggestion-ticker { font-size: 14px; min-width: 72px; }
+    .suggestion-name { font-size: 14px; }
+
+    /* Detail layout */
+    .detail-hero { padding: 10px 0 30px; }
+    .detail-ticker { font-size: 44px; }
+    .detail-name { font-size: 26px; }
+
+    /* Settings */
+    .settings-item { padding: 20px 24px; }
+
+    /* Hide bottom-nav on desktop */
+    .bottom-nav { display: none; }
+
+    /* Hide install btn in top bar on desktop (integrate differently later if needed) */
+    #installBtn { order: 2; }
+
+    /* Empty state more generous */
+    .empty { padding: 100px 20px; }
+  }
+
+  /* Larger desktop */
+  @media (min-width: 1024px) {
+    #app { max-width: 920px; }
+    .stats-card { padding: 32px 36px; }
+  }
+
+  /* Mobile only */
+  @media (max-width: 767px) {
+    .top-actions { display: none; }
+  }
+
+  /* ============ LEGACY MOBILE TWEAKS ============ */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
+  /* ============ AUTH SCREEN ============ */
+  #authScreen {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 24px;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(212,168,90,0.1), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(111,174,126,0.06), transparent 50%);
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 32px;
+  }
+
+  .auth-logo {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+
+  .auth-logo .accent { color: var(--accent); }
+
+  .auth-subtitle {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+
+  .auth-tabs {
+    display: flex;
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 24px;
+    gap: 4px;
+  }
+
+  .auth-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 9px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .auth-tab.active {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+
+  .auth-form { display: flex; flex-direction: column; gap: 14px; }
+
+  .auth-form input {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 16px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    transition: border-color 0.15s;
+  }
+
+  .auth-form input:focus { outline: none; border-color: var(--accent); }
+
+  .auth-error {
+    background: rgba(217,117,89,0.1);
+    border: 1px solid var(--danger);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--danger);
+    display: none;
+  }
+
+  .auth-error.show { display: block; }
+
+  .auth-divider {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-subtle);
+    margin: 4px 0;
+  }
+
+  .auth-user-bar {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+  }
+
+  .auth-user-bar.show { display: flex; }
+
+  .auth-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .auth-user-email {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text-dim);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .auth-logout-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .auth-logout-btn:hover { color: var(--danger); border-color: var(--danger); }
+
+  .sync-indicator {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0;
+  }
+
+  .sync-indicator.show { display: flex; }
+  .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+</style>
+</head>
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+  import { getFirestore, doc, setDoc, getDoc, onSnapshot }
+    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC0d1wkiVGslabxqNVybC2xU3rT3LshnHE",
+    authDomain: "stocks-e4aba.firebaseapp.com",
+    projectId: "stocks-e4aba",
+    storageBucket: "stocks-e4aba.firebasestorage.app",
+    messagingSenderId: "305742646309",
+    appId: "1:305742646309:web:455faf9705f1e35c4443cc"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+
+  // Expose to global scope for main script
+  window._fb = { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, doc, setDoc, getDoc, onSnapshot };
+</script>
+
+<body>
+
+<!-- Auth Screen -->
+<div id="authScreen">
+  <div class="auth-card">
+    <div class="auth-logo">Aktien<span class="accent">.</span></div>
+    <div class="auth-subtitle">Deine persönliche Aktienliste — überall verfügbar</div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="authSwitchTab('login')">Anmelden</button>
+      <button class="auth-tab" onclick="authSwitchTab('register')">Registrieren</button>
+    </div>
+
+    <div class="auth-form">
+      <input type="email" id="authEmail" placeholder="E-Mail-Adresse" autocomplete="email">
+      <input type="password" id="authPassword" placeholder="Passwort (mind. 6 Zeichen)" autocomplete="current-password">
+      <div class="auth-error" id="authError"></div>
+      <button class="btn btn-primary" id="authSubmitBtn" onclick="authSubmit()">Anmelden</button>
+    </div>
+  </div>
+</div>
+
+<div id="app">
+
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div class="top-title" id="topTitle">Aktien<span class="accent">.</span></div>
+    <div class="top-actions">
+      <div class="sync-indicator" id="syncIndicator">
+        <div class="sync-dot"></div>
+        <span>Synced</span>
+      </div>
+      <button class="desktop-nav-item active" data-nav="list">Favoriten</button>
+      <button class="desktop-nav-item" data-nav="settings">Einstellungen</button>
+      <button class="desktop-add-btn" id="desktopAddBtn">
+        <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
+        Neue Aktie
+      </button>
+    </div>
+    <div class="auth-user-bar" id="authUserBar">
+      <div class="auth-avatar" id="authAvatar">?</div>
+      <div class="auth-user-email" id="authUserEmail"></div>
+      <button class="auth-logout-btn" onclick="authLogout()">Abmelden</button>
+    </div>
+    <button class="icon-btn" id="installBtn" style="display:none;" title="App installieren" aria-label="Installieren">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v13m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+    </button>
+  </div>
+
+  <!-- Screen: Liste -->
+  <div class="screen active" id="screen-list">
+    <div class="stats-card">
+      <div>
+        <div class="stats-label">Favoriten</div>
+        <div class="stats-value"><span class="accent" id="statsCount">0</span></div>
+      </div>
+      <div class="stats-badge" id="statsBadge">bereit</div>
+    </div>
+
+    <button class="report-btn" id="reportBtn" style="display:none;" onclick="navigate('report')">
+      📊 Wochenbericht für alle Favoriten erstellen
+    </button>
+
+    <div class="toolbar" id="toolbar" style="display:none;">
+      <div class="search-box">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M20 20l-3-3"/></svg>
+        <input type="text" id="search" placeholder="Suche…" autocomplete="off">
+      </div>
+      <button class="sort-btn" id="sortBtn">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M3 6h18M6 12h12M9 18h6"/></svg>
+        <span id="sortLabel">Neueste</span>
+      </button>
+    </div>
+
+    <div id="stocksList" class="stocks"></div>
+  </div>
+
+  <!-- Screen: Hinzufügen/Bearbeiten -->
+  <div class="screen" id="screen-form">
+    <button class="back-link" onclick="navigate('list')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Zurück
+    </button>
+    <div class="screen-title" id="formTitle">Neue Aktie</div>
+
+    <div class="form-lookup-wrapper">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fTicker">Ticker</label>
+          <div class="input-spinner-wrap">
+            <input type="text" id="fTicker" class="ticker" placeholder="SAP" maxlength="10" autocomplete="off">
+            <div class="input-spinner" id="spinnerTicker"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fName">Unternehmen</label>
+          <div class="input-spinner-wrap">
+            <input type="text" id="fName" placeholder="Apple, BMW, SAP…" maxlength="80" autocomplete="off">
+            <div class="input-spinner" id="spinnerName"></div>
+          </div>
+        </div>
+      </div>
+      <div class="search-hint">↓ Tippe Name oder Ticker — Vorschläge erscheinen automatisch</div>
+      <div class="suggestions" id="suggestions"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="fSector">Branche / Tag (optional)</label>
+      <input type="text" id="fSector" placeholder="Tech, Auto, Energie…" maxlength="30" autocomplete="off">
+    </div>
+
+    <div class="form-group">
+      <label>Priorität</label>
+      <div class="star-picker" id="starPicker">
+        <button type="button" data-val="1">★</button>
+        <button type="button" data-val="2">★</button>
+        <button type="button" data-val="3">★</button>
+        <button type="button" data-val="4">★</button>
+        <button type="button" data-val="5">★</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="fNotes">Notiz (optional)</label>
+      <textarea id="fNotes" placeholder="Kursziel, Strategie, Anmerkungen…" maxlength="500"></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="navigate('list')">Abbrechen</button>
+      <button class="btn btn-primary" id="saveBtn">Speichern</button>
+    </div>
+  </div>
+
+  <!-- Screen: Detail -->
+  <div class="screen" id="screen-detail">
+    <button class="back-link" onclick="navigate('list')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Zurück
+    </button>
+    <div id="detailContent"></div>
+  </div>
+
+  <!-- Screen: Bericht -->
+  <div class="screen" id="screen-report">
+    <button class="back-link" onclick="cancelReport(); navigate('list')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Zurück
+    </button>
+    <div class="screen-title">📊 Wochenbericht</div>
+    <div id="reportProgress"></div>
+    <button class="btn btn-secondary" id="cancelReportBtn" style="display:none;margin-bottom:18px;" onclick="cancelReport()">Recherche abbrechen</button>
+    <div id="reportContent"></div>
+  </div>
+
+  <!-- Screen: Einstellungen -->
+  <div class="screen" id="screen-settings">
+    <div class="screen-title">Einstellungen</div>
+
+    <div class="settings-section-title">API-Schlüssel</div>
+    <div class="settings-item" style="cursor:default;flex-direction:column;align-items:flex-start;gap:12px;">
+      <div class="settings-item-main">
+        <div class="title">Finnhub API-Schlüssel</div>
+        <div class="sub">Für den Wochenbericht — kostenlos auf finnhub.io registrieren</div>
+      </div>
+      <div style="width:100%;display:flex;gap:10px;">
+        <input type="password" id="finnhubKeyInput" placeholder="Schlüssel eingeben…"
+          style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--text);font-family:var(--font-mono);font-size:13px;"
+          autocomplete="off" spellcheck="false">
+        <button class="btn btn-primary" style="width:auto;padding:11px 18px;font-size:13px;" onclick="saveApiKey()">Speichern</button>
+      </div>
+      <div id="apiKeyStatus" style="font-size:12px;color:var(--text-subtle);"></div>
+      <a href="https://finnhub.io/register" target="_blank"
+        style="font-family:var(--font-mono);font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;text-decoration:none;">
+        → Kostenlos registrieren auf finnhub.io
+      </a>
+    </div>
+
+    <div class="settings-section-title">Daten</div>
+    <div class="settings-item" onclick="exportData()">
+      <div class="settings-item-main">
+        <div class="title">Exportieren</div>
+        <div class="sub">Favoriten als JSON-Datei herunterladen</div>
+      </div>
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" color="var(--text-subtle)"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+    </div>
+    <div class="settings-item" onclick="document.getElementById('importFile').click()">
+      <div class="settings-item-main">
+        <div class="title">Importieren</div>
+        <div class="sub">JSON-Datei einlesen und zusammenführen</div>
+      </div>
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" color="var(--text-subtle)"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+    </div>
+    <input type="file" id="importFile" accept=".json,application/json" style="display:none;">
+
+    <div class="settings-section-title">Gefahrenzone</div>
+    <div class="settings-item danger" onclick="clearAll()">
+      <div class="settings-item-main">
+        <div class="title">Alle Favoriten löschen</div>
+        <div class="sub">Entfernt sämtliche Einträge unwiderruflich</div>
+      </div>
+    </div>
+
+    <div class="settings-section-title">Über</div>
+    <div class="about-card">
+      <div class="logo">Aktien.</div>
+      <div>Deine private Watchlist.</div>
+      <div style="margin-top:8px;">Alle Daten bleiben lokal auf deinem Gerät.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Bottom nav -->
+<nav class="bottom-nav">
+  <button class="nav-item active" data-nav="list">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 12h14M5 16h9"/></svg>
+    <span class="nav-item-label">Favoriten</span>
+  </button>
+  <button class="nav-item nav-item-fab" id="fabAdd" aria-label="Neue Aktie hinzufügen">
+    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
+  </button>
+  <button class="nav-item" data-nav="settings">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H3a2 2 0 010-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V3a2 2 0 014 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H21a2 2 0 010 4h-.1a1.6 1.6 0 00-1.5 1z"/></svg>
+    <span class="nav-item-label">Mehr</span>
+  </button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ============ State ============
+  const STORAGE_KEY = 'stocks-favorites-v2';
+  const SORT_KEY = 'stocks-sort';
+
+  let state = {
+    stocks: [],
+    currentScreen: 'list',
+    editing: null,
+    viewingId: null,
+    filter: '',
+    sort: 'new',
+    starValue: 0
+  };
+
+  const SORT_MODES = {
+    new: 'Neueste',
+    old: 'Älteste',
+    az: 'A–Z',
+    priority: 'Priorität'
+  };
+
+  // ============ Storage ============
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      state.stocks = raw ? JSON.parse(raw) : [];
+    } catch { state.stocks = []; }
+    state.sort = localStorage.getItem(SORT_KEY) || 'new';
+  }
+
+  function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.stocks));
+    if (window.syncToFirestore) window.syncToFirestore();
+  }
+
+  // ============ Utils ============
+  function toast(msg, type = 'success') {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = 'toast show ' + type;
+    setTimeout(() => el.classList.remove('show'), 2000);
+  }
+
+  function escape(s) {
+    const d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+  }
+
+  function formatDate(iso) {
+    return new Date(iso).toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
+  }
+
+  function stars(n) { return '★'.repeat(n) + '☆'.repeat(5 - n); }
+
+  // ============ Navigation ============
+  function navigate(screen, opts = {}) {
+    state.currentScreen = screen;
+
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + screen).classList.add('active');
+
+    // Bottom nav (mobile)
+    document.querySelectorAll('.nav-item[data-nav]').forEach(b => {
+      b.classList.toggle('active', b.dataset.nav === screen);
+    });
+    // Desktop top nav
+    document.querySelectorAll('.desktop-nav-item[data-nav]').forEach(b => {
+      b.classList.toggle('active', b.dataset.nav === screen);
+    });
+
+    // Map detail/form/report back to list tab in nav highlighting
+    if (screen === 'detail' || screen === 'form' || screen === 'report') {
+      document.querySelector('.nav-item[data-nav="list"]')?.classList.add('active');
+      document.querySelector('.desktop-nav-item[data-nav="list"]')?.classList.add('active');
+    }
+
+    if (screen === 'list') renderList();
+    if (screen === 'detail' && opts.id) renderDetail(opts.id);
+    if (screen === 'form') renderForm(opts.id);
+    if (screen === 'report') startReport();
+    if (screen === 'settings') loadApiKeyField();
+
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  // ============ List ============
+  function renderList() {
+    const countEl = document.getElementById('statsCount');
+    const badgeEl = document.getElementById('statsBadge');
+    const toolbar = document.getElementById('toolbar');
+    const list = document.getElementById('stocksList');
+
+    countEl.textContent = state.stocks.length;
+    badgeEl.textContent = state.stocks.length === 0 ? 'leer' :
+                          state.stocks.length === 1 ? '1 Aktie' :
+                          state.stocks.length + ' Aktien';
+
+    document.getElementById('reportBtn').style.display = state.stocks.length > 0 ? '' : 'none';
+
+    if (state.stocks.length === 0) {
+      toolbar.style.display = 'none';
+      list.innerHTML = `
+        <div class="empty">
+          <div class="empty-icon">✦</div>
+          <div class="empty-title">Noch leer</div>
+          <div class="empty-sub">Tippe auf das + unten, um deine erste Aktie aufzunehmen.</div>
+        </div>`;
+      return;
+    }
+
+    toolbar.style.display = state.stocks.length > 3 ? 'flex' : 'none';
+    document.getElementById('sortLabel').textContent = SORT_MODES[state.sort];
+
+    let items = [...state.stocks];
+    const f = state.filter.toLowerCase().trim();
+    if (f) {
+      items = items.filter(s =>
+        s.ticker.toLowerCase().includes(f) ||
+        s.name.toLowerCase().includes(f) ||
+        (s.sector || '').toLowerCase().includes(f) ||
+        (s.notes || '').toLowerCase().includes(f)
+      );
+    }
+
+    if (state.sort === 'new') items.sort((a, b) => b.addedAt.localeCompare(a.addedAt));
+    else if (state.sort === 'old') items.sort((a, b) => a.addedAt.localeCompare(b.addedAt));
+    else if (state.sort === 'az') items.sort((a, b) => a.ticker.localeCompare(b.ticker));
+    else if (state.sort === 'priority') items.sort((a, b) => (b.priority || 0) - (a.priority || 0));
+
+    if (items.length === 0) {
+      list.innerHTML = `
+        <div class="empty">
+          <div class="empty-title">Keine Treffer</div>
+          <div class="empty-sub">Für „${escape(state.filter)}" wurde nichts gefunden.</div>
+        </div>`;
+      return;
+    }
+
+    list.innerHTML = items.map(s => `
+      <div class="stock-card" onclick="navigate('detail', {id: '${s.id}'})">
+        <div class="ticker-badge">${escape(s.ticker.slice(0, 4))}</div>
+        <div class="stock-main">
+          <div class="stock-name">${escape(s.name)}</div>
+          <div class="stock-meta">
+            ${s.priority ? `<span class="priority-stars">${'★'.repeat(s.priority)}</span>` : ''}
+            ${s.sector ? `<span class="sector">${escape(s.sector)}</span>` : ''}
+          </div>
+        </div>
+        <svg class="chevron" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
+      </div>
+    `).join('');
+  }
+
+  // ============ Detail ============
+  function renderDetail(id) {
+    state.viewingId = id;
+    const s = state.stocks.find(x => x.id === id);
+    if (!s) { navigate('list'); return; }
+
+    document.getElementById('detailContent').innerHTML = `
+      <div class="detail-hero">
+        <div class="detail-ticker">${escape(s.ticker)}</div>
+        <div class="detail-name">${escape(s.name)}</div>
+        ${s.priority ? `<div class="detail-stars">${stars(s.priority)}</div>` : ''}
+      </div>
+
+      ${s.sector ? `
+      <div class="detail-section">
+        <div class="detail-section-label">Branche</div>
+        <div class="detail-section-value">${escape(s.sector)}</div>
+      </div>` : ''}
+
+      <div class="detail-section">
+        <div class="detail-section-label">Notiz</div>
+        <div class="detail-section-value ${s.notes ? '' : 'muted'}">${s.notes ? escape(s.notes) : 'Keine Notiz vorhanden.'}</div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-label">Hinzugefügt</div>
+        <div class="detail-section-value">${formatDate(s.addedAt)}</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="navigate('form', {id: '${s.id}'})">Bearbeiten</button>
+        <button class="btn btn-danger" onclick="deleteStock('${s.id}')">Entfernen</button>
+      </div>
+    `;
+  }
+
+  // ============ Form ============
+  function renderForm(id) {
+    state.editing = id || null;
+    document.getElementById('formTitle').textContent = id ? 'Bearbeiten' : 'Neue Aktie';
+    document.getElementById('saveBtn').textContent = id ? 'Änderungen speichern' : 'Speichern';
+    hideSuggestions();
+    clearTimeout(searchDebounce);
+    showSpinner(false);
+
+    if (id) {
+      const s = state.stocks.find(x => x.id === id);
+      if (s) {
+        document.getElementById('fTicker').value = s.ticker;
+        document.getElementById('fName').value = s.name;
+        document.getElementById('fSector').value = s.sector || '';
+        document.getElementById('fNotes').value = s.notes || '';
+        setStars(s.priority || 0);
+      }
+    } else {
+      document.getElementById('fTicker').value = '';
+      document.getElementById('fName').value = '';
+      document.getElementById('fSector').value = '';
+      document.getElementById('fNotes').value = '';
+      setStars(0);
+      setTimeout(() => document.getElementById('fTicker').focus(), 100);
+    }
+  }
+
+  function setStars(n) {
+    state.starValue = n;
+    document.querySelectorAll('#starPicker button').forEach(b => {
+      b.classList.toggle('active', parseInt(b.dataset.val) <= n);
+    });
+  }
+
+  function saveStock() {
+    const ticker = document.getElementById('fTicker').value.trim().toUpperCase();
+    const name = document.getElementById('fName').value.trim();
+    const sector = document.getElementById('fSector').value.trim();
+    const notes = document.getElementById('fNotes').value.trim();
+    const priority = state.starValue;
+
+    if (!ticker) { toast('Ticker fehlt', 'error'); document.getElementById('fTicker').focus(); return; }
+    if (!name) { toast('Name fehlt', 'error'); document.getElementById('fName').focus(); return; }
+
+    if (state.editing) {
+      const idx = state.stocks.findIndex(s => s.id === state.editing);
+      if (idx !== -1) {
+        const conflict = state.stocks.find(s => s.ticker === ticker && s.id !== state.editing);
+        if (conflict) { toast(`${ticker} existiert bereits`, 'error'); return; }
+        state.stocks[idx] = { ...state.stocks[idx], ticker, name, sector, notes, priority };
+        save();
+        toast(`${ticker} aktualisiert`);
+        navigate('detail', { id: state.editing });
+      }
+    } else {
+      if (state.stocks.some(s => s.ticker === ticker)) {
+        toast(`${ticker} existiert bereits`, 'error'); return;
+      }
+      state.stocks.unshift({
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        ticker, name, sector, notes, priority,
+        addedAt: new Date().toISOString()
+      });
+      save();
+      toast(`${ticker} hinzugefügt`);
+      navigate('list');
+    }
+  }
+
+  function deleteStock(id) {
+    const s = state.stocks.find(x => x.id === id);
+    if (!s) return;
+    if (!confirm(`„${s.ticker} – ${s.name}" wirklich entfernen?`)) return;
+    state.stocks = state.stocks.filter(x => x.id !== id);
+    save();
+    toast(`${s.ticker} entfernt`);
+    navigate('list');
+  }
+
+  // ============ Settings ============
+  function exportData() {
+    const blob = new Blob([JSON.stringify(state.stocks, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `aktien-favoriten-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('Export gestartet');
+  }
+
+  document.getElementById('importFile').addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        if (!Array.isArray(data)) throw new Error('Ungültiges Format');
+        let added = 0;
+        data.forEach(item => {
+          if (item.ticker && item.name && !state.stocks.some(s => s.ticker === item.ticker)) {
+            state.stocks.push({
+              id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+              ticker: item.ticker,
+              name: item.name,
+              sector: item.sector || '',
+              notes: item.notes || '',
+              priority: item.priority || 0,
+              addedAt: item.addedAt || new Date().toISOString()
+            });
+            added++;
+          }
+        });
+        save();
+        toast(`${added} Aktie(n) importiert`);
+        if (state.currentScreen === 'list') renderList();
+      } catch (err) {
+        toast('Import fehlgeschlagen', 'error');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+  function clearAll() {
+    if (state.stocks.length === 0) { toast('Liste ist bereits leer'); return; }
+    if (!confirm(`Alle ${state.stocks.length} Favoriten wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.`)) return;
+    state.stocks = [];
+    save();
+    toast('Alle Favoriten gelöscht');
+    navigate('list');
+  }
+
+  // ============ Finnhub API-Key ============
+  const FINNHUB_KEY = 'finnhub-api-key';
+
+  function getApiKey() { return localStorage.getItem(FINNHUB_KEY) || ''; }
+
+  function saveApiKey() {
+    const key = document.getElementById('finnhubKeyInput').value.trim();
+    if (key) {
+      localStorage.setItem(FINNHUB_KEY, key);
+      document.getElementById('apiKeyStatus').textContent = '✓ Gespeichert';
+      document.getElementById('apiKeyStatus').style.color = 'var(--success)';
+    } else {
+      localStorage.removeItem(FINNHUB_KEY);
+      document.getElementById('apiKeyStatus').textContent = 'Schlüssel entfernt';
+    }
+    toast(key ? 'API-Schlüssel gespeichert' : 'API-Schlüssel entfernt');
+  }
+
+  function loadApiKeyField() {
+    const key = getApiKey();
+    const input = document.getElementById('finnhubKeyInput');
+    const status = document.getElementById('apiKeyStatus');
+    if (key) {
+      input.value = key;
+      status.textContent = '✓ Schlüssel hinterlegt';
+      status.style.color = 'var(--success)';
+    } else {
+      status.textContent = 'Kein Schlüssel – Bericht nicht verfügbar';
+      status.style.color = 'var(--text-subtle)';
+    }
+  }
+
+  // ============ Report ============
+  let reportAborted = false;
+
+  function cancelReport() {
+    reportAborted = true;
+    document.getElementById('cancelReportBtn').style.display = 'none';
+  }
+
+  // Finnhub erwartet Ticker ohne Börsensuffix (z.B. SAP statt SAP.DE)
+  function finnhubSymbol(ticker) {
+    return ticker.replace(/\.(DE|F|MU|BE|DU|HA|SG|SW|L|PA|AS|BR|VI|MC|NASDAQ|NYSE|XETRA)$/i, '');
+  }
+
+  async function fetchFinnhubData(ticker, apiKey) {
+    const sym = finnhubSymbol(ticker);
+    const today = new Date().toISOString().slice(0, 10);
+    const weekAgo = new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
+    const b = 'https://finnhub.io/api/v1';
+
+    const [nr, ir, er] = await Promise.allSettled([
+      fetch(`${b}/company-news?symbol=${sym}&from=${weekAgo}&to=${today}&token=${apiKey}`),
+      fetch(`${b}/stock/insider-transactions?symbol=${sym}&from=${weekAgo}&to=${today}&token=${apiKey}`),
+      fetch(`${b}/stock/earnings?symbol=${sym}&token=${apiKey}`)
+    ]);
+
+    const news     = nr.status === 'fulfilled' && nr.value.ok ? await nr.value.json().catch(() => []) : [];
+    const insider  = ir.status === 'fulfilled' && ir.value.ok ? await ir.value.json().catch(() => ({ data: [] })) : { data: [] };
+    const earnings = er.status === 'fulfilled' && er.value.ok ? await er.value.json().catch(() => ({ earningsCalendar: [] })) : { earningsCalendar: [] };
+
+    return { news: Array.isArray(news) ? news.slice(0, 8) : [], insider, earnings };
+  }
+
+  function buildReportHtml(stock, data) {
+    const { news, insider, earnings } = data;
+    const div = document.createElement('div');
+    let html = '';
+
+    // 📰 Nachrichten
+    html += '<h3>📰 Aktuelle Nachrichten</h3>';
+    if (news.length) {
+      html += '<ul>' + news.map(n => {
+        const d = new Date(n.datetime * 1000).toLocaleDateString('de-DE', { day: '2-digit', month: 'short' });
+        div.textContent = n.headline; const hl = div.innerHTML;
+        div.textContent = n.source;   const src = div.innerHTML;
+        div.textContent = n.url;      const url = div.innerHTML;
+        return `<li><span style="color:var(--text-subtle);font-size:11px;font-family:var(--font-mono)">${d} · ${src}</span><br>
+          <a href="${url}" target="_blank" rel="noopener" style="color:var(--text);text-decoration:none;">${hl}</a></li>`;
+      }).join('') + '</ul>';
+    } else {
+      html += '<p style="color:var(--text-subtle);font-style:italic">Keine Nachrichten in der letzten Woche über Finnhub verfügbar.</p>';
+    }
+
+    // 📊 Quartalszahlen
+    html += '<h3>📊 Quartalszahlen</h3>';
+    const ec = (earnings.earningsCalendar || []);
+    const past = ec.filter(e => e.epsActual != null).pop();
+    const next = ec.find(e => new Date(e.date) > new Date());
+    if (past) {
+      html += `<p><strong>Letztes Quartal (${escape(past.period || past.date)}):</strong> EPS ${past.epsActual ?? '—'} $`;
+      if (past.epsEstimate != null) html += ` (Erwartung: ${past.epsEstimate} $)`;
+      if (past.revenueActual) html += ` · Umsatz: ${(past.revenueActual / 1e9).toFixed(2)} Mrd. $`;
+      html += '</p>';
+    }
+    if (next) {
+      html += `<p>Nächster Quartalsbericht: <strong>${next.date}</strong></p>`;
+    }
+    if (!past && !next) {
+      html += '<p style="color:var(--text-subtle);font-style:italic">Keine Quartalsdaten verfügbar.</p>';
+    }
+
+    // 👤 Insider
+    html += '<h3>👤 Insider-Aktivität</h3>';
+    const tx = (insider.data || []).filter(t => t.transactionCode === 'P' || t.transactionCode === 'S');
+    if (tx.length) {
+      html += '<ul>' + tx.slice(0, 6).map(t => {
+        div.textContent = t.name; const name = div.innerHTML;
+        const type = t.transactionCode === 'P'
+          ? '<span style="color:var(--success)">⬆ Kauf</span>'
+          : '<span style="color:var(--danger)">⬇ Verkauf</span>';
+        const shares = Math.abs(t.change || 0).toLocaleString('de-DE');
+        return `<li>${type} · <strong>${name}</strong> · ${shares} Aktien · ${t.transactionDate || ''}</li>`;
+      }).join('') + '</ul>';
+    } else {
+      html += '<p style="color:var(--text-subtle);font-style:italic">Keine Insider-Transaktionen in der letzten Woche gemeldet.</p>';
+    }
+
+    return html;
+  }
+
+  async function startReport() {
+    const stocks = state.stocks;
+    if (!stocks.length) { toast('Keine Aktien in der Liste', 'error'); return; }
+
+    const apiKey = getApiKey();
+    const progressEl = document.getElementById('reportProgress');
+    const contentEl  = document.getElementById('reportContent');
+    const cancelBtn  = document.getElementById('cancelReportBtn');
+    contentEl.innerHTML = '';
+
+    if (!apiKey) {
+      progressEl.innerHTML = '';
+      contentEl.innerHTML = `
+        <div class="report-card open">
+          <div class="report-card-header">
+            <div class="report-card-name" style="font-size:16px;">API-Schlüssel erforderlich</div>
+          </div>
+          <div class="report-card-body">
+            <p style="margin-bottom:14px;">Der Wochenbericht läuft über <strong>Finnhub</strong> — kostenlos, kein Abonnement, keine Kreditkarte.</p>
+            <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-subtle);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">So geht's</div>
+              <ol style="padding-left:20px;line-height:2.2;font-size:14px;">
+                <li>Auf <strong>finnhub.io</strong> kostenlos registrieren</li>
+                <li>API-Schlüssel aus dem Dashboard kopieren</li>
+                <li>In den Einstellungen dieser App eintragen</li>
+              </ol>
+            </div>
+            <button class="btn btn-primary" onclick="navigate('settings')">
+              Zu den Einstellungen →
+            </button>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    reportAborted = false;
+    cancelBtn.style.display = '';
+    const total = stocks.length;
+
+    for (let i = 0; i < total; i++) {
+      if (reportAborted) break;
+      const stock = stocks[i];
+      progressEl.innerHTML = `
+        <div class="progress-bar"><div class="progress-fill" style="width:${Math.round((i / total) * 100)}%"></div></div>
+        <div class="progress-text">Lade ${escape(stock.name)}… (${i + 1} / ${total})</div>
+      `;
+      try {
+        const data = await fetchFinnhubData(stock.ticker, apiKey);
+        if (reportAborted) break;
+        const body = buildReportHtml(stock, data);
+        const id = 'rpt-' + stock.id;
+        contentEl.innerHTML += `
+          <div class="report-card open" id="${id}">
+            <div class="report-card-header" onclick="document.getElementById('${id}').classList.toggle('open')">
+              <div class="report-card-ticker">${escape(stock.ticker)}</div>
+              <div class="report-card-name">${escape(stock.name)}</div>
+              <div class="report-card-chevron">▶</div>
+            </div>
+            <div class="report-card-body">
+              ${body}
+              <div class="report-stamp">Stand: ${new Date().toLocaleString('de-DE')} · Quelle: Finnhub</div>
+            </div>
+          </div>`;
+        contentEl.scrollTop = contentEl.scrollHeight;
+      } catch (err) {
+        const id = 'rpt-e-' + i;
+        contentEl.innerHTML += `
+          <div class="report-card open" id="${id}">
+            <div class="report-card-header">
+              <div class="report-card-ticker">${escape(stock.ticker)}</div>
+              <div class="report-card-name">${escape(stock.name)}</div>
+            </div>
+            <div class="report-card-body">
+              <div class="report-error">⚠️ Fehler: ${escape(err.message)}</div>
+            </div>
+          </div>`;
+      }
+    }
+
+    cancelBtn.style.display = 'none';
+    progressEl.innerHTML = reportAborted
+      ? '<div class="progress-text">Abgebrochen.</div>'
+      : `<div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+         <div class="progress-text done">✓ Bericht für ${total} Aktie(n) abgeschlossen</div>`;
+  }
+
+  // ============ Event handlers ============
+  document.querySelectorAll('.nav-item[data-nav]').forEach(btn => {
+    btn.addEventListener('click', () => navigate(btn.dataset.nav));
+  });
+
+  document.querySelectorAll('.desktop-nav-item[data-nav]').forEach(btn => {
+    btn.addEventListener('click', () => navigate(btn.dataset.nav));
+  });
+
+  document.getElementById('fabAdd').addEventListener('click', () => navigate('form'));
+  document.getElementById('desktopAddBtn').addEventListener('click', () => navigate('form'));
+
+  document.getElementById('saveBtn').addEventListener('click', saveStock);
+
+  document.getElementById('search').addEventListener('input', e => {
+    state.filter = e.target.value;
+    renderList();
+  });
+
+  document.getElementById('sortBtn').addEventListener('click', () => {
+    const modes = Object.keys(SORT_MODES);
+    const next = modes[(modes.indexOf(state.sort) + 1) % modes.length];
+    state.sort = next;
+    localStorage.setItem(SORT_KEY, next);
+    renderList();
+  });
+
+  document.querySelectorAll('#starPicker button').forEach(b => {
+    b.addEventListener('click', () => {
+      const val = parseInt(b.dataset.val);
+      setStars(state.starValue === val ? 0 : val);
+    });
+  });
+
+  // ============ Ticker lookup ============
+  const LOOKUP_URL = 'https://query1.finance.yahoo.com/v1/finance/search';
+
+  // Fallback-Kette: verschiedene öffentliche CORS-Proxies in Reihenfolge
+  const PROXIES = [
+    { name: 'allorigins', build: u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}` },
+    { name: 'corsproxy',  build: u => `https://corsproxy.io/?url=${encodeURIComponent(u)}` },
+    { name: 'codetabs',   build: u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}` }
+  ];
+
+  // Offline-Fallback: eingebaute Liste gängiger Aktien (DAX 40 + große US/EU/CH/UK-Werte + ETFs).
+  // Wird verwendet, wenn alle Online-Proxies fehlschlagen.
+  const OFFLINE_STOCKS = [
+    // DAX 40
+    ['ADS.DE','Adidas AG','XETRA','Consumer'],
+    ['AIR.DE','Airbus SE','XETRA','Aerospace'],
+    ['ALV.DE','Allianz SE','XETRA','Finance'],
+    ['BAS.DE','BASF SE','XETRA','Chemicals'],
+    ['BAYN.DE','Bayer AG','XETRA','Healthcare'],
+    ['BEI.DE','Beiersdorf AG','XETRA','Consumer'],
+    ['BMW.DE','Bayerische Motoren Werke AG','XETRA','Automotive'],
+    ['BNR.DE','Brenntag SE','XETRA','Chemicals'],
+    ['CBK.DE','Commerzbank AG','XETRA','Finance'],
+    ['CON.DE','Continental AG','XETRA','Automotive'],
+    ['1COV.DE','Covestro AG','XETRA','Chemicals'],
+    ['DTG.DE','Daimler Truck Holding AG','XETRA','Automotive'],
+    ['DBK.DE','Deutsche Bank AG','XETRA','Finance'],
+    ['DB1.DE','Deutsche Börse AG','XETRA','Finance'],
+    ['DHL.DE','DHL Group (Deutsche Post)','XETRA','Logistics'],
+    ['DTE.DE','Deutsche Telekom AG','XETRA','Telecom'],
+    ['EOAN.DE','E.ON SE','XETRA','Energy'],
+    ['FRE.DE','Fresenius SE','XETRA','Healthcare'],
+    ['HNR1.DE','Hannover Rück SE','XETRA','Insurance'],
+    ['HEI.DE','Heidelberg Materials AG','XETRA','Materials'],
+    ['HEN3.DE','Henkel AG','XETRA','Consumer'],
+    ['IFX.DE','Infineon Technologies AG','XETRA','Technology'],
+    ['MBG.DE','Mercedes-Benz Group AG','XETRA','Automotive'],
+    ['MRK.DE','Merck KGaA','XETRA','Healthcare'],
+    ['MTX.DE','MTU Aero Engines AG','XETRA','Aerospace'],
+    ['MUV2.DE','Münchener Rück AG','XETRA','Insurance'],
+    ['P911.DE','Porsche AG','XETRA','Automotive'],
+    ['PAH3.DE','Porsche SE','XETRA','Automotive'],
+    ['PUM.DE','Puma SE','XETRA','Consumer'],
+    ['QIA.DE','Qiagen NV','XETRA','Healthcare'],
+    ['RHM.DE','Rheinmetall AG','XETRA','Defense'],
+    ['RWE.DE','RWE AG','XETRA','Energy'],
+    ['SAP.DE','SAP SE','XETRA','Technology'],
+    ['SRT3.DE','Sartorius AG','XETRA','Healthcare'],
+    ['SIE.DE','Siemens AG','XETRA','Industrials'],
+    ['ENR.DE','Siemens Energy AG','XETRA','Energy'],
+    ['SHL.DE','Siemens Healthineers AG','XETRA','Healthcare'],
+    ['SY1.DE','Symrise AG','XETRA','Chemicals'],
+    ['VOW3.DE','Volkswagen AG','XETRA','Automotive'],
+    ['VNA.DE','Vonovia SE','XETRA','Real Estate'],
+    ['ZAL.DE','Zalando SE','XETRA','Consumer'],
+    // US Large Caps
+    ['AAPL','Apple Inc.','NASDAQ','Technology'],
+    ['MSFT','Microsoft Corporation','NASDAQ','Technology'],
+    ['GOOGL','Alphabet Inc. (Google) Class A','NASDAQ','Technology'],
+    ['GOOG','Alphabet Inc. (Google) Class C','NASDAQ','Technology'],
+    ['AMZN','Amazon.com Inc.','NASDAQ','Consumer'],
+    ['META','Meta Platforms Inc.','NASDAQ','Technology'],
+    ['NVDA','NVIDIA Corporation','NASDAQ','Technology'],
+    ['TSLA','Tesla Inc.','NASDAQ','Automotive'],
+    ['NFLX','Netflix Inc.','NASDAQ','Media'],
+    ['ORCL','Oracle Corporation','NYSE','Technology'],
+    ['ADBE','Adobe Inc.','NASDAQ','Technology'],
+    ['CRM','Salesforce Inc.','NYSE','Technology'],
+    ['INTC','Intel Corporation','NASDAQ','Technology'],
+    ['AMD','Advanced Micro Devices','NASDAQ','Technology'],
+    ['JPM','JPMorgan Chase & Co.','NYSE','Finance'],
+    ['BAC','Bank of America Corp.','NYSE','Finance'],
+    ['WFC','Wells Fargo & Co.','NYSE','Finance'],
+    ['GS','Goldman Sachs Group','NYSE','Finance'],
+    ['MS','Morgan Stanley','NYSE','Finance'],
+    ['V','Visa Inc.','NYSE','Finance'],
+    ['MA','Mastercard Inc.','NYSE','Finance'],
+    ['BRK-B','Berkshire Hathaway Class B','NYSE','Finance'],
+    ['WMT','Walmart Inc.','NYSE','Consumer'],
+    ['KO','Coca-Cola Company','NYSE','Consumer'],
+    ['PEP','PepsiCo Inc.','NASDAQ','Consumer'],
+    ['MCD','McDonalds Corp.','NYSE','Consumer'],
+    ['NKE','Nike Inc.','NYSE','Consumer'],
+    ['SBUX','Starbucks Corp.','NASDAQ','Consumer'],
+    ['DIS','Walt Disney Company','NYSE','Media'],
+    ['JNJ','Johnson & Johnson','NYSE','Healthcare'],
+    ['UNH','UnitedHealth Group','NYSE','Healthcare'],
+    ['PFE','Pfizer Inc.','NYSE','Healthcare'],
+    ['BA','Boeing Company','NYSE','Aerospace'],
+    ['CAT','Caterpillar Inc.','NYSE','Industrials'],
+    ['XOM','Exxon Mobil Corp.','NYSE','Energy'],
+    ['CVX','Chevron Corporation','NYSE','Energy'],
+    // Schweiz / UK / NL / FR
+    ['NESN.SW','Nestlé SA','SIX','Consumer'],
+    ['NOVN.SW','Novartis AG','SIX','Healthcare'],
+    ['ROG.SW','Roche Holding AG','SIX','Healthcare'],
+    ['UHR.SW','The Swatch Group AG','SIX','Consumer'],
+    ['CFR.SW','Compagnie Financière Richemont','SIX','Consumer'],
+    ['HSBA.L','HSBC Holdings plc','LSE','Finance'],
+    ['BP.L','BP plc','LSE','Energy'],
+    ['SHEL.L','Shell plc','LSE','Energy'],
+    ['VOD.L','Vodafone Group plc','LSE','Telecom'],
+    ['ASML.AS','ASML Holding NV','Euronext','Technology'],
+    ['MC.PA','LVMH Moët Hennessy','Euronext','Consumer'],
+    ['OR.PA',"L'Oréal SA",'Euronext','Consumer'],
+    ['TTE.PA','TotalEnergies SE','Euronext','Energy'],
+    // ETFs
+    ['SPY','SPDR S&P 500 ETF','NYSE','ETF'],
+    ['VOO','Vanguard S&P 500 ETF','NYSE','ETF'],
+    ['QQQ','Invesco QQQ Trust (Nasdaq 100)','NASDAQ','ETF'],
+    ['VTI','Vanguard Total Stock Market ETF','NYSE','ETF'],
+    ['EUNL.DE','iShares Core MSCI World UCITS','XETRA','ETF'],
+    ['VWRL.DE','Vanguard FTSE All-World UCITS','XETRA','ETF'],
+    ['EXS1.DE','iShares Core DAX UCITS','XETRA','ETF'],
+    // NASDAQ-Tech / Halbleiter / Photonik
+    ['LITE','Lumentum Holdings Inc.','NASDAQ','Technology'],
+    ['CIEN','Ciena Corporation','NYSE','Technology'],
+    ['COHR','Coherent Corp.','NYSE','Technology'],
+    ['AVGO','Broadcom Inc.','NASDAQ','Technology'],
+    ['QCOM','Qualcomm Inc.','NASDAQ','Technology'],
+    ['TXN','Texas Instruments','NASDAQ','Technology'],
+    ['MU','Micron Technology','NASDAQ','Technology'],
+    ['AMAT','Applied Materials','NASDAQ','Technology'],
+    ['LRCX','Lam Research','NASDAQ','Technology'],
+    ['KLAC','KLA Corporation','NASDAQ','Technology'],
+    ['MRVL','Marvell Technology','NASDAQ','Technology'],
+    ['NXPI','NXP Semiconductors','NASDAQ','Technology'],
+    ['ADI','Analog Devices','NASDAQ','Technology'],
+    ['MPWR','Monolithic Power Systems','NASDAQ','Technology'],
+    ['SWKS','Skyworks Solutions','NASDAQ','Technology'],
+    ['ON','ON Semiconductor','NASDAQ','Technology'],
+    ['MCHP','Microchip Technology','NASDAQ','Technology'],
+    ['TSM','Taiwan Semiconductor (ADR)','NYSE','Technology'],
+    ['ARM','Arm Holdings plc','NASDAQ','Technology'],
+    // Software & Cloud
+    ['NOW','ServiceNow Inc.','NYSE','Technology'],
+    ['SNOW','Snowflake Inc.','NYSE','Technology'],
+    ['PLTR','Palantir Technologies','NASDAQ','Technology'],
+    ['DDOG','Datadog Inc.','NASDAQ','Technology'],
+    ['CRWD','CrowdStrike Holdings','NASDAQ','Technology'],
+    ['ZS','Zscaler Inc.','NASDAQ','Technology'],
+    ['PANW','Palo Alto Networks','NASDAQ','Technology'],
+    ['FTNT','Fortinet Inc.','NASDAQ','Technology'],
+    ['TEAM','Atlassian Corp.','NASDAQ','Technology'],
+    ['OKTA','Okta Inc.','NASDAQ','Technology'],
+    ['NET','Cloudflare Inc.','NYSE','Technology'],
+    ['MDB','MongoDB Inc.','NASDAQ','Technology'],
+    ['DOCU','DocuSign Inc.','NASDAQ','Technology'],
+    ['ZM','Zoom Communications','NASDAQ','Technology'],
+    ['WDAY','Workday Inc.','NASDAQ','Technology'],
+    ['INTU','Intuit Inc.','NASDAQ','Technology'],
+    // Internet & Services
+    ['UBER','Uber Technologies','NYSE','Consumer'],
+    ['LYFT','Lyft Inc.','NASDAQ','Consumer'],
+    ['ABNB','Airbnb Inc.','NASDAQ','Consumer'],
+    ['DASH','DoorDash Inc.','NYSE','Consumer'],
+    ['BKNG','Booking Holdings','NASDAQ','Consumer'],
+    ['EXPE','Expedia Group','NASDAQ','Consumer'],
+    ['SPOT','Spotify Technology','NYSE','Media'],
+    ['SHOP','Shopify Inc.','NYSE','Technology'],
+    ['SE','Sea Limited','NYSE','Technology'],
+    ['PDD','PDD Holdings (Pinduoduo/Temu)','NASDAQ','Consumer'],
+    ['BABA','Alibaba Group','NYSE','Consumer'],
+    ['JD','JD.com Inc.','NASDAQ','Consumer'],
+    ['MELI','MercadoLibre Inc.','NASDAQ','Consumer'],
+    ['SNAP','Snap Inc.','NYSE','Media'],
+    ['PINS','Pinterest Inc.','NYSE','Media'],
+    ['RBLX','Roblox Corp.','NYSE','Media'],
+    ['EA','Electronic Arts','NASDAQ','Media'],
+    ['TTWO','Take-Two Interactive','NASDAQ','Media'],
+    // Pharma / Biotech
+    ['LLY','Eli Lilly and Company','NYSE','Healthcare'],
+    ['ABBV','AbbVie Inc.','NYSE','Healthcare'],
+    ['BMY','Bristol-Myers Squibb','NYSE','Healthcare'],
+    ['GILD','Gilead Sciences','NASDAQ','Healthcare'],
+    ['AMGN','Amgen Inc.','NASDAQ','Healthcare'],
+    ['REGN','Regeneron Pharmaceuticals','NASDAQ','Healthcare'],
+    ['VRTX','Vertex Pharmaceuticals','NASDAQ','Healthcare'],
+    ['MRNA','Moderna Inc.','NASDAQ','Healthcare'],
+    ['BNTX','BioNTech SE (ADR)','NASDAQ','Healthcare'],
+    ['ILMN','Illumina Inc.','NASDAQ','Healthcare'],
+    ['BIIB','Biogen Inc.','NASDAQ','Healthcare'],
+    ['NVO','Novo Nordisk (ADR)','NYSE','Healthcare'],
+    // EV / Auto
+    ['RIVN','Rivian Automotive','NASDAQ','Automotive'],
+    ['LCID','Lucid Group','NASDAQ','Automotive'],
+    ['NIO','NIO Inc.','NYSE','Automotive'],
+    ['XPEV','XPeng Inc.','NYSE','Automotive'],
+    ['LI','Li Auto Inc.','NASDAQ','Automotive'],
+    ['F','Ford Motor Company','NYSE','Automotive'],
+    ['GM','General Motors','NYSE','Automotive'],
+    // Financials
+    ['AXP','American Express','NYSE','Finance'],
+    ['C','Citigroup Inc.','NYSE','Finance'],
+    ['COF','Capital One Financial','NYSE','Finance'],
+    ['SCHW','Charles Schwab Corp.','NYSE','Finance'],
+    ['BLK','BlackRock Inc.','NYSE','Finance'],
+    ['BX','Blackstone Inc.','NYSE','Finance'],
+    ['KKR','KKR & Co.','NYSE','Finance'],
+    // Industrial / Defense / Logistics
+    ['GE','GE Aerospace','NYSE','Aerospace'],
+    ['LMT','Lockheed Martin','NYSE','Defense'],
+    ['RTX','RTX Corporation','NYSE','Defense'],
+    ['NOC','Northrop Grumman','NYSE','Defense'],
+    ['HON','Honeywell International','NASDAQ','Industrials'],
+    ['DE','Deere & Company','NYSE','Industrials'],
+    ['UPS','United Parcel Service','NYSE','Logistics'],
+    ['FDX','FedEx Corporation','NYSE','Logistics'],
+    // Retail / Consumer
+    ['COST','Costco Wholesale','NASDAQ','Consumer'],
+    ['HD','Home Depot','NYSE','Consumer'],
+    ['LOW',"Lowe's Companies",'NYSE','Consumer'],
+    ['TGT','Target Corporation','NYSE','Consumer'],
+    ['LULU','Lululemon Athletica','NASDAQ','Consumer'],
+    ['MAR','Marriott International','NASDAQ','Consumer'],
+    // Telecom
+    ['T','AT&T Inc.','NYSE','Telecom'],
+    ['VZ','Verizon Communications','NYSE','Telecom']
+  ];
+
+  let searchDebounce = null;
+  let searchCounter = 0;
+  let currentSuggestions = [];
+  let activeSuggestionIdx = -1;
+  let activeSearchField = null;
+  let lastResultSource = 'online';
+
+  function searchOffline(query) {
+    const q = query.toLowerCase().trim();
+    if (!q) return [];
+    // Scoring: exact ticker-Präfix > Ticker enthält > Name-Präfix > Name enthält
+    const scored = OFFLINE_STOCKS.map(([t, n, e, s]) => {
+      const tl = t.toLowerCase(), nl = n.toLowerCase();
+      let score = 0;
+      if (tl === q) score = 100;
+      else if (tl.startsWith(q)) score = 80;
+      else if (nl.startsWith(q)) score = 60;
+      else if (tl.includes(q)) score = 40;
+      else if (nl.includes(q)) score = 20;
+      return score > 0 ? { score, symbol: t, longname: n, exchDisp: e, sector: s, quoteType: 'EQUITY' } : null;
+    }).filter(Boolean);
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, 8);
+  }
+
+  async function fetchWithTimeout(url, ms = 6000) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), ms);
+    try {
+      return await fetch(url, { signal: ctrl.signal });
+    } finally {
+      clearTimeout(t);
+    }
+  }
+
+  async function searchOnline(query) {
+    const url = `${LOOKUP_URL}?q=${encodeURIComponent(query)}&quotesCount=8&newsCount=0`;
+    // Alle Proxies parallel starten — der schnellste erfolgreiche gewinnt
+    const attempts = PROXIES.map(proxy =>
+      fetchWithTimeout(proxy.build(url), 4500).then(async r => {
+        if (!r.ok) throw new Error(proxy.name + ' HTTP ' + r.status);
+        const data = await r.json();
+        if (!data || typeof data !== 'object') throw new Error(proxy.name + ' bad JSON');
+        const quotes = (data.quotes || []).filter(q =>
+          q.symbol && (q.quoteType === 'EQUITY' || q.quoteType === 'ETF' || q.quoteType === 'MUTUALFUND')
+        );
+        return quotes;
+      })
+    );
+    return Promise.any(attempts);
+  }
+
+  async function searchTickers(query) {
+    try {
+      const online = await searchOnline(query);
+      lastResultSource = 'online';
+      if (online.length > 0) return online;
+      // Keine Online-Treffer → Offline probieren
+      const offline = searchOffline(query);
+      lastResultSource = 'offline';
+      return offline;
+    } catch (err) {
+      console.warn('Online-Suche fehlgeschlagen:', err.message);
+      const offline = searchOffline(query);
+      lastResultSource = 'offline';
+      if (offline.length > 0) return offline;
+      throw err;
+    }
+  }
+
+  function showSpinner(show) {
+    document.getElementById('spinnerTicker').classList.toggle('show', show && activeSearchField?.id === 'fTicker');
+    document.getElementById('spinnerName').classList.toggle('show', show && activeSearchField?.id === 'fName');
+  }
+
+  function renderSuggestions(items, status = null) {
+    const box = document.getElementById('suggestions');
+    if (status) {
+      box.innerHTML = `<div class="suggestions-status ${status.type || ''}">${escape(status.text)}</div>`;
+      box.classList.add('show');
+      currentSuggestions = [];
+      activeSuggestionIdx = -1;
+      return;
+    }
+    if (!items.length) {
+      box.innerHTML = '<div class="suggestions-status">Keine Treffer — manuell eingeben</div>';
+      box.classList.add('show');
+      currentSuggestions = [];
+      activeSuggestionIdx = -1;
+      return;
+    }
+    currentSuggestions = items;
+    activeSuggestionIdx = -1;
+    const offlineHint = lastResultSource === 'offline'
+      ? '<div class="suggestions-status" style="padding:8px 16px;border-bottom:1px solid var(--border);font-size:10px;">⚡ Offline-Liste · begrenzte Auswahl</div>'
+      : '';
+    box.innerHTML = offlineHint + items.map((q, i) => `
+      <div class="suggestion-item" data-idx="${i}">
+        <div class="suggestion-ticker">${escape(q.symbol)}</div>
+        <div class="suggestion-name">${escape(q.longname || q.shortname || q.symbol)}</div>
+        <div class="suggestion-exchange">${escape(q.exchDisp || q.exchange || '')}</div>
+      </div>
+    `).join('');
+    box.classList.add('show');
+    box.querySelectorAll('.suggestion-item').forEach(el => {
+      el.addEventListener('mousedown', e => {
+        e.preventDefault();
+        pickSuggestion(parseInt(el.dataset.idx));
+      });
+    });
+  }
+
+  function hideSuggestions() {
+    document.getElementById('suggestions').classList.remove('show');
+    currentSuggestions = [];
+    activeSuggestionIdx = -1;
+  }
+
+  function pickSuggestion(idx) {
+    const q = currentSuggestions[idx];
+    if (!q) return;
+    document.getElementById('fTicker').value = q.symbol;
+    document.getElementById('fName').value = q.longname || q.shortname || q.symbol;
+    const sectorEl = document.getElementById('fSector');
+    if (q.sector && !sectorEl.value.trim()) sectorEl.value = q.sector;
+    hideSuggestions();
+    document.getElementById('fNotes').focus();
+  }
+
+  function updateActiveSuggestion() {
+    document.querySelectorAll('.suggestion-item').forEach((el, i) => {
+      el.classList.toggle('active', i === activeSuggestionIdx);
+      if (i === activeSuggestionIdx) el.scrollIntoView({ block: 'nearest' });
+    });
+  }
+
+  function triggerSearch(query) {
+    clearTimeout(searchDebounce);
+    const q = query.trim();
+    if (q.length < 1) {
+      hideSuggestions();
+      showSpinner(false);
+      return;
+    }
+    const thisCall = ++searchCounter;
+    searchDebounce = setTimeout(() => {
+      // 1. Offline-Treffer sofort anzeigen (instant)
+      const offlineResults = searchOffline(q);
+      const isStillCurrent = () => thisCall === searchCounter
+        && activeSearchField && activeSearchField.value.trim() === q;
+
+      if (offlineResults.length > 0 && isStillCurrent()) {
+        lastResultSource = 'offline';
+        renderSuggestions(offlineResults);
+      }
+
+      // 2. Parallel Online-Suche im Hintergrund — bei Erfolg upgraden
+      showSpinner(true);
+      searchOnline(q).then(onlineResults => {
+        if (!isStillCurrent()) return;
+        showSpinner(false);
+        if (onlineResults.length > 0) {
+          lastResultSource = 'online';
+          renderSuggestions(onlineResults);
+        } else if (offlineResults.length === 0) {
+          renderSuggestions([]); // "Keine Treffer"
+        }
+      }).catch(() => {
+        if (!isStillCurrent()) return;
+        showSpinner(false);
+        // Online fehlgeschlagen — nur Fehler zeigen, wenn offline auch leer war
+        if (offlineResults.length === 0) {
+          renderSuggestions([], {
+            text: 'Keine Treffer · Online-Suche nicht erreichbar',
+            type: 'error'
+          });
+        }
+      });
+    }, 200);
+  }
+
+  // Wire up lookup to both ticker and name fields
+  ['fTicker', 'fName'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('focus', () => { activeSearchField = el; });
+    el.addEventListener('input', e => {
+      activeSearchField = el;
+      triggerSearch(e.target.value);
+    });
+    el.addEventListener('blur', () => {
+      setTimeout(hideSuggestions, 180);
+    });
+    el.addEventListener('keydown', e => {
+      const box = document.getElementById('suggestions');
+      const open = box.classList.contains('show') && currentSuggestions.length > 0;
+
+      if (open && e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeSuggestionIdx = Math.min(activeSuggestionIdx + 1, currentSuggestions.length - 1);
+        updateActiveSuggestion();
+        return;
+      }
+      if (open && e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeSuggestionIdx = Math.max(activeSuggestionIdx - 1, -1);
+        updateActiveSuggestion();
+        return;
+      }
+      if (open && e.key === 'Enter' && activeSuggestionIdx >= 0) {
+        e.preventDefault();
+        pickSuggestion(activeSuggestionIdx);
+        return;
+      }
+      if (e.key === 'Escape') {
+        hideSuggestions();
+        return;
+      }
+      // Fallback: Enter jumps to next field if no active suggestion
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (id === 'fTicker') document.getElementById('fName').focus();
+        else document.getElementById('fSector').focus();
+      }
+    });
+  });
+
+  // ============ PWA install prompt ============
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installBtn').style.display = 'grid';
+  });
+  document.getElementById('installBtn').addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') toast('App installiert');
+    deferredPrompt = null;
+    document.getElementById('installBtn').style.display = 'none';
+  });
+
+  // ============ Auth UI ============
+  let authMode = 'login';
+
+  window.authSwitchTab = function(mode) {
+    authMode = mode;
+    document.querySelectorAll('.auth-tab').forEach((t, i) => {
+      t.classList.toggle('active', (i === 0 && mode === 'login') || (i === 1 && mode === 'register'));
+    });
+    document.getElementById('authSubmitBtn').textContent = mode === 'login' ? 'Anmelden' : 'Registrieren';
+    document.getElementById('authPassword').placeholder = mode === 'login' ? 'Passwort' : 'Passwort (mind. 6 Zeichen)';
+    document.getElementById('authError').classList.remove('show');
+  };
+
+  window.authSubmit = async function() {
+    const email    = document.getElementById('authEmail').value.trim();
+    const password = document.getElementById('authPassword').value;
+    const errEl    = document.getElementById('authError');
+    const btn      = document.getElementById('authSubmitBtn');
+    errEl.classList.remove('show');
+    if (!email || !password) { errEl.textContent = 'Bitte E-Mail und Passwort eingeben.'; errEl.classList.add('show'); return; }
+    btn.disabled = true;
+    btn.textContent = '…';
+    try {
+      const { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } = window._fb;
+      if (authMode === 'login') {
+        await signInWithEmailAndPassword(auth, email, password);
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+      }
+    } catch (e) {
+      const msgs = {
+        'auth/user-not-found':    'Kein Konto mit dieser E-Mail gefunden.',
+        'auth/wrong-password':    'Falsches Passwort.',
+        'auth/email-already-in-use': 'Diese E-Mail ist bereits registriert.',
+        'auth/weak-password':     'Passwort muss mindestens 6 Zeichen haben.',
+        'auth/invalid-email':     'Ungültige E-Mail-Adresse.',
+        'auth/invalid-credential': 'E-Mail oder Passwort falsch.',
+        'auth/too-many-requests': 'Zu viele Versuche. Bitte kurz warten.'
+      };
+      errEl.textContent = msgs[e.code] || ('Fehler: ' + e.message);
+      errEl.classList.add('show');
+    }
+    btn.disabled = false;
+    btn.textContent = authMode === 'login' ? 'Anmelden' : 'Registrieren';
+  };
+
+  window.authLogout = async function() {
+    if (!confirm('Wirklich abmelden?')) return;
+    const { auth, signOut } = window._fb;
+    await signOut(auth);
+    toast('Abgemeldet');
+  };
+
+  // Enter-Taste im Auth-Formular
+  ['authEmail','authPassword'].forEach(id => {
+    document.getElementById(id)?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') window.authSubmit();
+    });
+  });
+
+  // syncToFirestore global verfügbar machen
+  window.syncToFirestore = syncToFirestore;
+
+  // ============ Firebase Auth & Sync ============
+  let currentUser = null;
+  let firestoreUnsub = null;
+  let isSyncing = false;
+
+  function waitForFB(cb, tries = 0) {
+    if (window._fb) cb();
+    else if (tries < 80) setTimeout(() => waitForFB(cb, tries + 1), 100);
+    else console.warn('Firebase SDK nicht geladen');
+  }
+
+  function showUserBar(user) {
+    document.getElementById('authUserBar').classList.add('show');
+    document.getElementById('authUserEmail').textContent = user.email;
+    document.getElementById('authAvatar').textContent = user.email[0].toUpperCase();
+    document.getElementById('syncIndicator').classList.add('show');
+  }
+
+  function startFirestoreSync(uid) {
+    const { db, doc, onSnapshot } = window._fb;
+    const ref = doc(db, 'users', uid);
+    firestoreUnsub = onSnapshot(ref, snap => {
+      if (snap.exists() && !isSyncing) {
+        const data = snap.data();
+        if (data.stocks && JSON.stringify(data.stocks) !== JSON.stringify(state.stocks)) {
+          state.stocks = data.stocks;
+          localStorage.setItem('stocks-favorites-v2', JSON.stringify(state.stocks));
+          renderList();
+        }
+      }
+    });
+  }
+
+  async function syncToFirestore() {
+    if (!currentUser) return;
+    isSyncing = true;
+    try {
+      const { db, doc, setDoc } = window._fb;
+      await setDoc(doc(db, 'users', currentUser.uid), {
+        stocks: state.stocks,
+        updatedAt: new Date().toISOString()
+      });
+    } catch (e) { console.error('Sync-Fehler:', e); }
+    isSyncing = false;
+  }
+
+  waitForFB(() => {
+    const { auth, onAuthStateChanged } = window._fb;
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        currentUser = user;
+        document.getElementById('authScreen').style.display = 'none';
+        showUserBar(user);
+        startFirestoreSync(user.uid);
+      } else {
+        currentUser = null;
+        document.getElementById('authScreen').style.display = 'flex';
+        document.getElementById('authUserBar').classList.remove('show');
+        document.getElementById('syncIndicator').classList.remove('show');
+        if (firestoreUnsub) { firestoreUnsub(); firestoreUnsub = null; }
+      }
+    });
+  });
+
+  // ============ Start ============
+  load();
+  renderList();
+</script>
+</body>
+</html>
