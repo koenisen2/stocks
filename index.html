@@ -743,8 +743,42 @@ async function openDetail(ticker){
 }
 
 async function loadChart(ticker,res,days){
-  const sym=fhSym(ticker),to=Math.floor(Date.now()/1000),from=to-days*86400;
-  try{const d=await fhGet(`/stock/candle?symbol=${sym}&resolution=${res}&from=${from}&to=${to}`);if(!d.c||d.s==='no_data'){renderChart([],[]);return;}renderChart(d.t.map(ts=>new Date(ts*1000).toLocaleDateString('de-DE',{day:'2-digit',month:'short'})),d.c);}catch{renderChart([],[]);}
+  // Yahoo Finance liefert bessere Chart-Daten als Finnhub Free Tier
+  const sym = ticker; // Yahoo nutzt original Ticker inkl. .DE etc.
+  const intervals = {D:'1d', W:'1wk'};
+  const ranges = {7:'5d', 30:'1mo', 90:'3mo', 365:'1y'};
+  const interval = intervals[res]||'1d';
+  const range = ranges[days]||'1mo';
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(sym)}?interval=${interval}&range=${range}`;
+
+  // CORS-Proxy Liste
+  const proxies = [
+    u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u=>`https://corsproxy.io/?url=${encodeURIComponent(u)}`,
+  ];
+
+  let data = null;
+  for(const proxy of proxies){
+    try{
+      const r = await ft(proxy(url), 5000);
+      if(!r.ok) continue;
+      data = await r.json();
+      if(data?.chart?.result?.[0]) break;
+    }catch{ continue; }
+  }
+
+  if(!data?.chart?.result?.[0]){ renderChart([],[]); return; }
+
+  const result = data.chart.result[0];
+  const timestamps = result.timestamp || [];
+  const closes = result.indicators?.quote?.[0]?.close || [];
+
+  if(!timestamps.length || !closes.length){ renderChart([],[]); return; }
+
+  const labels = timestamps.map(ts =>
+    new Date(ts*1000).toLocaleDateString('de-DE',{day:'2-digit',month:'short'})
+  );
+  renderChart(labels, closes.map(v => v ?? null).filter(v => v !== null));
 }
 
 function renderChart(labels,prices){
