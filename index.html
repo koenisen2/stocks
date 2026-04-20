@@ -1363,8 +1363,7 @@
     .dash-name { max-width: 220px; }
   }
 
-</style>
-<style>
+  /* ============ AUTH SCREEN ============ */
   #authScreen {
     position: fixed;
     inset: 0;
@@ -1589,8 +1588,8 @@
         <div class="sync-dot"></div>
         <span>Synced</span>
       </div>
-      <button class="desktop-nav-item active" data-nav="list">Favoriten</button>
-      <button class="desktop-nav-item" data-nav="dashboard">Dashboard</button>
+      <button class="desktop-nav-item" data-nav="list">Favoriten</button>
+      <button class="desktop-nav-item active" data-nav="dashboard">Dashboard</button>
       <button class="desktop-nav-item" data-nav="settings">Einstellungen</button>
       <button class="desktop-add-btn" id="desktopAddBtn">
         <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
@@ -1608,7 +1607,7 @@
   </div>
 
   <!-- Screen: Liste -->
-  <div class="screen active" id="screen-list">
+  <div class="screen" id="screen-list">
     <div class="stats-card">
       <div>
         <div class="stats-label">Favoriten</div>
@@ -1701,7 +1700,7 @@
   </div>
 
   <!-- Screen: Dashboard -->
-  <div class="screen" id="screen-dashboard">
+  <div class="screen active" id="screen-dashboard">
     <div class="dash-toolbar">
       <button class="dash-refresh-btn" id="dashRefreshBtn" onclick="loadDashboard()">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 4v5h5M20 20v-5h-5M4 9a9 9 0 0115 0M20 15a9 9 0 01-15 0"/></svg>
@@ -1830,14 +1829,14 @@
 
 <!-- Bottom nav -->
 <nav class="bottom-nav">
-  <button class="nav-item active" data-nav="list">
+  <button class="nav-item" data-nav="list">
     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 12h14M5 16h9"/></svg>
     <span class="nav-item-label">Favoriten</span>
   </button>
   <button class="nav-item nav-item-fab" id="fabAdd" aria-label="Neue Aktie hinzufügen">
     <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
   </button>
-  <button class="nav-item" data-nav="dashboard">
+  <button class="nav-item active" data-nav="dashboard">
     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
     <span class="nav-item-label">Dashboard</span>
   </button>
@@ -1926,7 +1925,6 @@
       document.querySelector('.nav-item[data-nav="list"]')?.classList.add('active');
       document.querySelector('.desktop-nav-item[data-nav="list"]')?.classList.add('active');
     }
-
     if (screen === 'list') renderList();
     if (screen === 'detail' && opts.id) renderDetail(opts.id);
     if (screen === 'form') renderForm(opts.id);
@@ -3208,7 +3206,7 @@
 
   // ============ Start ============
   load();
-  renderList();
+  loadDashboard();
 </script>
 </body>
 </html>
