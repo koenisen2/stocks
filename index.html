@@ -78,8 +78,10 @@ aside{width:var(--sidebar);flex-shrink:0;background:var(--panel);border-right:1p
 .pf-sel-del:hover{color:var(--red)}
 
 /* ── MAIN ── */
-main{margin-left:var(--sidebar);flex:1;min-width:0;display:flex;flex-direction:column}
-.topbar{height:var(--topbar);background:var(--panel);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:16px;position:sticky;top:0;z-index:50}
+html,body{height:100%;overflow:hidden}
+#shell{height:100vh;overflow:hidden}
+main{margin-left:var(--sidebar);flex:1;min-width:0;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.topbar{height:var(--topbar);flex-shrink:0;background:var(--panel);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:16px;z-index:50}
 .topbar-title{font-size:16px;font-weight:600;color:var(--text)}
 .topbar-sub{font-size:12px;color:var(--text3)}
 .topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
@@ -92,13 +94,22 @@ main{margin-left:var(--sidebar);flex:1;min-width:0;display:flex;flex-direction:c
 .theme-btn{background:transparent;border:1px solid var(--border);border-radius:7px;padding:7px 12px;color:var(--text2);cursor:pointer;font-family:var(--mono);font-size:11px;display:flex;align-items:center;gap:6px;transition:all .15s}
 .theme-btn:hover{color:var(--text);border-color:var(--border2)}
 
-/* ── CONTENT ── */
-.content{flex:1;padding:24px 28px;overflow-y:auto}
-.screen{display:none}
-.screen.active{display:block}
+/* content-Bereich: füllt restliche Höhe */
+.content{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+/* Alle Screens außer depot: normales Scrolling mit Padding */
+.screen{display:none;flex:1;min-height:0}
+.screen.active{display:flex;flex-direction:column}
+/* Nicht-Depot-Screens scrollen intern */
+#screen-watchlist.active,
+#screen-wform.active,
+#screen-wdetail.active,
+#screen-pform.active,
+#screen-report.active,
+#screen-settings.active{overflow-y:auto;padding:24px 28px}
 
 /* ── PERFORMANCE BAR ── */
-.perf-bar{display:flex;align-items:stretch;background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;overflow:hidden}
+.perf-bar-wrap{flex-shrink:0;padding:12px 20px 0}
+.perf-bar{display:flex;align-items:stretch;background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .perf-item{flex:1;padding:14px 18px}
 .perf-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:5px}
 .perf-value{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);white-space:nowrap}
@@ -139,57 +150,69 @@ main{margin-left:var(--sidebar);flex:1;min-width:0;display:flex;flex-direction:c
 .table-empty{padding:60px 20px;text-align:center;color:var(--text3);font-size:13px}
 
 /* ── DEPOT LAYOUT ── */
-.depot-screen-inner {
-  display: flex; flex-direction: column; gap: 16px;
-  height: calc(100vh - var(--topbar) - 48px - 80px);
-  min-height: 520px;
+
+/* screen-depot selbst: flex-column, füllt den content-Bereich */
+#screen-depot.active {
+  display: flex; flex-direction: column;
+  overflow: hidden; padding: 0;
 }
 
-/* Oben: volle Breite Tabelle */
+.perf-bar-wrap { flex-shrink: 0; padding: 12px 20px 0; }
+
+/* depot-screen-inner: füllt den Rest unterhalb perf-bar */
+.depot-screen-inner {
+  flex: 1; min-height: 0;
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 12px 20px 16px;
+  overflow: hidden;
+}
+
+/* Oben: Tabellenkarte — feste Höhe 38% */
 .depot-top-card {
   background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
-  overflow: hidden; flex-shrink: 0;
+  overflow: hidden; flex: 0 0 38%;
+  display: flex; flex-direction: column; min-height: 0;
 }
 .depot-top-card .col-header {
-  padding: 12px 20px; border-bottom: 1px solid var(--border);
+  padding: 10px 18px; border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
-  background: var(--bg2); gap: 12px;
+  background: var(--bg2); gap: 12px; flex-shrink: 0;
 }
-.depot-positions-scroll { overflow-y: auto; max-height: 280px; }
+.depot-positions-scroll { overflow-y: auto; flex: 1; min-height: 0; }
 
-/* Positionen-Tabelle: breit */
+/* Tabelle */
 .pos-table { width: 100%; border-collapse: collapse; }
 .pos-table th {
   font-family: var(--mono); font-size: 10px; text-transform: uppercase;
-  letter-spacing: .8px; color: var(--text3); padding: 9px 14px;
+  letter-spacing: .8px; color: var(--text3); padding: 8px 14px;
   text-align: right; background: var(--bg2);
   border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2;
   white-space: nowrap;
 }
 .pos-table th:first-child { text-align: left; }
-.pos-table td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--border); vertical-align: middle; white-space: nowrap; }
+.pos-table td { padding: 10px 14px; text-align: right; border-bottom: 1px solid var(--border); vertical-align: middle; white-space: nowrap; }
 .pos-table td:first-child { text-align: left; }
 .pos-table tr:last-child td { border-bottom: none; }
 .pos-table tr { cursor: pointer; transition: background .1s; }
 .pos-table tr:hover td { background: var(--surface); }
 .pos-table tr.sel td { background: var(--gold-dim); }
 
-/* Unten: 2/3 Chart + 1/3 Gewinner/Verlierer */
+/* Unten: 2/3 Chart | 1/3 Gewinner/Verlierer — füllt restliche Höhe */
 .depot-bottom-split {
-  display: grid; grid-template-columns: 2fr 1fr; gap: 0;
+  flex: 1; min-height: 0;
+  display: grid; grid-template-columns: 2fr 1fr;
   background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
-  overflow: hidden; flex: 1; min-height: 0;
+  overflow: hidden;
 }
 .depot-col-chart {
-  display: flex; flex-direction: column; padding: 16px;
-  border-right: 1px solid var(--border); min-height: 0;
+  display: flex; flex-direction: column; padding: 14px 16px;
+  border-right: 1px solid var(--border); min-height: 0; overflow: hidden;
 }
-.depot-col-chart .chart-meta { flex-shrink: 0; }
-.depot-chart-wrap { flex: 1; min-height: 0; margin-top: 10px; }
-.depot-chart-wrap canvas { width: 100% !important; height: 100% !important; min-height: 200px; }
+.depot-chart-wrap { flex: 1; min-height: 0; margin-top: 8px; position: relative; overflow: hidden; }
+.depot-chart-wrap canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
 .depot-col-wl { display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
 .depot-col-wl .col-header {
-  padding: 12px 14px; border-bottom: 1px solid var(--border);
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
   flex-shrink: 0; background: var(--bg2);
   font-family: var(--mono); font-size: 10px; text-transform: uppercase;
   letter-spacing: 1px; color: var(--text3);
@@ -203,10 +226,10 @@ main{margin-left:var(--sidebar);flex:1;min-width:0;display:flex;flex-direction:c
 
 @media(max-width:1100px){ .depot-bottom-split{grid-template-columns:3fr 2fr;} }
 @media(max-width:900px){
-  .depot-bottom-split{grid-template-columns:1fr;}
+  .depot-bottom-split{grid-template-columns:1fr; flex:none; min-height:400px;}
+  .depot-top-card{flex:none;}
   .depot-col-chart{border-right:none;border-bottom:1px solid var(--border);}
-  .depot-screen-inner{height:auto;min-height:0;}
-  .depot-positions-scroll{max-height:none;}
+  .depot-screen-inner{overflow-y:auto;}
 }
 
 /* ── WATCHLIST ── */
@@ -448,18 +471,20 @@ window._fb={auth:getAuth(app),db:getFirestore(app),createUserWithEmailAndPasswor
     <!-- DEPOT -->
     <div class="screen active" id="screen-depot">
       <!-- Performance-Leiste -->
-      <div class="perf-bar" id="perfBar" style="display:none;margin-bottom:12px">
-        <div class="perf-item"><div class="perf-label">Depotwert</div><div class="perf-value" id="perfTotal">—</div></div>
-        <div class="perf-divider"></div>
-        <div class="perf-item"><div class="perf-label">Einstand</div><div class="perf-value" id="perfCost">—</div></div>
-        <div class="perf-divider"></div>
-        <div class="perf-item"><div class="perf-label">G/V gesamt</div><div class="perf-value" id="perfPnl">—</div></div>
-        <div class="perf-divider"></div>
-        <div class="perf-item"><div class="perf-label">Tag G/V</div><div class="perf-value" id="perfDay">—</div></div>
-        <div class="perf-divider"></div>
-        <div class="perf-item"><div class="perf-label">Beste</div><div id="perfBest">—</div></div>
-        <div class="perf-divider"></div>
-        <div class="perf-item"><div class="perf-label">Schlechteste</div><div id="perfWorst">—</div></div>
+      <div class="perf-bar-wrap">
+        <div class="perf-bar" id="perfBar" style="display:none">
+          <div class="perf-item"><div class="perf-label">Depotwert</div><div class="perf-value" id="perfTotal">—</div></div>
+          <div class="perf-divider"></div>
+          <div class="perf-item"><div class="perf-label">Einstand</div><div class="perf-value" id="perfCost">—</div></div>
+          <div class="perf-divider"></div>
+          <div class="perf-item"><div class="perf-label">G/V gesamt</div><div class="perf-value" id="perfPnl">—</div></div>
+          <div class="perf-divider"></div>
+          <div class="perf-item"><div class="perf-label">Tag G/V</div><div class="perf-value" id="perfDay">—</div></div>
+          <div class="perf-divider"></div>
+          <div class="perf-item"><div class="perf-label">Beste</div><div id="perfBest">—</div></div>
+          <div class="perf-divider"></div>
+          <div class="perf-item"><div class="perf-label">Schlechteste</div><div id="perfWorst">—</div></div>
+        </div>
       </div>
 
       <div class="depot-screen-inner">
