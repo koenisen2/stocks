@@ -167,10 +167,10 @@ main{margin-left:var(--sidebar);flex:1;min-width:0;display:flex;flex-direction:c
   overflow: hidden;
 }
 
-/* Oben: Tabellenkarte — feste Höhe 38% */
+/* Oben: Tabellenkarte — feste Höhe 45% */
 .depot-top-card {
   background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
-  overflow: hidden; flex: 0 0 38%;
+  overflow: hidden; flex: 0 0 45%;
   display: flex; flex-direction: column; min-height: 0;
 }
 .depot-top-card .col-header {
@@ -1029,6 +1029,30 @@ function logoHtml(ticker,logo){
 // ═══════════════════════════════════════════
 // DEPOT LOAD + RENDER
 // ═══════════════════════════════════════════
+// Yahoo Finance Quote-Fallback via CORS-Proxy
+const PROX_Y=[
+  u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+  u=>`https://corsproxy.io/?url=${encodeURIComponent(u)}`
+];
+async function yahooQuote(ticker){
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=1d`;
+  for(const proxy of PROX_Y){
+    try{
+      const r=await fetch(proxy(url));if(!r.ok)continue;
+      const d=await r.json();
+      const meta=d?.chart?.result?.[0]?.meta;
+      if(!meta?.regularMarketPrice)continue;
+      return{
+        c:meta.regularMarketPrice,
+        pc:meta.chartPreviousClose||meta.previousClose||meta.regularMarketPrice,
+        d:meta.regularMarketPrice-(meta.chartPreviousClose||meta.previousClose||meta.regularMarketPrice),
+        dp:((meta.regularMarketPrice-(meta.chartPreviousClose||meta.previousClose||meta.regularMarketPrice))/(meta.chartPreviousClose||meta.previousClose||meta.regularMarketPrice))*100
+      };
+    }catch{continue;}
+  }
+  return null;
+}
+
 async function loadDepot(){
   const pf=activePortfolio();
   document.getElementById('depotTableTitle').textContent=pf.name;
@@ -1036,27 +1060,48 @@ async function loadDepot(){
   renderPfSelector();
 
   if(!pf.positions.length){
-    document.getElementById('depotBody').innerHTML='<tr><td colspan="7" class="table-empty">Keine Positionen — importiere CSV oder füge manuell hinzu</td></tr>';
+    document.getElementById('depotBody').innerHTML='<tr><td colspan="10" class="table-empty">Keine Positionen — importiere CSV oder füge Positionen hinzu</td></tr>';
     document.getElementById('perfBar').style.display='none';
     document.getElementById('depotChartEmpty').style.display='flex';
     document.getElementById('depotChartContent').style.display='none';
-    document.getElementById('depotWLScroll').innerHTML='<div class="depot-empty-col" style="height:200px"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:24px;height:24px;opacity:.3"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>Leer</div>';
+    document.getElementById('depotWLScroll').innerHTML='<div class="depot-empty-col" style="height:200px">Leer</div>';
     return;
   }
 
   const btn=document.getElementById('depotRefBtn');btn.classList.add('spinning');
   const tickers=[...new Set(pf.positions.map(p=>p.ticker))];
+
   await Promise.allSettled(tickers.map(async t=>{
-    try{const sym=fhSym(t);const[q,m,logo]=await Promise.all([fhGet(`/quote?symbol=${sym}`),fhGet(`/stock/metric?symbol=${sym}&metric=all`),fhGet(`/stock/profile2?symbol=${sym}`)]);DD[t]={q,m:m.metric||{},logo:logo.logo||null};}
-    catch(err){DD[t]={err:err.message};}
+    try{
+      const sym=fhSym(t);
+      const[q,m,logo]=await Promise.all([
+        fhGet(`/quote?symbol=${sym}`),
+        fhGet(`/stock/metric?symbol=${sym}&metric=all`),
+        fhGet(`/stock/profile2?symbol=${sym}`)
+      ]);
+      // Prüfen ob Kurs wirklich vorhanden (Finnhub gibt manchmal c:0 zurück)
+      if(q.c && q.c>0){
+        DD[t]={q,m:m.metric||{},logo:logo.logo||null};
+      } else {
+        // Finnhub hat keinen Kurs → Yahoo-Fallback
+        const yq=await yahooQuote(t);
+        if(yq) DD[t]={q:{...q,...yq},m:m.metric||{},logo:logo.logo||null,src:'yahoo'};
+        else DD[t]={q,m:m.metric||{},logo:logo.logo||null};
+      }
+    }catch(err){
+      // Finnhub komplett fehlgeschlagen → Yahoo-Fallback
+      try{
+        const yq=await yahooQuote(t);
+        if(yq) DD[t]={q:yq,m:{},logo:null,src:'yahoo'};
+        else DD[t]={err:err.message};
+      }catch{DD[t]={err:err.message};}
+    }
   }));
 
   renderDepotTable();
   renderPerfBar2();
   btn.classList.remove('spinning');
   document.getElementById('lastUpd').textContent='Stand '+new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
-
-  // Auto-select erste Position
   const target=(selDepotTicker&&pf.positions.find(p=>p.ticker===selDepotTicker))?selDepotTicker:pf.positions[0].ticker;
   openDepotDetail(target);
 }
