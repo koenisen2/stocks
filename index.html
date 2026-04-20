@@ -232,6 +232,58 @@ main{margin-left:var(--sidebar);flex:1;min-width:0;display:flex;flex-direction:c
   .depot-screen-inner{overflow-y:auto;}
 }
 
+/* ── GEWINNER / VERLIERER LISTE ── */
+.gwvl-section {
+  padding: 0 6px;
+}
+.gwvl-label {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--mono); font-size: 9px; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--text3);
+  padding: 10px 6px 5px;
+}
+.gwvl-label:first-child { padding-top: 6px; }
+.gwvl-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; border-radius: 4px; font-size: 9px; font-weight: 700;
+}
+.gwvl-badge.up   { background: rgba(76,175,125,.15); color: var(--green); }
+.gwvl-badge.down { background: rgba(224,92,75,.12);  color: var(--red); }
+.gwvl-badge.flat { background: var(--surface); color: var(--text3); }
+
+.gwvl-item {
+  display: flex; align-items: center;
+  padding: 7px 8px; border-radius: 8px; cursor: pointer;
+  transition: background .12s; gap: 8px; margin-bottom: 2px;
+  border-left: 3px solid transparent;
+}
+.gwvl-item:hover { background: var(--surface); }
+.gwvl-item.active { background: var(--gold-dim); border-left-color: var(--gold); }
+.gwvl-item.up   { border-left-color: var(--green); }
+.gwvl-item.down { border-left-color: var(--red); }
+
+.gwvl-logo { flex-shrink: 0; }
+.gwvl-info { flex: 1; min-width: 0; }
+.gwvl-ticker {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  color: var(--text); letter-spacing: .3px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.gwvl-name {
+  font-size: 10px; color: var(--text3); margin-top: 1px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.gwvl-nums { text-align: right; flex-shrink: 0; }
+.gwvl-pct {
+  font-family: var(--mono); font-size: 13px; font-weight: 700; line-height: 1;
+}
+.gwvl-pct.up   { color: var(--green); }
+.gwvl-pct.down { color: var(--red); }
+.gwvl-pct.flat { color: var(--text3); }
+.gwvl-price {
+  font-family: var(--mono); font-size: 10px; color: var(--text2); margin-top: 2px;
+}
+
 /* ── WATCHLIST ── */
 .list-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
 .search-wrap{flex:1;min-width:180px;position:relative}
@@ -1123,27 +1175,37 @@ async function openDepotDetail(ticker){
   await loadDepotChart(ticker,'D',7);
 }
 
+
 function buildDepotWL(activeTicker){
   const pf=activePortfolio();
   const rows=pf.positions.map(pos=>{
     const d=DD[pos.ticker];if(!d||d.err||!d.q?.c)return null;
-    return{ticker:pos.ticker,name:pos.name||pos.ticker,dp:d.q.dp??0,c:d.q.c};
+    return{ticker:pos.ticker,name:pos.name||pos.ticker,dp:d.q.dp??0,c:d.q.c,logo:d.logo||null};
   }).filter(Boolean).sort((a,b)=>b.dp-a.dp);
-  if(!rows.length)return'<div style="color:var(--text3);font-size:12px;padding:14px;text-align:center">Kurse noch nicht geladen</div>';
+  if(!rows.length)return'<div class="depot-empty-col" style="height:100%"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:22px;height:22px"><path stroke-linecap="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>Kurse laden</div>';
   const winners=rows.filter(r=>r.dp>0),losers=rows.filter(r=>r.dp<0),neutral=rows.filter(r=>r.dp===0);
-  const item=(r,cls)=>{
-    const active=r.ticker===activeTicker?'background:var(--gold-dim);':'';
-    const lg=logoHtml(r.ticker,DD[r.ticker]?.logo||null);
-    return`<div class="wl-item" style="${active}" onclick="openDepotDetail('${r.ticker}')">
-      <div style="display:flex;align-items:center;gap:6px">${lg}<div><div class="wl-ticker">${e(r.ticker)}</div><div class="wl-name">${e(r.name)}</div></div></div>
-      <div class="wl-right"><div class="wl-price">${fN(r.c)}</div><div class="wl-chg ${cls}">${r.dp>0?'▲':r.dp<0?'▼':''} ${fN(Math.abs(r.dp))}%</div></div>
+  const item=(r,dir)=>{
+    const isActive=r.ticker===activeTicker;
+    const pctCls=dir==='up'?'up':dir==='down'?'down':'flat';
+    const arrow=dir==='up'?'▲':dir==='down'?'▼':'—';
+    const lg=logoHtml(r.ticker,r.logo);
+    return`<div class="gwvl-item ${pctCls}${isActive?' active':''}" onclick="openDepotDetail('${r.ticker}')">
+      <div class="gwvl-logo">${lg}</div>
+      <div class="gwvl-info">
+        <div class="gwvl-ticker">${e(r.ticker)}</div>
+        <div class="gwvl-name">${e(r.name.substring(0,22))}</div>
+      </div>
+      <div class="gwvl-nums">
+        <div class="gwvl-pct ${pctCls}">${arrow} ${fN(Math.abs(r.dp),2)}%</div>
+        <div class="gwvl-price">${fN(r.c)}</div>
+      </div>
     </div>`;
   };
-  let h='';
-  if(winners.length)h+=`<div class="wl-section-title"><span class="wl-dot" style="background:var(--green)"></span>Gewinner</div>`+winners.map(r=>item(r,'pos')).join('');
-  if(losers.length)h+=`<div class="wl-section-title" style="margin-top:10px"><span class="wl-dot" style="background:var(--red)"></span>Verlierer</div>`+losers.map(r=>item(r,'neg')).join('');
-  if(neutral.length)h+=`<div class="wl-section-title" style="margin-top:10px"><span class="wl-dot" style="background:var(--text3)"></span>Unverändert</div>`+neutral.map(r=>item(r,'neu')).join('');
-  return h;
+  let h='<div class="gwvl-section">';
+  if(winners.length){h+=`<div class="gwvl-label"><span class="gwvl-badge up">▲</span>Gewinner</div>`;h+=winners.map(r=>item(r,'up')).join('');}
+  if(losers.length) {h+=`<div class="gwvl-label"><span class="gwvl-badge down">▼</span>Verlierer</div>`;h+=losers.map(r=>item(r,'down')).join('');}
+  if(neutral.length){h+=`<div class="gwvl-label"><span class="gwvl-badge flat">—</span>Unverändert</div>`;h+=neutral.map(r=>item(r,'flat')).join('');}
+  h+='</div>';return h;
 }
 
 async function loadDepotChart(ticker,res,days){
