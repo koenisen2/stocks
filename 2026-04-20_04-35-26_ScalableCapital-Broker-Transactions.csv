@@ -1,0 +1,564 @@
+date;time;status;reference;description;assetType;type;isin;shares;price;amount;fee;tax;currency
+2026-04-17;19:16:10;Executed;"SCALkQeoTSrzcJv";"Circle Internet Group Long 86,17 $ Turbo Open End HSBC";Security;Buy;DE000HM4DP58;100;1,74;-174,00;0,99;0,00;EUR
+2026-04-17;16:18:03;Executed;"SCALXhTZGh4PTaC";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Sell;BRPETRACNPR6;407,082662;7,36;2.996,12839232;0,00;138,15;EUR
+2026-04-16;16:26:31;Executed;"SCALXVY59q65vCR";"ASML Holding Long 974,82 € Turbo Open End HSBC";Security;Buy;DE000HM0ZQF8;70;2,39;-167,30;0,99;0,00;EUR
+2026-04-16;16:25:24;Executed;"SCALf4iLgfpkvmb";"Lumentum Holdings Long 735,41 $ Turbo Open End HSBC";Security;Sell;DE000HM43KE6;100;1,50;150,00;0,99;6,17;EUR
+2026-04-16;08:00:09;Executed;"SCALSvhPSaDNfFq";"Strategy Long 116,68 $ Turbo Open End HSBC";Security;Buy;DE000HM43BD7;70;2,51;-175,70;0,99;0,00;EUR
+2026-04-16;02:00:00;Executed;"533271_peaa4fChmSyeXtJHDJp71N";"L&G Global Quality Dividends (Dist)";Cash;Distribution;IE0005AJA0P1;;;5,04;0,00;1,23;EUR
+2026-04-15;18:44:47;Executed;"SCALhq4S5nx6ASw";"Strategy Long 129,73 $ Turbo Open End HSBC";Security;Sell;DE000HM4H4U3;150;0,95;142,50;0,99;4,07;EUR
+2026-04-15;14:17:24;Executed;"SCAL3hcvBeANSev";"Lumentum Holdings Long 735,26 $ Turbo Open End HSBC";Security;Buy;DE000HM43KE6;100;1,26;-126,00;0,99;0,00;EUR
+2026-04-15;14:15:22;Executed;"SCALv7Rf74kPgmK";"Coinbase Global A Long 138,82 Turbo Open End BNP";Security;Sell;DE000BY2MR97;50;4,06;203,00;0,99;15,12;EUR
+2026-04-15;02:00:00;Executed;"MHEJABFIHVW5ZBTC";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2026-04-14;20:50:57;Executed;"SCALiXVJqzCrb49";"Strategy Long 129,70 $ Turbo Open End HSBC";Security;Buy;DE000HM4H4U3;150;0,84;-126,00;0,99;0,00;EUR
+2026-04-14;20:12:12;Executed;"SCALBxAusEKHYc2";"Circle Internet Group Short 124,81 $ Turbo Open End HSBC";Security;Sell;DE000HM3Y8Z3;100;1,85;185,00;0,99;7,57;EUR
+2026-04-14;16:39:57;Executed;"SCALa88oh4zRrXC";"Circle Internet Group Short 124,81 $ Turbo Open End HSBC";Security;Buy;DE000HM3Y8Z3;100;1,56;-156,00;0,99;0,00;EUR
+2026-04-14;12:49:41;Executed;"SCAL6Q3LsFg7uEt";"Rheinmetall Long Factor BNP";Security;Sell;DE000PC5RHM1;40;3,34;133,60;0,99;3,36;EUR
+2026-04-13;11:19:30;Executed;"SCALaGk4sej9yPc";"SoFi Technologies";Security;Savings plan;US83406F1021;1,459002;13,708;-19,999999416;0,00;0,00;EUR
+2026-04-10;14:56:13;Executed;"SCALQRmktVCSPMd";"Coinbase Global A Long 138,67 Turbo Open End BNP";Security;Buy;DE000BY2MR97;50;2,94;-147,00;0,99;0,00;EUR
+2026-04-10;13:14:01;Executed;"SCALDzy8bpgrpxc";"Rheinmetall Long Factor BNP";Security;Buy;DE000PC5RHM1;40;2,99;-119,60;0,99;0,00;EUR
+2026-04-10;02:00:00;Executed;"DECTC6RZAJQJZ19X1MMNA6";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2026-04-09;17:12:19;Cancelled;"SCALNcGEwguApvt";"Lumentum Holdings";Security;Sell;US55024U1097;0;0,00;0,00;0,00;0,00;EUR
+2026-04-08;20:25:04;Cancelled;"SCALeEMiYnvxr22";"Lumentum Holdings";Security;Sell;US55024U1097;0;0,00;0,00;0,00;0,00;EUR
+2026-04-07;11:57:32;Executed;"SCALUhNwhurZSYU";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Savings plan;BRPETRACNPR6;2,529404;7,907;-19,999997428;0,00;0,00;EUR
+2026-04-07;11:46:32;Executed;"SCALfKKa1HXrm2M";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,613423;12,396;-19,999991508;0,00;0,00;EUR
+2026-04-07;11:36:20;Executed;"SCALnatHdz1834B";"L&G Global Quality Dividends (Dist)";Security;Savings plan;IE0005AJA0P1;2,21582;9,026;-19,99999132;0,00;0,00;EUR
+2026-04-02;02:00:00;Executed;"VDPPK88ZWC7BZEHYSCZNJM";"Scalable Capital Broker 3x Sparplan";Cash;Deposit;;;;60,00;0,00;;EUR
+2026-04-01;02:00:00;Executed;"723aa5f9-00e3-45e9-9952-1d54f8a5be13";;Cash;Interest;;;;-90,62;0,00;0,00;EUR
+2026-03-31;21:16:07;Executed;"SCALa1LahCe3VHK";"L&G Global Quality Dividends (Dist)";Security;Buy;IE0005AJA0P1;200;8,946;-1.789,20;0,00;0,00;EUR
+2026-03-27;16:00:39;Executed;"SCALSt17Jgoktjq";"Robinhood Markets A Long 5x Factor GS";Security;Sell;DE000GG1LWR8;150;0,267;40,05;0,99;-5,68;EUR
+2026-03-27;15:47:28;Executed;"SCALkfD6psYujGb";"Coinbase Global A Long Factor BNP";Security;Sell;DE000PJ0ZKU5;1.000;0,03;30,00;0,99;-10,07;EUR
+2026-03-27;15:11:38;Executed;"SCALKtkZq9Mq8vS";"Rheinmetall Long 1.181,48 Turbo Open End BNP";Security;Sell;DE000PG0NVE5;50;2,18;109,00;0,99;-14,14;EUR
+2026-03-27;01:00:00;Executed;"515593_peaa4fChmSyeXtJHDJp71N";"Petrobras - Petroleo Brasileiro SA Vz.";Cash;Distribution;BRPETRACNPR6;;;0,69;0,00;0,27;EUR
+2026-03-27;01:00:00;Executed;"515587_peaa4fChmSyeXtJHDJp71N";"Petrobras - Petroleo Brasileiro SA Vz.";Cash;Distribution;BRPETRACNPR6;;;1,37;0,00;0,54;EUR
+2026-03-26;12:53:20;Cancelled;"SCAL9HVbU6XfAcy";"Rio Tinto PLC";Security;Buy;GB0007188757;0;0,00;0,00;0,00;0,00;EUR
+2026-03-26;12:52:34;Cancelled;"SCALBH9is7kKiXr";"Rio Tinto PLC";Security;Buy;GB0007188757;0;0,00;0,00;0,00;0,00;EUR
+2026-03-26;12:49:38;Executed;"SCALSb5UKzdohvZ";"Rio Tinto PLC";Security;Buy;GB0007188757;10;73,77;-737,70;0,00;0,00;EUR
+2026-03-26;12:48:41;Executed;"SCAL16ZDtP7ht1Q";"Rio Tinto PLC";Security;Buy;GB0007188757;15;73,79;-1.106,85;0,00;0,00;EUR
+2026-03-26;12:48:13;Executed;"SCALHGRieNoqvb2";"Rio Tinto PLC";Security;Buy;GB0007188757;20;73,79;-1.475,80;0,00;0,00;EUR
+2026-03-26;12:47:08;Executed;"SCALxgYVx3bT8KP";"iShares EURO STOXX Banks 30-15 (Dist)";Security;Sell;DE0006289309;165;23,225;3.832,125;0,00;-11,22;EUR
+2026-03-26;01:00:00;Executed;"505690_peaa4fChmSyeXtJHDJp71N";"Petrobras - Petroleo Brasileiro SA Vz.";Cash;Distribution;BRPETRACNPR6;;;0,03;0,00;0,02;EUR
+2026-03-26;01:00:00;Executed;"b52e0c5f04b44876b536b9";"Refer a Friend Bonus";Cash;Deposit;;;;25,00;0,00;;EUR
+2026-03-25;08:11:11;Executed;"SCAL7z3YtmZLWoo";"Rheinmetall Long 1.181,03 Turbo Open End BNP";Security;Buy;DE000PG0NVE5;50;3,15;-157,50;0,99;0,00;EUR
+2026-03-25;08:06:58;Cancelled;"SCALLni548ujYsA";"Circle Internet Group Long 87,15 Turbo Open End BNP";Security;Buy;DE000PK83TA8;0;0,00;0,00;0,00;0,00;EUR
+2026-03-25;01:00:00;Executed;"505692_peaa4fChmSyeXtJHDJp71N";"Petrobras - Petroleo Brasileiro SA Vz.";Cash;Distribution;BRPETRACNPR6;;;0,02;0,00;0,01;EUR
+2026-03-24;17:31:40;Executed;"SCAL4LyonkqTAvZ";"Robinhood Markets A Long 5x Factor GS";Security;Buy;DE000GG1LWR8;150;0,389;-58,35;0,99;0,00;EUR
+2026-03-24;17:02:46;Executed;"SCAL8svNDQEq577";"Coinbase Global A Long Factor BNP";Security;Buy;DE000PJ0ZKU5;1.000;0,064;-64,00;0,99;0,00;EUR
+2026-03-23;01:00:00;Executed;"475624_peaa4fChmSyeXtJHDJp71N";"L&G Global Quality Dividends (Dist)";Cash;Distribution;IE0005AJA0P1;;;0,18;0,00;0,04;EUR
+2026-03-20;15:14:54;Cancelled;"SCALa4pJv26w8va";"Lumentum Holdings";Security;Sell;US55024U1097;0;0,00;0,00;0,00;0,00;EUR
+2026-03-19;09:52:08;Executed;"SCALimscnYsyCsY";"Deutsche Rohstoff AG";Security;Sell;DE000A0XYG76;12;84,40;1.012,80;0,00;-11,09;EUR
+2026-03-18;11:58:39;Executed;"SCALv8AQsbV9BtU";"NN Group";Security;Buy;NL0010773842;8;68,44;-547,52;0,00;0,00;EUR
+2026-03-18;11:54:02;Executed;"SCALBbMJeGDV4sQ";"NN Group";Security;Buy;NL0010773842;15;68,48;-1.027,20;0,00;0,00;EUR
+2026-03-16;21:53:20;Executed;"SCALHguyb12SgoE";"Nu Holdings A";Security;Buy;KYG6683N1034;50;12,41;-620,50;0,00;0,00;EUR
+2026-03-16;21:49:27;Executed;"SCALrzciHkzvKBp";"iShares EURO STOXX Banks 30-15 (Dist)";Security;Buy;DE0006289309;25;23,58;-589,50;0,00;0,00;EUR
+2026-03-16;21:48:59;Executed;"SCALnRheWrctd32";"iShares EURO STOXX Banks 30-15 (Dist)";Security;Buy;DE0006289309;50;23,58;-1.179,00;0,00;0,00;EUR
+2026-03-16;21:48:38;Cancelled;"SCAL7tKcRxJsTnE";"iShares EURO STOXX Banks 30-15 (Dist)";Security;Buy;DE0006289309;0;0,00;0,00;0,00;0,00;EUR
+2026-03-16;21:47:51;Cancelled;"SCALGEqXRjDxVbY";"iShares EURO STOXX Banks 30-15 (Dist)";Security;Buy;DE0006289309;0;0,00;0,00;0,00;0,00;EUR
+2026-03-16;21:45:57;Executed;"SCALoG6UvSnLm5J";"iShares EURO STOXX Banks 30-15 (Dist)";Security;Buy;DE0006289309;90;23,565;-2.120,85;0,00;0,00;EUR
+2026-03-16;21:11:52;Executed;"SCAL3RgkBM4KYXC";"Cloudflare A";Security;Sell;US18915M1071;27;179,66;4.850,82;0,00;224,80;EUR
+2026-03-16;01:00:00;Executed;"MVZJHDTQ1VXXJBOG";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2026-03-13;14:26:16;Executed;"SCALXbS6QE5eqvw";"Deutsche Rohstoff AG";Security;Buy;DE000A0XYG76;12;87,70;-1.052,40;0,00;0,00;EUR
+2026-03-13;11:24:01;Executed;"SCALP1rMS4QhQor";"SoFi Technologies";Security;Savings plan;US83406F1021;1,278445;15,644;-19,99999358;0,00;0,00;EUR
+2026-03-12;01:00:00;Executed;"DM6REOJAPY26FKNK5RZAJB";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2026-03-10;09:41:42;Executed;"SCALziq2GR7HqHX";"NN Group";Security;Buy;NL0010773842;15;66,82;-1.002,30;0,00;0,00;EUR
+2026-03-09;20:09:13;Executed;"SCAL8vJ1RovMGrE";"Rio Tinto PLC";Security;Buy;GB0007188757;13;77,22;-1.003,86;0,00;0,00;EUR
+2026-03-09;12:15:30;Executed;"SCALyLUhnmFt2MB";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Savings plan;BRPETRACNPR6;2,857142;7,00;-19,999994;0,00;0,00;EUR
+2026-03-06;07:39:05;Executed;"SCALzWpJRfvYZvM";"Rio Tinto PLC";Security;Buy;GB0007188757;35;78,50;-2.747,50;0,00;0,00;EUR
+2026-03-06;01:00:00;Executed;"DMA5W3XYUH5YPZ1CAAKXJK";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2026-03-04;11:35:56;Executed;"SCALBVoUYECQFEj";"L&G Global Quality Dividends UCITS ETF - USD Distributing ETF";Security;Savings plan;IE0005AJA0P1;2,175095;9,195;-19,999998525;0,00;0,00;EUR
+2026-03-04;11:18:01;Executed;"SCALZeLkZZQCFdk";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,56617;12,77;-19,9999909;0,00;0,00;EUR
+2026-03-04;01:00:00;Executed;"467426_peaa4fChmSyeXtJHDJp71N";"Petrobras - Petroleo Brasileiro SA Vz.";Cash;Distribution;BRPETRACNPR6;;;0,04;0,00;0,01;EUR
+2026-03-04;01:00:00;Executed;"89GV2YLD1133VJLVWNNSFG";"Scalable Capital Broker Auszahlung";Cash;Withdrawal;;;;-1.000,00;0,00;;EUR
+2026-03-03;10:59:52;Cancelled;"SCALavQf1Y8aXaK";"Lumentum Holdings";Security;Sell;US55024U1097;0;0,00;0,00;0,00;0,00;EUR
+2026-03-03;01:00:00;Executed;"EAJRBKFQWYEPKC59QEMRDG";"Scalable Capital Broker 2x Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2026-03-02;07:28:03;Cancelled;"SCALb1X116ZGpne";"Lumentum Holdings";Security;Sell;US55024U1097;0;0,00;0,00;0,00;0,00;EUR
+2026-03-02;01:00:00;Executed;"377461_peaa4fChmSyeXtJHDJp71N";"Siemens Energy";Cash;Distribution;DE000ENER6Y0;;;18,14;0,00;7,06;EUR
+2026-03-01;01:00:00;Executed;"460927_peaa4fChmSyeXtJHDJp71N";"Petrobras - Petroleo Brasileiro SA Vz.";Cash;Distribution;BRPETRACNPR6;;;0,04;0,00;0,01;EUR
+2026-02-27;16:26:21;Executed;"SCALwBo24Rnowmp";"L&G Global Quality Dividends UCITS ETF - USD Distributing ETF";Security;Buy;IE0005AJA0P1;5;9,38;-46,90;0,99;0,00;EUR
+2026-02-27;16:24:28;Executed;"SCAL7EB244tYQcq";"VanEck Quantum Computing (Acc)";Security;Sell;IE0007Y8Y157;0,639072;21,11;13,49080992;0,99;-0,25;EUR
+2026-02-27;08:58:11;Executed;"SCALAsCXxpBbQJX";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Buy;BRPETRACNPR6;155;6,474;-1.003,47;0,00;0,00;EUR
+2026-02-27;06:45:00;Cancelled;"SCALVfofpC4qGCs";"Siemens Energy";Security;Sell;DE000ENER6Y0;0;0,00;0,00;0,00;0,00;EUR
+2026-02-27;01:00:00;Executed;"260227-NQ5RTK6ZHHGPIB5ZEJ9SWQ";"SOC";Cash;Deposit;;;;1.000,00;0,00;;EUR
+2026-02-25;16:05:42;Cancelled;"SCALzNveyNNtVp4";"Lumentum Holdings";Security;Sell;US55024U1097;0;0,00;0,00;0,00;0,00;EUR
+2026-02-25;16:05:01;Cancelled;"SCALVCZ3hvm2yuC";"Lumentum Holdings";Security;Sell;US55024U1097;0;0,00;0,00;0,00;0,00;EUR
+2026-02-25;12:40:28;Cancelled;"SCALPREHwiQEUZu";"Siemens Energy";Security;Sell;DE000ENER6Y0;0;0,00;0,00;0,00;0,00;EUR
+2026-02-25;09:23:01;Cancelled;"SCAL34jUbnMCJYC";"Siemens Energy";Security;Sell;DE000ENER6Y0;0;0,00;0,00;0,00;0,00;EUR
+2026-02-24;01:00:00;Executed;"345048_peaa4fChmSyeXtJHDJp71N";"Petrobras - Petroleo Brasileiro SA Vz.";Cash;Distribution;BRPETRACNPR6;;;1,85;0,00;0,72;EUR
+2026-02-23;16:27:36;Cancelled;"SCALZc1M65Yz5C3";"Lumentum Holdings";Security;Sell;US55024U1097;0;0,00;0,00;0,00;0,00;EUR
+2026-02-20;17:25:38;Cancelled;"SCALA6VLmkquLi8";"Lumentum Holdings";Security;Sell;US55024U1097;0;0,00;0,00;0,00;0,00;EUR
+2026-02-20;07:49:31;Cancelled;"SCAL6oj6xdEEoAk";"Siemens Energy";Security;Sell;DE000ENER6Y0;0;0,00;0,00;0,00;0,00;EUR
+2026-02-20;01:43:03;Cancelled;"SCAL4BQ2A3xA8Zm";"Lumentum Holdings";Security;Sell;US55024U1097;0;0,00;0,00;0,00;0,00;EUR
+2026-02-16;01:00:00;Executed;"3FIGOBSFT4GELDIQ";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2026-02-13;11:48:01;Executed;"SCALgWxzNs28oEM";"SoFi Technologies";Security;Savings plan;US83406F1021;1,231223;16,244;-19,999986412;0,00;0,00;EUR
+2026-02-12;01:00:00;Executed;"AAMWAFRQMZWDATHCJUHK5F";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2026-02-09;11:29:01;Executed;"SCALTn15YJ5H53a";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Savings plan;BRPETRACNPR6;3,39847;5,885;-19,99999595;0,00;0,00;EUR
+2026-02-09;10:44:27;Executed;"SCALH9BPkvYiBSa";"SoFi Technologies";Security;Buy;US83406F1021;7;18,42;-128,94;0,99;0,00;EUR
+2026-02-09;10:43:47;Executed;"SCALBHYKX9izrud";"VanEck Quantum Computing (Acc)";Security;Sell;IE0007Y8Y157;6;21,27;127,62;0,99;-0,01;EUR
+2026-02-06;01:00:00;Executed;"NYKSMKDDI6GDL2BUZIYIQU";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2026-02-04;11:43:34;Executed;"SCALG3ZYU6FkEBi";"VanEck Quantum Computing (Acc)";Security;Savings plan;IE0007Y8Y157;0,930882;21,485;-19,99999977;0,00;0,00;EUR
+2026-02-04;11:19:31;Executed;"SCALAHLdBJ1oZqB";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,296512;15,426;-19,999994112;0,00;0,00;EUR
+2026-02-04;01:00:00;Executed;"JQ9MNFQMJY6ELEBUVYYQE8";"Scalable Capital Broker 2x Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2026-02-03;15:54:10;Executed;"SCAL2iNpaMfRpTT";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Buy;BRPETRACNPR6;50;6,015;-300,75;0,00;0,00;EUR
+2026-02-03;15:50:41;Executed;"SCALdFrUBeGUZ7r";"Lumentum Holdings";Security;Buy;US55024U1097;2;379,40;-758,80;0,00;0,00;EUR
+2026-02-01;01:00:00;Executed;"260131-VCBZDW2HHDDAZDSCO27PCQ";"PBS";Cash;Deposit;;;;1.000,00;0,00;;EUR
+2026-01-29;21:47:17;Executed;"SCALeGbDAneoMAD";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Buy;BRPETRACNPR6;150;6,094;-914,10;0,00;0,00;EUR
+2026-01-29;21:46:31;Executed;"SCALhebUv7RU7XN";"Cloudflare A";Security;Buy;US18915M1071;27;149,92;-4.047,84;0,00;0,00;EUR
+2026-01-29;21:45:14;Executed;"SCALidw5i1VTWfV";"Amazon.com";Security;Sell;US0231351067;25;201,50;5.037,50;0,00;-66,47;EUR
+2026-01-24;01:00:00;Executed;"359709_peaa4fChmSyeXtJHDJp71N";"Vorabpauschale: VanEck ETF-Quantum Computing (IE0007Y8Y157)";Cash;Taxes;;;;-0,07;0,00;;EUR
+2026-01-23;11:01:38;Executed;"SCALvCZNKZ2yB54";"Lumentum Holdings";Security;Buy;US55024U1097;1;301,10;-301,10;0,00;0,00;EUR
+2026-01-23;10:42:32;Executed;"SCALzuns6KN4mzs";"Chipotle Mexican Grill";Security;Sell;US1696561059;1;34,34;34,34;0,99;1,34;EUR
+2026-01-23;01:00:00;Executed;"SWITCH-101-peaa4fChmSyeXtJHDJp71N-VvB5pc-EUR-TAX_RETURN-RKN";"Transfer Baader Bank";Cash;Deposit;;;;22,94;0,00;;EUR
+2026-01-22;11:49:41;Executed;"SCALyFhs6d3aTtU";"Lumentum Holdings";Security;Buy;US55024U1097;5;319,60;-1.598,00;0,00;0,00;EUR
+2026-01-22;11:49:07;Executed;"SCALJMzWhBja3GQ";"Robinhood Markets A";Security;Sell;US7707001027;17;91,87;1.561,79;0,00;-59,42;EUR
+2026-01-22;01:00:00;Executed;"260122-9HDQWYSVEQPBOBBLRKRAAM";"+broker";Cash;Deposit;;;;5,00;0,00;;EUR
+2026-01-16;01:00:00;Executed;"6XEXTNLISA6YABBO";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2026-01-13;11:43:00;Executed;"SCAL4TnhfZBwogR";"SoFi Technologies";Security;Savings plan;US83406F1021;0,871649;22,945;-19,999986305;0,00;0,00;EUR
+2026-01-12;01:00:00;Executed;"8CGGGATFTT839KALLGQR4H";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2026-01-09;12:09:46;Executed;"SCALDPQo1YyvHza";"Amazon.com";Security;Buy;US0231351067;25;211,00;-5.275,00;0,00;0,00;EUR
+2026-01-09;12:08:38;Executed;"SCALmRfceAq5Amc";"Rheinmetall";Security;Sell;DE0007030009;3;1.871,50;5.614,50;0,00;168,04;EUR
+2026-01-07;12:03:31;Executed;"SCALmvWLzvEWq8d";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Savings plan;BRPETRACNPR6;4,054738;4,9325;-19,999995185;0,00;0,00;EUR
+2026-01-06;01:00:00;Executed;"WTUT3L8X2JQT6JXFNRGUUK";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2026-01-05;11:32:01;Executed;"SCALsaBCnwZZ9Zg";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,359989;14,706;-19,999998234;0,00;0,00;EUR
+2026-01-05;11:25:34;Executed;"SCALF6wVQuPaVZr";"VanEck Quantum Computing (Acc)";Security;Savings plan;IE0007Y8Y157;0,907441;22,04;-19,99999964;0,00;0,00;EUR
+2026-01-02;13:15:20;Executed;"SCALpdTaYa6MbQq";"Siemens Energy";Security;Buy;DE000ENER6Y0;8;121,45;-971,60;0,00;0,00;EUR
+2026-01-02;01:00:00;Executed;"260102-NDBYPVQA1AHPB9FK8OTBH8";"SOC";Cash;Deposit;;;;1.000,00;0,00;;EUR
+2026-01-02;01:00:00;Executed;"ZX236CIO12PZKKLTACC7O";"Scalable Capital Broker 2x Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2026-01-01;01:00:00;Executed;"576ff2c9-4ecd-4c85-ad78-ac4120d778e1";;Cash;Interest;;;;0,04;0,00;0,02;EUR
+2026-01-01;01:00:00;Executed;"cd933f7b-bad4-43f7-b638-be2f8e634251";;Cash;Interest;;;;-17,75;0,00;0,00;EUR
+2025-12-31;01:00:00;Executed;"333650_peaa4fChmSyeXtJHDJp71N";"Petrobras - Petroleo Brasileiro SA Vz.";Cash;Distribution;BRPETRACNPR6;;;0,17;0,00;0,06;EUR
+2025-12-31;01:00:00;Executed;"333652_peaa4fChmSyeXtJHDJp71N";"Petrobras - Petroleo Brasileiro SA Vz.";Cash;Distribution;BRPETRACNPR6;;;0,10;0,00;0,01;EUR
+2025-12-29;15:46:28;Executed;"SCALVkt4kHYwsdP";"Robinhood Markets A";Security;Buy;US7707001027;5;100,40;-502,00;0,00;0,00;EUR
+2025-12-28;01:00:00;Executed;"251228-UCMAFF7E68QUL1RHKLIGHB";"sclbl";Cash;Deposit;;;;600,00;0,00;;EUR
+2025-12-22;22:26:14;Executed;"SCAL1zXf1aMrvmZ";"DroneShield";Security;Buy;AU000000DRO2;100;1,838;-183,80;0,99;0,00;EUR
+2025-12-22;01:00:00;Executed;"251222-NVSJUOPUL9WUQFFTPHDQW7";"+broker";Cash;Deposit;;;;5,00;0,00;;EUR
+2025-12-18;22:25:13;Executed;"SCAL7HMvbD9MHF5";"Rubrik";Security;Buy;US7811541090;4;65,50;-262,00;0,00;0,00;EUR
+2025-12-18;16:36:50;Executed;"SCALvsCbuW9Wxif";"Siemens Energy";Security;Buy;DE000ENER6Y0;17;119,10;-2.024,70;0,00;0,00;EUR
+2025-12-18;16:35:58;Executed;"SCALfvVMPMJ4P96";"Linde";Security;Sell;IE000S9YS762;6;360,60;2.163,60;0,00;0,00;EUR
+2025-12-16;01:00:00;Executed;"F7US6R6R9PNA6BAN";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-12-15;11:54:56;Executed;"SCALjcaeKr5GSF3";"SoFi Technologies";Security;Savings plan;US83406F1021;0,854883;23,395;-19,999987785;0,00;0,00;EUR
+2025-12-12;01:00:00;Executed;"BPRWA9ZVQDJDRWYGMVHFBS";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-12-11;16:59:07;Executed;"SCAL2FLsvTbx49h";"Robinhood Markets A";Security;Buy;US7707001027;12;106,00;-1.272,00;0,00;0,00;EUR
+2025-12-11;16:46:54;Cancelled;"SCALfZ3uyhBvj4E";"Robinhood Markets A";Security;Buy;US7707001027;0;0,00;0,00;0,00;0,00;EUR
+2025-12-11;12:29:22;Executed;"SCALG3dSeqMMbtz";"Linde";Security;Buy;IE000S9YS762;6;334,80;-2.008,80;0,00;0,00;EUR
+2025-12-11;11:27:13;Executed;"SCALYfe75SSWuQN";"NN Group";Security;Buy;NL0010773842;65;63,30;-4.114,50;0,00;0,00;EUR
+2025-12-11;11:26:37;Executed;"SCALMxPHpaL6ryh";"VanEck Morningstar Developed Markets Dividend Leaders (Dist)";Security;Sell;NL0011683594;90;46,94;4.224,60;0,00;1,24;EUR
+2025-12-10;08:33:40;Executed;"SCAL5UZBUS4mMJq";"Siemens Energy";Security;Buy;DE000ENER6Y0;2;120,95;-241,90;0,99;0,00;EUR
+2025-12-10;08:32:48;Executed;"SCALWXTYHNkqHbm";"Siemens Energy";Security;Buy;DE000ENER6Y0;3;120,95;-362,85;0,00;0,00;EUR
+2025-12-10;08:29:21;Executed;"SCALpTG4Mgd8Ra8";"Siemens Energy";Security;Buy;DE000ENER6Y0;6;120,90;-725,40;0,00;0,00;EUR
+2025-12-10;08:26:48;Executed;"SCALNqGGyDR6G6K";"Alibaba Group Hldg";Security;Sell;KYG017191142;70;16,72;1.170,40;0,00;0,00;EUR
+2025-12-09;19:27:46;Executed;"SCALfTDaCNpcy1P";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Buy;BRPETRACNPR6;20;5,166;-103,32;0,99;0,00;EUR
+2025-12-09;09:51:02;Executed;"SCALrb7XQ2Jabst";"VanEck Morningstar Developed Markets Dividend Leaders (Dist)";Security;Buy;NL0011683594;90;46,87;-4.218,30;0,00;0,00;EUR
+2025-12-08;21:49:47;Executed;"SCALvzn2ztvP1D8";"Nu Holdings A";Security;Buy;KYG6683N1034;8;14,324;-114,592;0,99;0,00;EUR
+2025-12-08;01:00:00;Executed;"5KX6MI";"Migration Cash";Cash;Deposit;;;;1.884,26;0,00;;EUR
+2025-12-06;01:00:00;Executed;"SWITCH-101-peaa4fChmSyeXtJHDJp71N-KYG017191142-WDP";"Alibaba Group Hldg";Security;Security transfer;KYG017191142;70;17,00;1.190,00;;;EUR
+2025-12-06;01:00:00;Executed;"SWITCH-101-peaa4fChmSyeXtJHDJp71N-US19260Q1076-WDP";"Coinbase Global A";Security;Security transfer;US19260Q1076;8;232,15;1.857,20;;;EUR
+2025-12-06;01:00:00;Executed;"SWITCH-101-peaa4fChmSyeXtJHDJp71N-US7731211089-WDP";"Rocket Lab";Security;Security transfer;US7731211089;83;42,00;3.486,00;;;EUR
+2025-12-06;01:00:00;Executed;"SWITCH-101-peaa4fChmSyeXtJHDJp71N-HK0941009539-WDP";"China Mobile";Security;Security transfer;HK0941009539;6;8,56;51,36;;;EUR
+2025-12-06;01:00:00;Executed;"SWITCH-101-peaa4fChmSyeXtJHDJp71N-EUR-WITHDRAWAL";"";Cash;Withdrawal;;;;-1.884,26;0,00;;EUR
+2025-12-06;01:00:00;Executed;"SWITCH-101-peaa4fChmSyeXtJHDJp71N-DE0007030009-WDP";"Rheinmetall";Security;Security transfer;DE0007030009;3;1.532,00;4.596,00;;;EUR
+2025-12-06;01:00:00;Executed;"SWITCH-101-peaa4fChmSyeXtJHDJp71N-US83406F1021-WDP";"SoFi Technologies";Security;Security transfer;US83406F1021;33,276;23,95;796,9602;;;EUR
+2025-12-05;01:00:00;Executed;"WWUM 00596221210";"SoFi Technologies";Security;Security transfer;US83406F1021;-33,276;24,06;-800,62056;;;EUR
+2025-12-05;01:00:00;Executed;"WWUM 00596220803";"China Mobile";Security;Security transfer;HK0941009539;-6;9,59327809;-57,55966854;;;EUR
+2025-12-05;01:00:00;Executed;"WWUM 00596220892";"Alibaba Group Hldg";Security;Security transfer;KYG017191142;-70;16,96;-1.187,20;;;EUR
+2025-12-05;01:00:00;Executed;"WWUM 00596221097";"Rocket Lab";Security;Security transfer;US7731211089;-83;42,60;-3.535,80;;;EUR
+2025-12-05;01:00:00;Executed;"WWUM 00596220689";"Rheinmetall";Security;Security transfer;DE0007030009;-3;1.540,00;-4.620,00;;;EUR
+2025-12-05;01:00:00;Executed;"52025004";"KKT-Abschluss";Cash;Interest;;;;-17,71;0,00;0,00;EUR
+2025-12-05;01:00:00;Executed;"2ZHWDEGAFXGF7RKCGLVSY4";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-12-05;01:00:00;Executed;"WWUM 00596221003";"Coinbase Global A";Security;Security transfer;US19260Q1076;-8;235,60;-1.884,80;;;EUR
+2025-12-04;11:29:32;Executed;"SCALoUCNFKPUtTS";"VanEck Quantum Computing (Acc)";Security;Savings plan;IE0007Y8Y157;0,91722;21,805;-19,9999821;0,00;0,00;EUR
+2025-12-04;11:00:31;Executed;"SCALBVma6zi4b5R";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,332267;15,012;-19,999992204;0,00;0,00;EUR
+2025-12-03;01:00:00;Executed;"3JQIYGKCGDGJHDS99CXPW1";"Scalable Capital Broker 2x Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2025-11-27;01:00:00;Executed;"281238_peaa4fChmSyeXtJHDJp71N";"Petrobras - Petroleo Brasileiro SA Vz.";Cash;Distribution;BRPETRACNPR6;;;0,26;0,00;0,09;EUR
+2025-11-24;01:00:00;Executed;"251124-WZAIGQ6WGY5EBPCFZRNCBG";"+broker";Cash;Deposit;;;;5,00;0,00;;EUR
+2025-11-19;16:11:53;Executed;"SCALWQa4wXiKU4H";"SoFi Technologies";Security;Buy;US83406F1021;13;23,09;-300,17;0,00;0,00;EUR
+2025-11-19;16:11:04;Executed;"SCALYJTWwu9Yf4N";"VanEck Quantum Computing (Acc)";Security;Sell;IE0007Y8Y157;12;21,07;252,84;0,00;0,00;EUR
+2025-11-19;14:19:35;Executed;"SCALcU1vyhz4WWf";"Rheinmetall";Security;Buy;DE0007030009;1;1.610,50;-1.610,50;0,00;0,00;EUR
+2025-11-19;14:19:15;Executed;"SCALCQWTZ7b56tr";"Alibaba Group Hldg";Security;Sell;KYG017191142;95;17,21;1.634,95;0,00;0,00;EUR
+2025-11-19;01:00:00;Executed;"AASE 89621923";"";Cash;Taxes;;;;82,41;0,00;;EUR
+2025-11-17;01:00:00;Executed;"RZDTVMG8HOLWPEO5";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-11-13;11:24:30;Executed;"SCALkQaMX18RmgL";"SoFi Technologies";Security;Savings plan;US83406F1021;0,721891;27,705;-19,999990155;0,00;0,00;EUR
+2025-11-12;01:00:00;Executed;"6PAKZGKDHNJRK9CLDKQMOA";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-11-07;11:44:30;Executed;"SCALURVmaJvPyAQ";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Savings plan;BRPETRACNPR6;3,835091;5,215;-19,999999565;0,00;0,00;EUR
+2025-11-06;01:00:00;Executed;"7XJTC8RTPEISSLUBUERRBS";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-11-04;13:58:30;Executed;"SCALE96QFrCK7pW";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,453065;13,764;-19,99998666;0,00;0,00;EUR
+2025-11-04;13:52:03;Executed;"SCALYLur49pBrKF";"VanEck Quantum Computing (Acc)";Security;Savings plan;IE0007Y8Y157;0,858922;23,285;-19,99999877;0,00;0,00;EUR
+2025-11-03;01:00:00;Executed;"JWUJXZRGPAORQHCRCKRBHT";"Scalable Capital Broker 2x Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2025-10-30;14:22:52;Executed;"SCALvY2N1W3x88V";"Chipotle Mexican Grill";Security;Buy;US1696561059;1;27,60;-27,60;0,99;0,00;EUR
+2025-10-30;01:00:00;Executed;"544c9212cefd415387b9e2";"Refer a Friend - Bonus";Cash;Deposit;;;;25,00;0,00;;EUR
+2025-10-22;02:00:00;Executed;"251022-GS6TEWJXTVGZT7BYKKEHBU";"+broker";Cash;Deposit;;;;5,00;0,00;;EUR
+2025-10-17;19:27:52;Executed;"SCALRXHgmEZLp8t";"Alibaba Group Hldg";Security;Buy;KYG017191142;15;17,902;-268,53;0,00;0,00;EUR
+2025-10-17;18:00:26;Executed;"SCAL8GyNq8uxbC6";"Rheinmetall";Security;Buy;DE0007030009;2;1.672,50;-3.345,00;0,00;0,00;EUR
+2025-10-17;17:59:44;Executed;"SCALbcU5ib8ePi1";"Cloudflare A";Security;Sell;US18915M1071;21;176,92;3.715,32;0,00;47,54;EUR
+2025-10-15;02:00:00;Executed;"UODY3J6JEFQMVMVI";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-10-14;19:36:38;Executed;"SCALzZyBBzX8sWM";"SoFi Technologies";Security;Buy;US83406F1021;4;24,12;-96,48;0,99;0,00;EUR
+2025-10-13;11:27:30;Executed;"SCALwv7gQ8BLK2v";"SoFi Technologies";Security;Savings plan;US83406F1021;0,842282;23,745;-19,99998609;0,00;0,00;EUR
+2025-10-10;02:00:00;Executed;"VZKHTDMJALUYHMPZJRBVNR";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-10-07;11:31:00;Executed;"SCALrxExe68eJjD";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Savings plan;BRPETRACNPR6;3,897116;5,132;-19,999999312;0,00;0,00;EUR
+2025-10-06;11:53:38;Executed;"SCALjf4wYXTWCjU";"VanEck Quantum Computing (Acc)";Security;Savings plan;IE0007Y8Y157;0,855249;23,385;-19,999997865;0,00;0,00;EUR
+2025-10-06;11:37:31;Executed;"SCALbSvqsxjo2B3";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,513546;13,214;-19,999996844;0,00;0,00;EUR
+2025-10-06;02:00:00;Executed;"HCT3D4JJEQUZZCZA5T1JG8";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-10-03;02:00:00;Executed;"WWEK 52292629";"NVIDIA";Cash;Distribution;US67066G1040;;;0,15;0,00;0,04;EUR
+2025-10-03;02:00:00;Executed;"PHEFZCALGE7YYTGYQ62WVH";"Scalable Capital Broker 2x Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2025-10-02;17:27:54;Executed;"SCALsar5wP83esA";"Alibaba Group Hldg";Security;Buy;KYG017191142;150;20,28;-3.042,00;0,00;0,00;EUR
+2025-10-02;17:26:04;Executed;"SCALCLJXgtjC8jn";"Amazon.com";Security;Sell;US0231351067;17;188,64;3.206,88;0,00;0,00;EUR
+2025-10-02;02:00:00;Executed;"AASE 85723589";"";Cash;Taxes;;;;6,75;0,00;;EUR
+2025-10-01;14:51:23;Cancelled;"SCALPZSDbhFaHNf";"Coinbase Global A";Security;Sell;US19260Q1076;0;0,00;0,00;0,00;0,00;EUR
+2025-10-01;02:00:00;Executed;"d4974b7e-7289-4ea9-8fee-09aaceb582e6";;Cash;Interest;;;;0,05;0,00;0,02;EUR
+2025-09-30;16:13:00;Executed;"SCALj1iibvKmwh2";"SoFi Technologies";Security;Sell;US83406F1021;11;22,235;244,585;0,99;25,38;EUR
+2025-09-30;02:00:00;Executed;"ARKA 00820502707";"KKT-Abschluss";Cash;Interest;;;;-24,02;0,00;0,02;EUR
+2025-09-29;12:40:34;Executed;"SCALoKVfF3yxTtZ";"Amazon.com";Security;Buy;US0231351067;17;190,06;-3.231,02;0,00;0,00;EUR
+2025-09-29;12:39:35;Executed;"SCAL2PsZAV6qENN";"NVIDIA";Security;Sell;US67066G1040;22;153,10;3.368,20;0,00;391,28;EUR
+2025-09-24;16:52:02;Executed;"SCALcsrMkZNfEqm";"VanEck Quantum Computing (Acc)";Security;Buy;IE0007Y8Y157;6;22,045;-132,27;0,99;0,00;EUR
+2025-09-23;21:02:32;Executed;"SCALXJN8Pp37Aop";"Coinbase Global A";Security;Buy;US19260Q1076;8;271,05;-2.168,40;0,00;0,00;EUR
+2025-09-23;21:01:25;Executed;"SCAL3hfyFULGbNX";"Alphabet A";Security;Sell;US02079K3059;11;212,40;2.336,40;0,00;37,41;EUR
+2025-09-22;02:00:00;Executed;"250922-NTCTDDR6XP4SPJXCDQVF5R";"+broker";Cash;Deposit;;;;5,00;0,00;;EUR
+2025-09-18;11:43:06;Executed;"SCALqSqbLJfE8qu";"VanEck Quantum Computing (Acc)";Security;Buy;IE0007Y8Y157;4;20,75;-83,00;0,99;0,00;EUR
+2025-09-18;11:42:27;Executed;"SCALxtTMqHXbhAc";"Scandinavian Tobacco Group";Security;Sell;DK0060696300;7;12,16;85,12;0,99;0,00;EUR
+2025-09-18;10:56:34;Executed;"SCALankDFTgJyKH";"VanEck Quantum Computing (Acc)";Security;Buy;IE0007Y8Y157;2;20,79;-41,58;0,99;0,00;EUR
+2025-09-18;10:55:57;Executed;"SCALrTuURzbTZDe";"Ferrexpo";Security;Sell;GB00B1XH2C03;50;0,625;31,25;0,99;0,00;EUR
+2025-09-18;02:00:00;Executed;"WWEK 51340638";"China Mobile";Cash;Distribution;HK0941009539;;;1,33;0,00;0,47;EUR
+2025-09-18;02:00:00;Executed;"AASE 84525691";"";Cash;Taxes;;;;0,43;0,00;;EUR
+2025-09-16;02:00:00;Executed;"WWEK 51154716";"Alphabet A";Cash;Distribution;US02079K3059;;;1,45;0,00;0,50;EUR
+2025-09-15;11:58:30;Executed;"SCAL5hnifrfHyKW";"SoFi Technologies";Security;Savings plan;US83406F1021;0,872029;22,935;-19,999985115;0,00;0,00;EUR
+2025-09-15;02:00:00;Executed;"3V2JMYW5JF1RWXT1";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-09-12;02:00:00;Executed;"C2KBEVMLFTM91GEJSCRZ3A";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-09-08;20:30:12;Executed;"SCALZyH93G2AuDn";"SoFi Technologies";Security;Buy;US83406F1021;3;22,09;-66,27;0,99;0,00;EUR
+2025-09-08;11:02:00;Executed;"SCALrn1UW1ee9Ra";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Savings plan;BRPETRACNPR6;3,952569;5,06;-19,99999914;0,00;0,00;EUR
+2025-09-05;19:11:25;Executed;"SCALhXZ5sqwJ14e";"Scandinavian Tobacco Group";Security;Buy;DK0060696300;7;12,24;-85,68;0,99;0,00;EUR
+2025-09-05;15:49:21;Executed;"SCALYA2RKoUgqAL";"Alphabet A";Security;Buy;US02079K3059;11;200,25;-2.202,75;0,00;0,00;EUR
+2025-09-05;15:47:49;Executed;"SCAL1pShsQqY3Wz";"Coinbase Global A";Security;Sell;US19260Q1076;9;261,60;2.354,40;0,00;0,00;EUR
+2025-09-05;02:00:00;Executed;"OF69ZX66HLQPHRTGBSAMNW";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-09-05;02:00:00;Executed;"AASE 84335262";"";Cash;Taxes;;;;21,28;0,00;;EUR
+2025-09-04;11:46:32;Executed;"SCALGUBimnoz8nz";"VanEck Quantum Computing (Acc)";Security;Savings plan;IE0007Y8Y157;1,072386;18,65;-19,9999989;0,00;0,00;EUR
+2025-09-04;11:17:01;Executed;"SCALegbFfPZxQX1";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,56128;12,81;-19,9999968;0,00;0,00;EUR
+2025-09-03;02:00:00;Executed;"6E1JFWVPGSNTNN5Z3BBJIZ";"Scalable Capital Broker 2x Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2025-08-22;02:00:00;Executed;"250822-KOXH9WYQVQHZLGZNSWUHHF";"+broker";Cash;Deposit;;;;5,00;0,00;;EUR
+2025-08-21;20:18:11;Executed;"SCALfyqv3sx3Bjs";"Ferrexpo";Security;Buy;GB00B1XH2C03;50;0,645;-32,25;0,99;0,00;EUR
+2025-08-15;02:00:00;Executed;"5B6UWCIOX3DDQ2YG";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-08-13;11:57:01;Executed;"SCAL4LycD1aMM6Y";"SoFi Technologies";Security;Savings plan;US83406F1021;0,969461;20,63;-19,99998043;0,00;0,00;EUR
+2025-08-12;16:00:57;Executed;"SCALvQAqgPhAmmJ";"Coinbase Global A";Security;Buy;US19260Q1076;9;270,05;-2.430,45;0,00;0,00;EUR
+2025-08-12;15:58:52;Executed;"SCALRZnsVN6tymL";"ASML Holding";Security;Sell;NL0010273215;4;624,50;2.498,00;0,00;32,58;EUR
+2025-08-12;02:00:00;Executed;"4IBKHXXEYCPYLVU4PRTYRQ";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-08-11;17:58:04;Executed;"SCALoy8raUc2HLb";"SoFi Technologies";Security;Buy;US83406F1021;8;19,80;-158,40;0,99;0,00;EUR
+2025-08-11;16:08:21;Executed;"SCALmgKmHTLeEtW";"Cloudflare A";Security;Buy;US18915M1071;7;177,36;-1.241,52;0,00;0,00;EUR
+2025-08-11;15:43:35;Cancelled;"SCALJgBCFeJRyiJ";"Coinbase Global A";Security;Buy;US19260Q1076;0;0,00;0,00;0,00;0,00;EUR
+2025-08-11;15:41:21;Executed;"SCALinxrPtQo5Dn";"Novo-Nordisk B";Security;Sell;DK0062498333;33;43,095;1.422,135;0,00;34,73;EUR
+2025-08-08;13:42:30;Executed;"SCALMxVNG2rpuUJ";"SoFi Technologies";Security;Buy;US83406F1021;5;19,234;-96,17;0,99;0,00;EUR
+2025-08-07;16:37:01;Executed;"SCALPdCJR5bTs3k";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Savings plan;BRPETRACNPR6;3,756574;5,324;-19,999999976;0,00;0,00;EUR
+2025-08-07;08:30:48;Executed;"SCALyu8hK9sYJEg";"Novo-Nordisk B";Security;Buy;DK0062498333;33;39,335;-1.298,055;0,00;0,00;EUR
+2025-08-07;08:28:53;Executed;"SCAL4ZcSM1booJE";"Hoeegh Autoliners";Security;Sell;NO0011082075;128;9,305;1.191,04;0,00;0,00;EUR
+2025-08-07;02:00:00;Executed;"AASE 83243280";"";Cash;Taxes;;;;47,37;0,00;;EUR
+2025-08-06;02:00:00;Executed;"EKCVVGQKIFGYBZTNPCQ6AD";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-08-05;16:58:13;Executed;"SCALxedBXwWxTG2";"ASML Holding";Security;Buy;NL0010273215;4;595,40;-2.381,60;0,00;0,00;EUR
+2025-08-04;20:22:55;Executed;"SCALk5SHMiQ1gvD";"Cloudflare A";Security;Buy;US18915M1071;6;181,30;-1.087,80;0,00;0,00;EUR
+2025-08-04;20:19:54;Cancelled;"SCALnMTzJVrv6rc";"ROCKET LAB CORP.";Security;Sell;US7731211089;0;0,00;0,00;0,00;0,00;EUR
+2025-08-04;20:08:33;Executed;"SCALxrcuj4amcAo";"ROCKET LAB CORP.";Security;Buy;US7731211089;25;39,20;-980,00;0,00;0,00;EUR
+2025-08-04;11:43:32;Executed;"SCAL7H5G8UXw8GD";"VanEck Quantum Computing UCITS ETF";Security;Savings plan;IE0007Y8Y157;1,096972;18,232;-19,999993504;0,00;0,00;EUR
+2025-08-01;15:46:21;Executed;"SCALUBxJSv9Eqhu";"Robinhood Markets A";Security;Sell;US7707001027;29;80,93;2.346,97;0,00;80,75;EUR
+2025-08-01;02:00:00;Executed;"IT1HELV3ETBRQTCU5JFEHP";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-07-31;22:09:09;Executed;"SCALhsppBAaKaRU";"Coinbase Global A";Security;Sell;US19260Q1076;8;303,45;2.427,60;0,00;74,35;EUR
+2025-07-31;07:05:04;Cancelled;"SCAL7455GhhiAyM";"Robinhood Markets A";Security;Sell;US7707001027;0;0,00;0,00;0,00;0,00;EUR
+2025-07-28;13:11:42;Cancelled;"SCALBi9tcLyUzLC";"Robinhood Markets A";Security;Sell;US7707001027;0;0,00;0,00;0,00;0,00;EUR
+2025-07-22;12:53:39;Cancelled;"SCALqkotBfXhrtq";"ROCKET LAB CORP.";Security;Sell;US7731211089;0;0,00;0,00;0,00;0,00;EUR
+2025-07-22;02:00:00;Executed;"250722-DQBHANDEHK5ZTHGAXJWKQI";"+broker";Cash;Deposit;;;;5,00;0,00;;EUR
+2025-07-17;16:52:39;Cancelled;"SCALePXkkPSVcR7";"Coinbase Global A";Security;Sell;US19260Q1076;0;0,00;0,00;0,00;0,00;EUR
+2025-07-16;19:02:25;Executed;"SCALvHpUNKZTcA9";"SoFi Technologies";Security;Buy;US83406F1021;2;18,26;-36,52;0,99;0,00;EUR
+2025-07-15;17:32:56;Executed;"SCALwS9xYq7E3ku";"ROCKET LAB CORP.";Security;Buy;US7731211089;26;38,60;-1.003,60;0,00;0,00;EUR
+2025-07-15;17:16:03;Executed;"SCAL2m8tpSj4qom";"Uber Technologies";Security;Sell;US90353T1007;13;79,42;1.032,46;0,00;0,00;EUR
+2025-07-15;02:00:00;Executed;"YMNB9ONJ2QK6A4E1";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-07-15;02:00:00;Executed;"AASE 81357808";"";Cash;Taxes;;;;0,72;0,00;;EUR
+2025-07-14;11:28:01;Executed;"SCALz5hYA4ZcycW";"SoFi Technologies";Security;Savings plan;US83406F1021;1,095;18,262;-19,99689;0,00;0,00;EUR
+2025-07-11;02:00:00;Executed;"BKFCGJJWBHPXUGTHGRLGA2";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-07-10;16:47:31;Executed;"SCAL3HQtzFrZ58k";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,805706;11,076;-19,999999656;0,00;0,00;EUR
+2025-07-09;02:00:00;Executed;"TWRB3J72KB6STTQUUU3GEC";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-07-07;11:11:01;Executed;"SCALY4ivgw1qgDr";"Petrobras - Petroleo Brasileiro SA Vz.";Security;Savings plan;BRPETRACNPR6;3,801558;5,261;-19,999996638;0,00;0,00;EUR
+2025-07-04;02:00:00;Executed;"WWEK 48813911";"NVIDIA";Cash;Distribution;US67066G1040;;;0,15;0,00;0,04;EUR
+2025-07-04;02:00:00;Executed;"98UXDETKOYUJTFBFPCBZWG";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-07-02;22:30:04;Executed;"SCALdtf67TFdHYx";"SoFi Technologies";Security;Buy;US83406F1021;1;15,378;-15,378;0,99;0,00;EUR
+2025-07-02;21:50:52;Executed;"SCALQxxHauT8SNF";"Robinhood Markets A";Security;Buy;US7707001027;12;83,24;-998,88;0,00;0,00;EUR
+2025-07-02;02:00:00;Executed;"959380691";"Scal";Cash;Deposit;;;;1.000,00;0,00;;EUR
+2025-07-01;10:16:52;Executed;"SCAL9pDfoY5mvmZ";"ROCKET LAB CORP.";Security;Buy;US7731211089;32;30,95;-990,40;0,00;0,00;EUR
+2025-07-01;10:14:32;Executed;"SCALsxqoKrggLK1";"Uber Technologies";Security;Sell;US90353T1007;13;79,05;1.027,65;0,00;0,00;EUR
+2025-07-01;02:00:00;Executed;"e3cb00ca-fe7c-462a-a7b7-731560286408";;Cash;Interest;;;;0,02;0,00;0,00;EUR
+2025-07-01;02:00:00;Executed;"AASE 80526054";"";Cash;Taxes;;;;2,06;0,00;;EUR
+2025-06-30;02:00:00;Executed;"52025002";"KKT-Abschluss";Cash;Interest;;;;-24,75;0,00;0,00;EUR
+2025-06-26;20:31:58;Executed;"SCALj5Nhb7MguHf";"Uber Technologies";Security;Buy;US90353T1007;26;79,62;-2.070,12;0,00;0,00;EUR
+2025-06-26;20:29:58;Executed;"SCALScGFXu5yyBZ";"iShares EURO STOXX Banks 30-15 (Dist)";Security;Sell;DE0006289309;110;19,814;2.179,54;0,00;57,77;EUR
+2025-06-26;02:00:00;Executed;"WWEK 48106057";"China Mobile";Cash;Distribution;HK0941009539;;;1,19;0,00;0,43;EUR
+2025-06-23;17:36:55;Executed;"SCAL8Mtob8DTu6v";"iShares EURO STOXX Banks 30-15 (Dist)";Security;Buy;DE0006289309;10;19,55;-195,50;0,99;0,00;EUR
+2025-06-23;16:16:26;Executed;"SCALMd65eRow6uK";"Coinbase Global A";Security;Buy;US19260Q1076;8;270,25;-2.162,00;0,00;0,00;EUR
+2025-06-23;16:15:10;Executed;"SCALwFTUVkZjuHX";"Palantir Technologies";Security;Sell;US69608A1088;20;121,06;2.421,20;0,00;107,45;EUR
+2025-06-23;02:00:00;Executed;"250623-37V2LHCJLM5T4KE66ZM2P9";"+broker";Cash;Deposit;;;;5,00;0,00;;EUR
+2025-06-15;02:00:00;Executed;"EM6NOC4DTXIWLP7R";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-06-13;11:41:01;Executed;"SCALvRnJhLxq8zn";"SoFi Technologies";Security;Savings plan;US83406F1021;1,609;12,426;-19,993434;0,00;0,00;EUR
+2025-06-12;02:00:00;Executed;"VZ1RIFJFZ2HLONRBUHEXAK";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-06-10;12:11:31;Executed;"SCALn1cbWdsbUJk";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,909854;10,472;-19,999991088;0,00;0,00;EUR
+2025-06-10;08:11:19;Executed;"SCALEAnLCqsRdQC";"Robinhood Markets A";Security;Buy;US7707001027;1;64,85;-64,85;0,99;0,00;EUR
+2025-06-09;02:00:00;Executed;"K2B5EJE33Z9DP8K4Z2F7BC";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-06-03;17:11:30;Executed;"SCAL6tRZZPMUW49";"Robinhood Markets A";Security;Buy;US7707001027;16;62,17;-994,72;0,00;0,00;EUR
+2025-06-03;17:10:37;Executed;"SCALZCKyjaH9AfY";"Cloudflare A";Security;Sell;US18915M1071;7;150,38;1.052,66;0,00;0,00;EUR
+2025-06-03;02:00:00;Executed;"AASE 72727459";"";Cash;Taxes;;;;3,21;0,00;;EUR
+2025-05-22;02:00:00;Executed;"29nkgzzTuwSrTKdepRwaLM";"+broker";Cash;Deposit;;;;5,00;0,00;;EUR
+2025-05-16;10:17:09;Executed;"SCALNGYbqsY5zog";"Hoeegh Autoliners";Security;Buy;NO0011082075;5;7,57;-37,85;0,99;0,00;EUR
+2025-05-16;02:00:00;Executed;"U2XKMZ8I94HVGDHK";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-05-15;02:00:00;Executed;"WWEK 45508486";"Hoeegh Autoliners";Cash;Distribution;NO0011082075;;;42,76;0,00;48,20;EUR
+2025-05-13;14:12:31;Executed;"SCAL16RvvjVtmeT";"SoFi Technologies";Security;Savings plan;US83406F1021;1,572;12,72;-19,99584;0,00;0,00;EUR
+2025-05-12;11:30:02;Executed;"SCALRbCbtUwDtsd";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,67448;11,944;-19,99998912;0,00;0,00;EUR
+2025-05-12;02:00:00;Executed;"6XTR6CWKUL4AHCWPPNBELV";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-05-09;02:00:00;Executed;"VCOZR4O6QA1MR6QBWYJRU1";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2025-05-08;07:40:12;Executed;"SCALiXZ5qisfcYq";"SoFi Technologies";Security;Buy;US83406F1021;4;11,76;-47,04;0,99;0,00;EUR
+2025-05-08;07:30:04;Executed;"SCALE2FLLsrhn4g";"Palantir Technologies";Security;Buy;US69608A1088;1;98,81;-98,81;0,99;0,00;EUR
+2025-05-05;17:26:32;Executed;"SCALkYEiN49Hf8K";"Palantir Technologies";Security;Buy;US69608A1088;8;109,44;-875,52;0,00;0,00;EUR
+2025-05-05;17:26:02;Executed;"SCALhHt9R916QrY";"SoFi Technologies";Security;Sell;US83406F1021;84,271;11,31;953,10501;0,00;0,00;EUR
+2025-05-05;02:00:00;Executed;"AASE 72276107";"";Cash;Taxes;;;;60,47;0,00;;EUR
+2025-04-28;17:57:15;Executed;"SCALmBMiw3AvjW9";"Palantir Technologies";Security;Buy;US69608A1088;1;96,72;-96,72;0,99;0,00;EUR
+2025-04-25;10:13:57;Executed;"SCALog9KHdT6fRR";"Palantir Technologies";Security;Buy;US69608A1088;10;96,63;-966,30;0,00;0,00;EUR
+2025-04-25;10:13:17;Executed;"SCALvAu8skZoTJF";"Uber Technologies";Security;Sell;US90353T1007;15;69,06;1.035,90;0,00;0,00;EUR
+2025-04-25;02:00:00;Executed;"AASE 72185336";"";Cash;Taxes;;;;19,73;0,00;;EUR
+2025-04-22;17:14:52;Executed;"SCALj4waSrFGwHa";"NVIDIA";Security;Buy;US67066G1040;10;86,36;-863,60;0,00;0,00;EUR
+2025-04-22;17:14:16;Executed;"SCALKMV8Sf3iqRX";"iShares EURO STOXX Banks 30-15 (Dist)";Security;Sell;DE0006289309;50;17,32;866,00;0,00;4,18;EUR
+2025-04-22;02:00:00;Executed;"gWWGQgzVcoGqNhCBF6q2GB";"+broker";Cash;Deposit;;;;5,00;0,00;;EUR
+2025-04-17;17:00:01;Executed;"SCALW61b3XtyX9o";"NVIDIA";Security;Buy;US67066G1040;1;88,28;-88,28;0,99;0,00;EUR
+2025-04-16;08:50:10;Executed;"SCALYZUMHhy7L5k";"NVIDIA";Security;Buy;US67066G1040;11;92,60;-1.018,60;0,00;0,00;EUR
+2025-04-16;08:48:36;Executed;"SCALWdZkHkzwFFA";"Novo-Nordisk B";Security;Sell;DK0062498333;20;56,13;1.122,60;0,00;0,00;EUR
+2025-04-16;02:00:00;Executed;"AASE 72093120";"";Cash;Taxes;;;;12,47;0,00;;EUR
+2025-04-15;02:00:00;Executed;"VXEKJRGBOMDULTPL";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-04-14;11:25:02;Executed;"SCALVLGSsKVJ4ci";"SoFi Technologies";Security;Savings plan;US83406F1021;4,134;9,674;-39,992316;0,00;0,00;EUR
+2025-04-11;02:00:00;Executed;"PXPZ3WWSCPYHGUROMH5IN4";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2025-04-10;11:34:01;Executed;"SCALMpkoyprT3uG";"Nu Holdings A";Security;Savings plan;KYG6683N1034;1,563477;9,594;-14,999998338;0,00;0,00;EUR
+2025-04-09;02:00:00;Executed;"BWH9YERD5NKJZSZNYPMKL5";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;15,00;0,00;;EUR
+2025-04-08;09:30:48;Executed;"SCALt1f38fy8M2R";"Novo-Nordisk B";Security;Buy;DK0062498333;20;58,36;-1.167,20;0,00;0,00;EUR
+2025-04-08;09:21:43;Cancelled;"SCALYkw1fnGtW9m";"Novo-Nordisk B";Security;Buy;DK0062498333;0;0,00;0,00;0,00;0,00;EUR
+2025-04-02;02:00:00;Executed;"954501745";"Bank";Cash;Deposit;;;;1.000,00;0,00;;EUR
+2025-03-31;02:00:00;Executed;"ARKA 00681857615";"KKT-Abschluss";Cash;Interest;;;;-24,61;0,00;0,08;EUR
+2025-03-17;01:00:00;Executed;"EX6P2PZRIDE1L8K2";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-03-13;12:05:31;Executed;"SCALpKi5S7RMmbm";"SoFi Technologies";Security;Savings plan;US83406F1021;3,653;10,948;-39,993044;0,00;0,00;EUR
+2025-03-12;01:00:00;Executed;"9VUC8QZPMVNMTUKQH8WXHO";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2025-03-10;01:00:00;Executed;"WWEK 42489859";"JPMorgan Nasdaq Equity Premium Income Active (Dist)";Cash;Distribution;IE000U9J8HX9;;;9,78;0,00;2,37;EUR
+2025-03-06;01:00:00;Executed;"WWEK 42402317";"Hoeegh Autoliners";Cash;Distribution;NO0011082075;;;26,18;0,00;29,52;EUR
+2025-02-24;01:00:00;Executed;"AASE 67766491";"";Cash;Taxes;;;;0,95;0,00;;EUR
+2025-02-17;16:57:30;Executed;"SCALZ5ANZgQPH8t";"iShares EURO STOXX Banks 30-15 (Dist)";Security;Buy;DE0006289309;150;16,892;-2.533,80;0,00;0,00;EUR
+2025-02-17;16:55:47;Executed;"SCALiT3ohJdMHDi";"JPMorgan Nasdaq Equity Premium Income Active (Dist)";Security;Sell;IE000U9J8HX9;101;25,105;2.535,605;0,00;0,00;EUR
+2025-02-17;16:54:00;Executed;"SCALeGh7muze2xo";"JPMorgan Nasdaq Equity Premium Income Active (Dist)";Security;Sell;IE000U9J8HX9;5;25,105;125,525;0,99;0,08;EUR
+2025-02-17;01:00:00;Executed;"WWEK 41866829";"Main Street Capital Co";Cash;Distribution;US56035L1044;;;5,47;0,00;1,80;EUR
+2025-02-17;01:00:00;Executed;"BF12WZCSQWCHD7P8";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-02-17;01:00:00;Executed;"AASE 67609018";"";Cash;Taxes;;;;1,66;0,00;;EUR
+2025-02-17;01:00:00;Executed;"CANCEL-WWEK 37016769";"Main Street Capital Co";Cash;Distribution;US56035L1044;;;-5,34;0,00;-1,93;EUR
+2025-02-13;11:34:32;Executed;"SCALQSedkAbF2bj";"SoFi Technologies";Security;Savings plan;US83406F1021;2,814;14,214;-39,9981;0,00;0,00;EUR
+2025-02-12;01:00:00;Executed;"CRVNDYWRVEXRCEB2TIT5LR";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2025-02-10;13:57:43;Executed;"SCALGx28umgnESu";"Uber Technologies";Security;Buy;US90353T1007;15;73,76;-1.106,40;0,00;0,00;EUR
+2025-02-10;13:56:45;Executed;"SCALBdWTNEtGSFk";"Marvell Technology";Security;Sell;US5738741041;10;108,14;1.081,40;0,00;6,55;EUR
+2025-02-10;01:00:00;Executed;"WWEK 41635697";"JPMorgan Nasdaq Equity Premium Income Active (Dist)";Cash;Distribution;IE000U9J8HX9;;;5,20;0,00;1,27;EUR
+2025-02-07;08:20:58;Executed;"SCAL1D7v68fH9m5";"Cloudflare A";Security;Buy;US18915M1071;15;152,02;-2.280,30;0,00;0,00;EUR
+2025-02-07;08:18:17;Executed;"SCALZRQFXNaH2C3";"Vistra Corp";Security;Sell;US92840M1027;14;162,80;2.279,20;0,00;95,0399;EUR
+2025-02-07;08:17:52;Cancelled;"SCALGWPoV8LyKSJ";"Vistra Corp";Security;Sell;US92840M1027;0;0,00;0,00;0,00;0,00;EUR
+2025-02-05;01:00:00;Executed;"WWEK 41151213";"JPMorgan Nasdaq Equity Premium Income Active (Dist)";Cash;Taxes;IE000U9J8HX9;;;-0,01;0,00;;EUR
+2025-01-31;01:00:00;Executed;"WWEK 40376317";"Marvell Technology";Cash;Distribution;US5738741041;;;0,43;0,00;0,15;EUR
+2025-01-28;10:16:11;Executed;"SCALkKqpq3UYjzU";"Vistra Corp";Security;Buy;US92840M1027;14;138,55;-1.939,70;0,00;0,00;EUR
+2025-01-27;15:10:39;Executed;"SCALAZ7uwBfhhoX";"Palantir Technologies";Security;Sell;US69608A1088;30;70,56;2.116,80;0,00;20,32;EUR
+2025-01-21;08:00:07;Executed;"SCALpQ8ZfoTEKiU";"JPMorgan ETFs (Ireland) ICAV - JPM Nasdaq Equity Premium Income Active UCITS ETF - USD (dist)";Security;Buy;IE000U9J8HX9;70;25,22;-1.765,40;0,00;0,00;EUR
+2025-01-21;07:59:11;Executed;"SCALbEJfM42MNz1";"W.P. Carey";Security;Sell;US92936U1097;2;53,62;107,24;0,99;0,00;EUR
+2025-01-21;07:50:35;Executed;"SCALQBEkWqpBmxA";"Main Street Capital Co";Security;Sell;US56035L1044;30;58,65;1.759,50;0,00;108,93;EUR
+2025-01-20;01:00:00;Executed;"AASE 66772282";"";Cash;Taxes;;;;0,01;0,00;;EUR
+2025-01-17;01:00:00;Executed;"N424HVOIYX7UBJA2";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2025-01-16;01:00:00;Executed;"WWEK 37081504";"W.P. Carey";Cash;Distribution;US92936U1097;;;1,26;0,00;0,45;EUR
+2025-01-16;01:00:00;Executed;"WWEK 37016769";"Main Street Capital Co";Cash;Distribution;US56035L1044;;;5,34;0,00;1,93;EUR
+2025-01-14;12:52:11;Executed;"SCALMr8xg8pmRet";"Hoeegh Autoliners";Security;Buy;NO0011082075;3;9,445;-28,335;0,99;0,00;EUR
+2025-01-14;11:11:36;Executed;"SCALMWadLmJ29QD";"iShares MSCI India (Acc)";Security;Sell;IE00BZCQB185;0,926;8,74;8,0932;0,99;0,00;EUR
+2025-01-14;01:00:00;Executed;"CANCEL-WWEK 36044170";"FLEX LNG";Cash;Distribution;BMG359472021;;;-10,94;0,00;-4,61;EUR
+2025-01-14;01:00:00;Executed;"WWEK 36945900";"FLEX LNG";Cash;Distribution;BMG359472021;;;11,20;0,00;4,35;EUR
+2025-01-13;13:35:02;Executed;"SCALNDrRsAyqof2";"SoFi Technologies";Security;Savings plan;US83406F1021;2,98;13,422;-39,9975;0,00;0,00;EUR
+2025-01-10;19:39:36;Executed;"SCALjMH1y3uZSL8";"Hoeegh Autoliners";Security;Buy;NO0011082075;10;9,69;-96,90;0,99;0,00;EUR
+2025-01-10;19:29:25;Executed;"SCALRjKHvrsZyGP";"JPMorgan ETFs (Ireland) ICAV - JPM Nasdaq Equity Premium Income Active UCITS ETF - USD (dist)";Security;Buy;IE000U9J8HX9;30;25,125;-753,75;0,00;0,00;EUR
+2025-01-10;19:28:39;Executed;"SCALc5opp71kC8M";"Palantir Technologies";Security;Buy;US69608A1088;30;66,07;-1.982,10;0,00;0,00;EUR
+2025-01-10;01:00:00;Executed;"EXQN8KWH5BDWUFBCQVBMLS";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2025-01-08;01:00:00;Executed;"949474096";"Gutschrift";Cash;Deposit;;;;500,00;0,00;;EUR
+2025-01-07;16:23:18;Executed;"SCAL4ctA1LhhShM";"Palantir Technologies";Security;Sell;US69608A1088;34;69,00;2.346,00;0,00;0,00;EUR
+2025-01-07;01:00:00;Executed;"949408031";"Gutschrift";Cash;Deposit;;;;10,00;0,00;;EUR
+2025-01-07;01:00:00;Executed;"949397840";"saldo";Cash;Deposit;;;;20,00;0,00;;EUR
+2024-12-31;01:00:00;Executed;"52024003";"KKT-Abschluss";Cash;Interest;;;;-24,06;0,00;0,00;EUR
+2024-12-27;13:12:32;Executed;"SCALqDp5L6bMTmQ";"JPMorgan ETFs (Ireland) ICAV - JPM Nasdaq Equity Premium Income Active UCITS ETF - USD (dist)";Security;Buy;IE000U9J8HX9;4;24,995;-99,98;0,99;0,00;EUR
+2024-12-24;01:00:00;Executed;"948519767";"Ubertrag";Cash;Deposit;;;;90,00;0,00;;EUR
+2024-12-20;17:36:02;Executed;"SCALQo4adMU5bJG";"JPMorgan ETFs (Ireland) ICAV - JPM Nasdaq Equity Premium Income Active UCITS ETF - USD (dist)";Security;Buy;IE000U9J8HX9;2;24,985;-49,97;0,99;0,00;EUR
+2024-12-20;01:00:00;Executed;"WWUM 00410462061";"Main Street Capital Co";Security;Security transfer;US56035L1044;30;53,98;1.619,40;;;EUR
+2024-12-20;01:00:00;Executed;"WWUM 00410461967";"Hoeegh Autoliners";Security;Security transfer;NO0011082075;32;8,98;287,36;;;EUR
+2024-12-20;01:00:00;Executed;"WWEK 36102965";"Vertiv Holdings A";Cash;Distribution;US92537N1081;;;0,35;0,00;0,12;EUR
+2024-12-20;01:00:00;Executed;"WWUM 00410462151";"W.P. Carey";Security;Security transfer;US92936U1097;2;52,00;104,00;;;EUR
+2024-12-19;01:00:00;Executed;"WWEK 36044170";"FLEX LNG";Cash;Distribution;BMG359472021;;;10,94;0,00;4,61;EUR
+2024-12-19;01:00:00;Executed;"WWEK 36006034";"Hoeegh Autoliners";Cash;Distribution;NO0011082075;;;42,63;0,00;48,08;EUR
+2024-12-18;16:55:09;Executed;"SCALepUSA2hC5rA";"SoFi Technologies";Security;Buy;US83406F1021;22;16,148;-355,2559;0,00;0,00;EUR
+2024-12-18;16:54:19;Executed;"SCALLMbEDKXiT2z";"FLEX LNG";Security;Sell;BMG359472021;18;20,66;371,88;0,00;0,00;EUR
+2024-12-18;01:00:00;Executed;"AASE 66214932";"";Cash;Taxes;;;;6,94;0,00;;EUR
+2024-12-17;01:00:00;Executed;"YZW3WQA0MAFLPB8G";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2024-12-13;13:15:31;Executed;"SCALfcW2jjUHNEB";"SoFi Technologies";Security;Savings plan;US83406F1021;2,615;15,292;-39,9885;0,00;0,00;EUR
+2024-12-12;01:00:00;Executed;"5EHBBYPXRW9TH4B3MUELM7";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2024-12-10;09:25:51;Executed;"SCALtSSANPb7wWL";"Hoeegh Autoliners";Security;Buy;NO0011082075;3;9,50;-28,50;0,99;0,00;EUR
+2024-12-09;20:04:13;Executed;"SCALpZkjEQ68jyY";"Palantir Technologies";Security;Buy;US69608A1088;1;69,39;-69,39;0,99;0,00;EUR
+2024-12-09;18:41:09;Executed;"SCALHrdDW4brYGM";"Palantir Technologies";Security;Buy;US69608A1088;11;68,62;-754,82;0,00;0,00;EUR
+2024-12-09;14:11:58;Executed;"SCALQYYGkmn9dVq";"Cloudflare A";Security;Sell;US18915M1071;8;106,22;849,76;0,00;13,75;EUR
+2024-12-06;17:43:53;Executed;"SCALS86ofAu4Szj";"Palantir Technologies";Security;Buy;US69608A1088;4;72,01;-288,04;0,00;0,00;EUR
+2024-12-06;17:43:26;Executed;"SCALNBNEbvf6LNW";"Palantir Technologies";Security;Buy;US69608A1088;18;71,99;-1.295,82;0,00;0,00;EUR
+2024-12-06;17:42:35;Executed;"SCALAMZBQLCtvke";"Vertiv Holdings A";Security;Sell;US92537N1081;13;124,06;1.612,78;0,00;64,61;EUR
+2024-12-06;01:00:00;Executed;"947865250";"Gutschrift";Cash;Deposit;;;;10,00;0,00;;EUR
+2024-12-04;16:12:56;Executed;"SCALqtmJBvB8zdY";"SoFi Technologies";Security;Buy;US83406F1021;2;15,462;-30,924;0,99;0,00;EUR
+2024-12-04;16:01:11;Executed;"SCALdTzFoCjbXBg";"Marvell Technology";Security;Buy;US5738741041;4;109,60;-438,40;0,00;0,00;EUR
+2024-12-04;16:00:45;Executed;"SCAL8zmg4EtTVHr";"Okta Inc";Security;Sell;US6792951054;5;80,66;403,30;0,00;0,00;EUR
+2024-12-04;13:55:54;Executed;"SCALGpHPk4iYdKE";"Okta Inc";Security;Buy;US6792951054;5;88,92;-444,60;0,00;0,00;EUR
+2024-12-04;13:40:52;Executed;"SCAL4VSJctojB7Y";"Marvell Technology";Security;Buy;US5738741041;6;103,26;-619,5599;0,00;0,00;EUR
+2024-12-04;13:39:33;Executed;"SCALMQb4YBVW5XD";"Cloudflare A";Security;Sell;US18915M1071;10;101,52;1.015,20;0,00;4,02;EUR
+2024-12-04;01:00:00;Executed;"AASE 65826770";"";Cash;Taxes;;;;11,55;0,00;;EUR
+2024-12-03;15:25:02;Executed;"SCALtYgdpMHdHe6";"Cloudflare A";Security;Buy;US18915M1071;1;100,06;-100,06;0,99;0,00;EUR
+2024-12-03;15:20:34;Executed;"SCAL4pw6FT5XL9P";"Cloudflare A";Security;Buy;US18915M1071;2;100,08;-200,16;0,99;0,00;EUR
+2024-12-03;15:19:53;Executed;"SCALBJ5mRUN1gsL";"Cloudflare A";Security;Buy;US18915M1071;4;100,08;-400,32;0,00;0,00;EUR
+2024-12-03;15:19:10;Executed;"SCAL8BVhKGizL3Z";"Cloudflare A";Security;Buy;US18915M1071;11;100,08;-1.100,88;0,00;0,00;EUR
+2024-12-03;15:17:05;Executed;"SCALBRhzPjZmppH";"GE Vernova";Security;Sell;US36828A1016;6;318,00;1.908,00;0,00;3,35;EUR
+2024-11-29;14:24:55;Executed;"SCAL9bQdm5VGegK";"Hoeegh Autoliners";Security;Buy;NO0011082075;42;10,97;-460,74;0,00;0,00;EUR
+2024-11-29;01:00:00;Executed;"947268848";"scalable";Cash;Deposit;;;;500,00;0,00;;EUR
+2024-11-27;15:11:11;Executed;"SCALqAi7ZvNYXYj";"FLEX LNG";Security;Sell;BMG359472021;4;23,22;92,88;0,99;0,00;EUR
+2024-11-27;01:00:00;Executed;"AASE 65583394";"";Cash;Taxes;;;;0,64;0,00;;EUR
+2024-11-25;17:56:05;Cancelled;"SCALg34YDoUnpSq";"GE Vernova";Security;Sell;US36828A1016;0;0,00;0,00;0,00;0,00;EUR
+2024-11-25;17:44:06;Cancelled;"SCALDozkAAvxZ6g";"Vertiv Holdings A";Security;Sell;US92537N1081;0;0,00;0,00;0,00;0,00;EUR
+2024-11-20;14:45:18;Cancelled;"SCALWVZD21hXb7j";"Vertiv Holdings A";Security;Sell;US92537N1081;0;0,00;0,00;0,00;0,00;EUR
+2024-11-18;16:52:23;Executed;"SCALNwvRvU3K955";"GE Vernova";Security;Buy;US36828A1016;1;316,00;-316,00;0,00;0,00;EUR
+2024-11-18;16:51:57;Executed;"SCALcCkGo1Limfh";"GE Vernova";Security;Buy;US36828A1016;2;316,00;-632,00;0,00;0,00;EUR
+2024-11-18;16:49:33;Executed;"SCALAP36axcGB1G";"GE Vernova";Security;Buy;US36828A1016;3;316,00;-948,00;0,00;0,00;EUR
+2024-11-18;16:33:27;Executed;"SCALNBaphHLRHDF";"SoFi Technologies";Security;Buy;US83406F1021;20;13,468;-269,36;0,00;0,00;EUR
+2024-11-18;16:00:23;Executed;"SCAL4nUzP5922Ge";"Palantir Technologies";Security;Sell;US69608A1088;37;57,00;2.109,00;0,00;224,17;EUR
+2024-11-18;11:45:27;Cancelled;"SCALTAtQXeySZCo";"Palantir Technologies";Security;Sell;US69608A1088;0;0,00;0,00;0,00;0,00;EUR
+2024-11-18;01:00:00;Executed;"4JKGZ6WMOG73U9SY";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2024-11-15;09:41:26;Cancelled;"SCALQdzJWmfK1mR";"Vertiv Holdings A";Security;Sell;US92537N1081;0;0,00;0,00;0,00;0,00;EUR
+2024-11-14;19:36:13;Cancelled;"SCALNMbcS75uNhk";"Palantir Technologies";Security;Sell;US69608A1088;0;0,00;0,00;0,00;0,00;EUR
+2024-11-14;12:48:12;Executed;"SCALVUYY54jMhov";"SoFi Technologies";Security;Buy;US83406F1021;2;13,068;-26,136;0,99;0,00;EUR
+2024-11-14;11:35:10;Cancelled;"SCALE6MCw7JZAe3";"Palantir Technologies";Security;Sell;US69608A1088;0;0,00;0,00;0,00;0,00;EUR
+2024-11-14;09:06:57;Executed;"SCALnr6TTiPnNLG";"SoFi Technologies";Security;Buy;US83406F1021;2;13,126;-26,252;0,99;0,00;EUR
+2024-11-13;15:28:09;Executed;"SCALKtbqkDfVhMa";"SoFi Technologies";Security;Buy;US83406F1021;3;13,268;-39,804;0,99;0,00;EUR
+2024-11-13;15:27:01;Executed;"SCALWwQBi7ygmdF";"iShares MSCI India (Acc)";Security;Sell;IE00BZCQB185;8;8,894;71,152;0,99;0,00;EUR
+2024-11-13;15:21:50;Executed;"SCALE7rWtfVzPFU";"SoFi Technologies";Security;Buy;US83406F1021;3;13,334;-40,002;0,99;0,00;EUR
+2024-11-13;15:16:12;Cancelled;"SCALhVrWGHcidFM";"Palantir Technologies";Security;Sell;US69608A1088;0;0,00;0,00;0,00;0,00;EUR
+2024-11-13;13:52:32;Executed;"SCAL9nSJxPEEmBa";"SoFi Technologies";Security;Savings plan;US83406F1021;3,075;13,006;-39,9934;0,00;0,00;EUR
+2024-11-13;01:00:00;Executed;"AASE 65106679";"";Cash;Taxes;;;;0,66;0,00;;EUR
+2024-11-12;19:47:06;Executed;"SCALKBpinRTafca";"FLEX LNG";Security;Sell;BMG359472021;1;23,18;23,18;0,99;0,00;EUR
+2024-11-12;01:00:00;Executed;"MQF9X1APFTJNVWA9JBICZ7";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2024-11-11;13:59:33;Executed;"SCALKt17C5a7A1E";"SoFi Technologies";Security;Buy;US83406F1021;3;12,91;-38,7299;0,99;0,00;EUR
+2024-11-11;13:45:12;Executed;"SCALGVqKseLCxBH";"SoFi Technologies";Security;Buy;US83406F1021;8;12,842;-102,736;0,99;0,00;EUR
+2024-11-08;17:33:51;Cancelled;"SCALsqmvNPLDkjm";"Palantir Technologies";Security;Sell;US69608A1088;0;0,00;0,00;0,00;0,00;EUR
+2024-11-08;16:15:09;Executed;"SCALA8pVYeu93vG";"Hoeegh Autoliners";Security;Buy;NO0011082075;4;9,915;-39,6599;0,99;0,00;EUR
+2024-11-08;15:57:40;Cancelled;"SCAL75K6haUdq1D";"Palantir Technologies";Security;Sell;US69608A1088;0;0,00;0,00;0,00;0,00;EUR
+2024-11-07;12:36:48;Executed;"SCALmQzctpYorPh";"Hoeegh Autoliners";Security;Buy;NO0011082075;4;9,86;-39,44;0,99;0,00;EUR
+2024-11-07;11:11:07;Executed;"SCALM6wwUfZhXUz";"FLEX LNG";Security;Buy;BMG359472021;3;22,48;-67,44;0,99;0,00;EUR
+2024-11-06;15:27:32;Executed;"SCALmbVBCuZUbuw";"FLEX LNG";Security;Buy;BMG359472021;3;21,36;-64,08;0,99;0,00;EUR
+2024-11-06;15:20:54;Executed;"SCALckm8CrgqX4v";"FLEX LNG";Security;Buy;BMG359472021;8;21,36;-170,88;0,99;0,00;EUR
+2024-11-06;09:30:39;Cancelled;"SCALDBR1Aajn1am";"Palantir Technologies";Security;Sell;US69608A1088;0;0,00;0,00;0,00;0,00;EUR
+2024-11-06;01:00:00;Executed;"946289177";"Gutschrift";Cash;Deposit;;;;10,00;0,00;;EUR
+2024-11-05;15:58:46;Cancelled;"SCALFzSRiEJFboU";"Palantir Technologies";Security;Sell;US69608A1088;0;0,00;0,00;0,00;0,00;EUR
+2024-10-30;07:30:13;Expired;"SCAL9XYfck5AYem";"China Mobile";Security;Buy;HK0941009539;0;0,00;0,00;0,00;0,00;EUR
+2024-10-21;12:27:56;Executed;"SCALnKP1SQYpPEY";"China Mobile";Security;Buy;HK0941009539;6;8,75;-52,50;0,99;0,00;EUR
+2024-10-18;15:56:04;Executed;"SCALkdSYcsDhYY7";"FLEX LNG";Security;Buy;BMG359472021;5;23,58;-117,90;0,99;0,00;EUR
+2024-10-17;17:14:40;Executed;"SCAL9oyrqWen6A2";"Vertiv Holdings A";Security;Buy;US92537N1081;2;106,66;-213,32;0,99;0,00;EUR
+2024-10-17;17:14:18;Executed;"SCAL7g9kx5fymdR";"Bloom Energy A";Security;Sell;US0937121079;7;9,393;65,751;0,99;0,00;EUR
+2024-10-17;17:05:56;Executed;"SCALCENH4aXVtAi";"Vertiv Holdings A";Security;Buy;US92537N1081;3;106,40;-319,20;0,00;0,00;EUR
+2024-10-17;16:57:41;Executed;"SCAL5voYRPiEk1A";"Vertiv Holdings A";Security;Buy;US92537N1081;8;106,18;-849,44;0,00;0,00;EUR
+2024-10-17;14:18:10;Cancelled;"SCALrRnQfpyo9YK";"Vertiv Holdings A";Security;Buy;US92537N1081;0;0,00;0,00;0,00;0,00;EUR
+2024-10-17;11:14:15;Executed;"SCALCCH68PVauEB";"China Mobile";Security;Sell;HK0941009539;147,013;8,593;1.263,2827;0,00;0,00;EUR
+2024-10-17;02:00:00;Executed;"0E3H3HUYXMSAMPTY";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2024-10-14;13:59:03;Executed;"SCALRGJut9AjNKq";"Palantir Technologies";Security;Savings plan;US69608A1088;1;39,98;-39,9799;0,00;0,00;EUR
+2024-10-11;02:00:00;Executed;"UHQTWBQOZW4WEDV6MJBJJW";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2024-10-10;15:36:23;Executed;"SCALJ2EV3kAX85G";"iShares MSCI India (Acc)";Security;Savings plan;IE00BZCQB185;3,216;9,328;-29,9988;0,00;0,00;EUR
+2024-10-09;02:00:00;Executed;"UOGRUWJXJO9D298H5I7VAW";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;30,00;0,00;;EUR
+2024-10-08;02:00:00;Executed;"944545456";"Gutschrift";Cash;Deposit;;;;10,00;0,00;;EUR
+2024-10-04;17:00:36;Executed;"SCALU1LBx8FS8pd";"China Mobile";Security;Savings plan;HK0941009539;2,248;8,894;-19,9937;0,00;0,00;EUR
+2024-10-03;02:00:00;Executed;"QZDHMQTPMGRYQHDDWSS2SY";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2024-09-30;02:00:00;Executed;"52024002";"KKT-Abschluss";Cash;Interest;;;;-10,7899;0,00;0,00;EUR
+2024-09-26;13:10:29;Executed;"SCAL6281yjgjFrM";"China Mobile";Security;Buy;HK0941009539;7;8,407;-58,849;0,99;0,00;EUR
+2024-09-25;02:00:00;Executed;"WWEK 32968144";"China Mobile";Cash;Distribution;HK0941009539;;;26,70;0,00;9,77;EUR
+2024-09-17;10:11:40;Executed;"SCALugfDs6KwdJd";"Palantir Technologies";Security;Buy;US69608A1088;3;32,855;-98,565;0,99;0,00;EUR
+2024-09-17;09:58:26;Executed;"SCAL4gZz9GLmyWL";"Palantir Technologies";Security;Buy;US69608A1088;33;32,945;-1.087,185;0,99;0,00;EUR
+2024-09-17;09:56:29;Executed;"SCALXv1gWXoLc8v";"Super Micro Computer";Security;Sell;US86800U1043;3;402,80;1.208,40;0,99;0,00;EUR
+2024-09-10;16:13:02;Executed;"SCAL3usR4TMH37D";"iShares MSCI India (Acc)";Security;Savings plan;IE00BZCQB185;3,199;9,377;-29,997;0,00;0,00;EUR
+2024-09-09;02:00:00;Executed;"JTKTDV5WWEW21JIQ2U3171";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;30,00;0,00;;EUR
+2024-09-06;02:00:00;Executed;"943243858";"Gutschrift";Cash;Deposit;;;;10,00;0,00;;EUR
+2024-09-05;16:11:28;Executed;"SCALGHpfqmke7r9";"China Mobile";Security;Buy;HK0941009539;13;8,415;-109,395;0,99;0,00;EUR
+2024-09-04;14:50:32;Executed;"SCALqCa6rtTa1dH";"China Mobile";Security;Savings plan;HK0941009539;2,369;8,442;-19,999;0,00;0,00;EUR
+2024-09-03;02:00:00;Executed;"MUMTAIQPEWVNW2BSVFVTA6";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2024-08-30;13:30:43;Executed;"SCALs8f7UhVFLF8";"FLEX LNG";Security;Buy;BMG359472021;4;23,86;-95,44;0,99;0,00;EUR
+2024-08-29;02:00:00;Executed;"WWEK 31902767";"Hoeegh Autoliners";Cash;Distribution;NO0011082075;;;8,25;0,00;7,15;EUR
+2024-08-28;15:53:29;Executed;"SCALZPrp3dg87SR";"Super Micro Computer";Security;Buy;US86800U1043;1;389,95;-389,95;0,99;0,00;EUR
+2024-08-28;15:46:54;Executed;"SCALUVuMzcRTTua";"Super Micro Computer";Security;Buy;US86800U1043;2;406,60;-813,20;0,99;0,00;EUR
+2024-08-28;15:45:12;Executed;"SCALXaWmYipSmUS";"Vertiv Holdings A";Security;Sell;US92537N1081;18;73,09;1.315,6199;0,99;0,00;EUR
+2024-08-15;12:02:54;Executed;"SCALRXYm7Z2UL4J";"Hoeegh Autoliners";Security;Buy;NO0011082075;18;10,98;-197,6399;0,99;0,00;EUR
+2024-08-15;12:01:49;Executed;"SCALVz5uqbea83o";"iShares MSCI India (Acc)";Security;Sell;IE00BZCQB185;22;9,073;199,606;0,99;0,00;EUR
+2024-08-14;15:02:13;Executed;"SCALjgkazp1diCJ";"Hoeegh Autoliners";Security;Buy;NO0011082075;7;10,84;-75,88;0,99;0,00;EUR
+2024-08-14;15:00:55;Executed;"SCALuT7ZyfeeLBP";"Vodafone Group";Security;Sell;GB00BH4HKS39;71;0,8686;61,6706;0,99;0,00;EUR
+2024-08-12;19:12:27;Executed;"SCALfmAHGubVFdC";"Vertiv Holdings A";Security;Buy;US92537N1081;6;66,85;-401,10;0,00;0,00;EUR
+2024-08-12;11:26:10;Executed;"SCAL6uJ2MpnkBLV";"iShares MSCI India (Acc)";Security;Savings plan;IE00BZCQB185;3,252;9,225;-29,9997;0,00;0,00;EUR
+2024-08-12;02:00:00;Executed;"942126957";"vertiv";Cash;Deposit;;;;500,00;0,00;;EUR
+2024-08-09;02:00:00;Executed;"T1VHBZYAD8TYMVHGVUEZWE";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;30,00;0,00;;EUR
+2024-08-06;02:00:00;Executed;"941907279";"Gutschrift";Cash;Deposit;;;;10,00;0,00;;EUR
+2024-08-06;02:00:00;Executed;"WWEK 31403529";"Vodafone Group ADR";Cash;Distribution;US92857W3088;;;2,59;0,00;0,00;EUR
+2024-08-05;13:41:02;Executed;"SCALkvKEz6VmEyk";"China Mobile";Security;Savings plan;HK0941009539;2,396;8,345;-19,9946;0,00;0,00;EUR
+2024-08-02;13:06:30;Executed;"SCALuYhrf9mb71Z";"Vertiv Holdings A";Security;Buy;US92537N1081;2;66,81;-133,62;0,99;0,00;EUR
+2024-08-02;02:00:00;Executed;"AGMLZZTBT824BHVYMZQ7CV";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;20,00;0,00;;EUR
+2024-07-26;12:15:52;Executed;"SCALekSr7qVgTuZ";"Vertiv Holdings A";Security;Buy;US92537N1081;10;72,73;-727,30;0,00;0,00;EUR
+2024-07-26;12:15:13;Executed;"SCALrb6TC3iMPNf";"Bloom Energy A";Security;Sell;US0937121079;3;13,51;40,53;0,99;0,00;EUR
+2024-07-26;12:13:53;Executed;"SCALY5gnztwZmWg";"Bloom Energy A";Security;Sell;US0937121079;5;13,43;67,15;0,99;0,00;EUR
+2024-07-26;12:13:04;Executed;"SCALu9TN9rCgh6E";"Bloom Energy A";Security;Sell;US0937121079;55;13,426;738,4299;0,00;0,00;EUR
+2024-07-26;12:03:28;Executed;"SCALuKmNwLL6HHk";"China Mobile";Security;Buy;HK0941009539;20;8,654;-173,08;0,99;0,00;EUR
+2024-07-26;11:57:22;Executed;"SCALuy5dq3dkt2Z";"China Mobile";Security;Buy;HK0941009539;40;8,656;-346,24;0,00;0,00;EUR
+2024-07-24;11:09:40;Executed;"SCALEe3eg7MG1Zr";"China Mobile";Security;Buy;HK0941009539;55;8,986;-494,23;0,00;0,00;EUR
+2024-07-23;16:27:27;Executed;"SCALt4Ln8Exb5oi";"China Mobile";Security;Buy;HK0941009539;4;8,943;-35,772;0,99;0,00;EUR
+2024-07-23;16:23:06;Executed;"SCALipTZ9y9pjuy";"Bloom Energy A";Security;Buy;US0937121079;70;13,648;-955,36;0,00;0,00;EUR
+2024-07-23;16:21:05;Executed;"SCALwcAUYpNS95Z";"Darktrace";Security;Sell;GB00BNYK8G86;108;6,896;744,768;0,00;0,00;EUR
+2024-07-23;16:20:37;Executed;"SCAL7f5yBUkZNt3";"M1 Kliniken";Security;Sell;DE000A0STSQ8;25;15,50;387,50;0,00;0,00;EUR
+2024-07-22;02:00:00;Executed;"WWEK 30867835";"M1 Kliniken";Cash;Distribution;DE000A0STSQ8;;;12,50;0,00;0,00;EUR
+2024-07-22;02:00:00;Executed;"3WXHSURD8JZUPEPK";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2024-07-10;18:49:37;Executed;"SCAL9MLZwoU5vW2";"M1 Kliniken";Security;Buy;DE000A0STSQ8;10;16,80;-168,00;0,99;0,00;EUR
+2024-07-10;18:21:32;Executed;"SCALSWu9VeyWzck";"M1 Kliniken";Security;Buy;DE000A0STSQ8;15;16,80;-252,00;0,00;0,00;EUR
+2024-07-10;18:20:27;Executed;"SCALMftPT668hcB";"Intel Corp";Security;Sell;US4581401001;8;31,895;255,16;0,00;0,00;EUR
+2024-07-10;14:01:11;Executed;"SCALqbvZgHimniU";"iShares MSCI India (Acc)";Security;Savings plan;IE00BZCQB185;4,259;9,391;-39,9962;0,00;0,00;EUR
+2024-07-09;02:00:00;Executed;"940564081";"Gutschrift";Cash;Deposit;;;;50,00;0,00;;EUR
+2024-07-09;02:00:00;Executed;"6ALPEDUN1TGVGQQC2ZBVHD";"Scalable Capital Broker Sparplan";Cash;Deposit;;;;40,00;0,00;;EUR
+2024-07-04;15:23:13;Executed;"SCALTP6yAXfsEoj";"China Mobile";Security;Buy;HK0941009539;1;9,27;-9,27;0,99;0,00;EUR
+2024-07-03;16:35:04;Executed;"SCALLXJWDz9GCfo";"Intel Corp";Security;Buy;US4581401001;8;28,77;-230,16;0,99;0,00;EUR
+2024-07-03;16:33:43;Executed;"SCALfrdFrGC9p3q";"Hims & Hers Health A";Security;Sell;US4330001060;12;19,23;230,76;0,99;0,00;EUR
+2024-06-28;02:00:00;Executed;"52024001";"KKT-Abschluss";Cash;Interest;;;;0,76;0,00;0,00;EUR
+2024-06-20;02:00:00;Executed;"R3KSDFYCM5ONCXCZ";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2024-06-19;02:00:00;Executed;"CC3K7N3P8SNRP9CXGNIXSG";"Scalable Capital Broker Auszahlung";Cash;Withdrawal;;;;-1.100,00;0,00;;EUR
+2024-06-18;13:41:44;Executed;"SCAL9298VmafUk2";"Hims & Hers Health A";Security;Buy;US4330001060;2;22,84;-45,68;0,99;0,00;EUR
+2024-06-17;09:13:21;Executed;"SCALWhs1zaupGHx";"Hims & Hers Health A";Security;Buy;US4330001060;10;22,44;-224,40;0,99;0,00;EUR
+2024-06-14;11:00:57;Executed;"SCALnUzcxTFJVjC";"Rexford Industrial Realty";Security;Sell;US76169C1009;33;41,80;1.379,40;0,00;0,00;EUR
+2024-06-13;19:40:52;Executed;"SCALqGPPiwb75Kg";"iShares MSCI India (Acc)";Security;Buy;IE00BZCQB185;5;9,116;-45,58;0,99;0,00;EUR
+2024-06-11;18:48:35;Executed;"SCAL7GTCYdzr8c9";"iShares MSCI India (Acc)";Security;Buy;IE00BZCQB185;12;9,019;-108,228;0,99;0,00;EUR
+2024-06-11;17:36:17;Executed;"SCALjnFXEXbAedN";"HANetf Sprott Uranium Miners (Acc)";Security;Sell;IE0005YK6564;12;10,25;123,00;0,99;0,00;EUR
+2024-06-10;16:21:20;Executed;"SCALntRciJcQNFE";"Vodafone Group";Security;Buy;GB00BH4HKS39;71;0,8414;-59,7394;0,99;0,00;EUR
+2024-06-10;16:20:24;Executed;"SCALDL1uXGp5D6T";"Vodafone Group ADR";Security;Sell;US92857W3088;6;8,30;49,80;0,99;0,00;EUR
+2024-06-07;02:00:00;Executed;"938992865";"Gutschrift";Cash;Deposit;;;;50,00;0,00;;EUR
+2024-06-05;20:27:20;Executed;"SCALQUg2523Teb2";"Vodafone Group ADR";Security;Buy;US92857W3088;6;9,00;-54,00;0,99;0,00;EUR
+2024-06-03;15:05:02;Executed;"SCAL6jqQ4cs1GKK";"Rexford Industrial Realty";Security;Buy;US76169C1009;3;42,20;-126,60;0,99;0,00;EUR
+2024-06-03;15:03:57;Cancelled;"SCALkuYD1c2xy3T";"Darktrace";Security;Buy;GB00BNYK8G86;0;0,00;0,00;0,00;0,00;EUR
+2024-06-03;12:07:02;Executed;"SCAL4q5cQ4EVDhg";"Rexford Industrial Realty";Security;Buy;US76169C1009;30;42,00;-1.260,00;0,00;0,00;EUR
+2024-06-03;11:52:11;Executed;"SCALRogSLXJgxd3";"21Shares Solana ETP Staking";Security;Sell;CH1114873776;14;96,19;1.346,66;9,2899;0,00;EUR
+2024-05-31;16:08:31;Executed;"SCALKNrjwLby2B9";"HANetf Sprott Uranium Miners (Acc)";Security;Buy;IE0005YK6564;6;11,542;-69,252;0,99;0,00;EUR
+2024-05-30;12:38:17;Executed;"SCALEbT7R51rcpT";"21Shares Solana ETP Staking";Security;Buy;CH1114873776;14;96,99;-1.357,8599;9,36;0,00;EUR
+2024-05-30;12:32:39;Cancelled;"SCALmQPyffgJ4hu";"PNE AG";Security;Buy;DE000A0JBPG2;0;0,00;0,00;0,00;0,00;EUR
+2024-05-30;10:57:07;Executed;"SCAL8wDCpPZ7akJ";"Nutanix A";Security;Sell;US67059N1081;25;59,90;1.497,50;0,00;0,00;EUR
+2024-05-30;02:00:00;Executed;"AASE 14693049";"";Cash;Taxes;;;;19,25;0,00;;EUR
+2024-05-29;11:51:08;Executed;"SCALKuCoKHf4nM2";"Darktrace";Security;Buy;GB00BNYK8G86;8;6,978;-55,824;0,99;0,00;EUR
+2024-05-29;11:04:56;Executed;"SCALfT3TN685pHS";"Nutanix A";Security;Buy;US67059N1081;5;66,18;-330,90;0,00;0,00;EUR
+2024-05-29;11:02:02;Executed;"SCALzwRLXPhShP2";"Nutanix A";Security;Buy;US67059N1081;20;66,18;-1.323,60;0,00;0,00;EUR
+2024-05-29;07:30:41;Cancelled;"SCAL2k9BxkfA4mS";"HubSpot";Security;Buy;US4435731009;0;0,00;0,00;0,00;0,00;EUR
+2024-05-28;17:21:45;Executed;"SCALEVCQtmQTBYQ";"Coinbase Global A";Security;Sell;US19260Q1076;8;219,75;1.758,00;0,00;19,25;EUR
+2024-05-22;14:24:04;Executed;"SCALnq86i4YbVA6";"HANetf Sprott Uranium Miners (Acc)";Security;Buy;IE0005YK6564;6;11,722;-70,3319;0,99;0,00;EUR
+2024-05-22;13:35:18;Executed;"SCALXvqVtu5GXqk";"Coinbase Global A";Security;Buy;US19260Q1076;8;210,10;-1.680,80;0,00;0,00;EUR
+2024-05-22;12:34:46;Executed;"SCAL4mufXLnzm9r";"Darktrace";Security;Buy;GB00BNYK8G86;42;7,038;-295,596;0,00;0,00;EUR
+2024-05-21;02:00:00;Executed;"MZNFYZ6VNS2BLF6Q";"Entgelt PRIME+ Broker";Cash;Fee;;;;-4,99;0,00;;EUR
+2024-05-21;02:00:00;Executed;"938092913";"BTC.";Cash;Deposit;;;;2.050,00;0,00;;EUR
+2024-05-08;13:18:41;Executed;"SCALaDeTWFRRDNQ";"Darktrace";Security;Buy;GB00BNYK8G86;7;7,072;-49,504;0,99;0,00;EUR
+2024-05-07;02:00:00;Executed;"937725321";"Gutschrift";Cash;Deposit;;;;50,00;0,00;;EUR
+2024-04-24;14:30:11;Executed;"SCALSATv2msN5TA";"Darktrace";Security;Buy;GB00BNYK8G86;14;5,998;-83,972;0,99;0,00;EUR
+2024-04-24;14:29:16;Executed;"SCALRjgs9XRkLq9";"M1 Kliniken";Security;Sell;DE000A0STSQ8;7;13,30;93,10;0,99;0,00;EUR
+2024-04-22;17:09:40;Executed;"SCALvyCCtYhLV8S";"Darktrace";Security;Buy;GB00BNYK8G86;18;5,684;-102,312;0,99;0,00;EUR
+2024-04-22;02:00:00;Executed;"936936703";"M1";Cash;Deposit;;;;100,00;0,00;;EUR
+2024-04-17;20:59:51;Executed;"SCALhe2i2CfuaiT";"Darktrace";Security;Buy;GB00BNYK8G86;19;5,162;-98,078;0,99;0,00;EUR
+2024-04-17;02:00:00;Executed;"936853362";"Gutschrift";Cash;Deposit;;;;100,00;0,00;;EUR
+2024-04-12;10:16:19;Executed;"SCALRLADY94gcfo";"M1 Kliniken";Security;Buy;DE000A0STSQ8;7;13,90;-97,30;0,99;0,00;EUR
+2024-04-11;02:00:00;Executed;"936561163";"Gutschrift";Cash;Deposit;;;;100,00;0,00;;EUR
+2024-04-09;02:00:00;Executed;"XBJZT2WYN5GPMUHC2YPKOW";"Scalable Capital Broker Erste Einzahlung";Cash;Deposit;;;;1,00;0,00;;EUR

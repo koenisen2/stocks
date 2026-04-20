@@ -283,6 +283,20 @@ textarea.form-input { min-height:90px;resize:vertical; }
 .rpt-stamp { font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:10px; }
 .rpt-err { color:var(--red);font-size:12px;padding:8px 0; }
 
+/* PERFORMANCE BAR */
+.perf-bar {
+  display:flex; align-items:stretch;
+  background:var(--panel); border:1px solid var(--border); border-radius:12px;
+  margin-bottom:16px; overflow:hidden;
+}
+.perf-item { flex:1; padding:14px 20px; }
+.perf-label { font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--text3); margin-bottom:5px; }
+.perf-value { font-family:var(--mono); font-size:18px; font-weight:700; color:var(--text); white-space:nowrap; }
+.perf-value.pos { color:var(--green); }
+.perf-value.neg { color:var(--red); }
+.perf-divider { width:1px; background:var(--border); flex-shrink:0; margin:10px 0; }
+@media(max-width:900px){ .perf-bar{flex-wrap:wrap;} .perf-item{flex:calc(50% - 1px);min-width:0;} .perf-divider{display:none;} }
+
 /* LOGOS */
 .q-logo-wrap { width:32px;height:32px;border-radius:7px;overflow:hidden;background:var(--surface);border:1px solid var(--border);flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle; }
 .q-logo-wrap img { width:28px;height:28px;object-fit:contain;border-radius:5px; }
@@ -439,6 +453,34 @@ window._fb={auth:getAuth(app),db:getFirestore(app),createUserWithEmailAndPasswor
 
     <!-- DASHBOARD -->
     <div class="screen active" id="screen-dashboard">
+      <!-- Performance-Leiste -->
+      <div class="perf-bar" id="perfBar" style="display:none">
+        <div class="perf-item">
+          <div class="perf-label">Depotwert gesamt</div>
+          <div class="perf-value" id="perfTotal">—</div>
+        </div>
+        <div class="perf-divider"></div>
+        <div class="perf-item">
+          <div class="perf-label">Tagesgewinn/-verlust</div>
+          <div class="perf-value" id="perfDay">—</div>
+        </div>
+        <div class="perf-divider"></div>
+        <div class="perf-item">
+          <div class="perf-label">Tag %</div>
+          <div class="perf-value" id="perfDayPct">—</div>
+        </div>
+        <div class="perf-divider"></div>
+        <div class="perf-item">
+          <div class="perf-label">Beste heute</div>
+          <div class="perf-value" id="perfBest">—</div>
+        </div>
+        <div class="perf-divider"></div>
+        <div class="perf-item">
+          <div class="perf-label">Schlechteste heute</div>
+          <div class="perf-value" id="perfWorst">—</div>
+        </div>
+      </div>
+
       <div class="dash-grid">
         <!-- Oben: Watchlist-Tabelle -->
         <div class="card">
@@ -461,11 +503,11 @@ window._fb={auth:getAuth(app),db:getFirestore(app),createUserWithEmailAndPasswor
           </table>
         </div>
 
-        <!-- Unten: Chart + Kennzahlen -->
+        <!-- Unten: Chart + Gewinner/Verlierer -->
         <div class="dash-bottom" id="dashBottom">
-          <div class="dash-empty-bottom" id="dashEmptyBottom">
+          <div class="dash-empty-bottom">
             <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="width:28px;height:28px"><path stroke-linecap="round" d="M3 3v18h18"/><path stroke-linecap="round" d="M7 16l4-4 4 4 4-6"/></svg>
-            Aktie anklicken für Chart & Details
+            Wird geladen…
           </div>
         </div>
       </div>
@@ -837,18 +879,70 @@ document.querySelectorAll('#starPicker .star-btn').forEach(b=>b.addEventListener
 
 /* DASHBOARD */
 let DD={},dchart=null,selTicker=null;
-function fhSym(t){return t.replace(/\.(DE|F|MU|SW|L|PA|AS|BR|VI|MC)$/i,'');}
+// Bekannte Xetra → Finnhub Symbol-Mappings (Finnhub braucht manchmal andere Symbole)
+const XETRA_MAP={
+  'RHM.DE':'RHM','SAP.DE':'SAP','SIE.DE':'SIE','BMW.DE':'BMW','MBG.DE':'MBG',
+  'ENR.DE':'ENR','BAYN.DE':'BAYN','ALV.DE':'ALV','DBK.DE':'DBK','DTE.DE':'DTE',
+  'MUV2.DE':'MUV2','BAS.DE':'BAS','EOAN.DE':'EOAN','IFX.DE':'IFX','VOW3.DE':'VOW3',
+  'ADS.DE':'ADS','AIR.DE':'AIR','FRE.DE':'FRE','MRK.DE':'MRK','SHL.DE':'SHL',
+};
+function fhSym(t){
+  if(XETRA_MAP[t]) return XETRA_MAP[t];
+  return t.replace(/\.(DE|F|MU|BE|DU|HA|SG|SW|L|PA|AS|BR|VI|MC)$/i,'');
+}
 async function fhGet(p){const r=await fetch(`https://finnhub.io/api/v1${p}&token=${getKey()}`);if(!r.ok)throw new Error(r.status);return r.json();}
 
 async function loadDashboard(){
   const stocks=ST.stocks;
   document.getElementById('dashCount').textContent=`${stocks.length} Aktie${stocks.length!==1?'n':''}`;
-  if(!stocks.length){document.getElementById('dashBody').innerHTML='<tr><td colspan="6" class="table-empty">Keine Favoriten — klicke „Neue Aktie"</td></tr>';return;}
+  if(!stocks.length){document.getElementById('dashBody').innerHTML='<tr><td colspan="6" class="table-empty">Keine Favoriten — klicke „Neue Aktie"</td></tr>';document.getElementById('perfBar').style.display='none';return;}
   const btn=document.getElementById('dashRefBtn');btn.classList.add('spinning');
   await Promise.allSettled(stocks.map(async s=>{try{const sym=fhSym(s.ticker);const[q,m,p]=await Promise.all([fhGet(`/quote?symbol=${sym}`),fhGet(`/stock/metric?symbol=${sym}&metric=all`),fhGet(`/stock/profile2?symbol=${sym}`)]);DD[s.ticker]={q,m:m.metric||{},logo:p.logo||null};}catch(err){DD[s.ticker]={err:err.message};}}));
-  renderDashTbl(stocks);btn.classList.remove('spinning');
+  renderDashTbl(stocks);
+  renderPerfBar(stocks);
+  btn.classList.remove('spinning');
   document.getElementById('lastUpd').textContent='Stand '+new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
-  if(selTicker)openDetail(selTicker);
+  // Auto-Select: zuerst den gespeicherten, sonst erste Aktie
+  const target = (selTicker && stocks.find(s=>s.ticker===selTicker)) ? selTicker : stocks[0].ticker;
+  openDetail(target);
+}
+
+function renderPerfBar(stocks){
+  const rows = stocks.map(s=>{
+    const d=DD[s.ticker];
+    if(!d||d.err||!d.q||!d.q.c) return null;
+    return {ticker:s.ticker, c:d.q.c, dp:d.q.dp??0, d:d.q.d??0};
+  }).filter(Boolean);
+
+  if(!rows.length){document.getElementById('perfBar').style.display='none';return;}
+  document.getElementById('perfBar').style.display='flex';
+
+  // Gesamtwert (gleichgewichtet — echte Gewichtung käme aus Musterdepot)
+  const totalVal = rows.reduce((a,r)=>a+r.c, 0);
+  const avgDayChg = rows.reduce((a,r)=>a+r.dp, 0) / rows.length;
+  const totalDayAbs = rows.reduce((a,r)=>a+r.d, 0);
+
+  const sorted = [...rows].sort((a,b)=>b.dp-a.dp);
+  const best = sorted[0], worst = sorted[sorted.length-1];
+
+  const cls = n => n>0?'pos':n<0?'neg':'';
+  const arrow = n => n>0?'▲':n<0?'▼':'';
+
+  document.getElementById('perfTotal').textContent = fN(totalVal);
+  document.getElementById('perfTotal').className = 'perf-value';
+
+  const dayEl = document.getElementById('perfDay');
+  dayEl.textContent = `${arrow(totalDayAbs)} ${fN(Math.abs(totalDayAbs))}`;
+  dayEl.className = 'perf-value '+cls(totalDayAbs);
+
+  const pctEl = document.getElementById('perfDayPct');
+  pctEl.textContent = `${arrow(avgDayChg)} ${fN(Math.abs(avgDayChg),2)} %`;
+  pctEl.className = 'perf-value '+cls(avgDayChg);
+
+  document.getElementById('perfBest').innerHTML =
+    `<span style="color:var(--gold);font-size:12px">${e(best.ticker)}</span> <span class="perf-value pos" style="font-size:16px">▲ ${fN(best.dp,2)}%</span>`;
+  document.getElementById('perfWorst').innerHTML =
+    `<span style="color:var(--gold);font-size:12px">${e(worst.ticker)}</span> <span class="perf-value neg" style="font-size:16px">▼ ${fN(Math.abs(worst.dp),2)}%</span>`;
 }
 
 function logoHtml(ticker, logo){
@@ -1141,27 +1235,131 @@ function pfExportCSV(){
 document.getElementById('pfImportFile').addEventListener('change',async ev=>{
   const f=ev.target.files[0];if(!f)return;
   const name=f.name.toLowerCase();
-  if(name.endsWith('.csv')){
-    const txt=await f.text();parsePfCSV(txt);
-  } else if(name.endsWith('.pdf')){
+  if(name.endsWith('.pdf')){
     await parsePfPDF(f);
+  } else {
+    // CSV oder txt — immer als CSV behandeln
+    const txt=await f.text();
+    await parsePfCSV(txt);
   }
   ev.target.value='';
 });
 
-function parsePfCSV(txt){
+// ISIN → Ticker via Finnhub Search
+async function isinToTicker(isin){
+  try{
+    const d=await fhGet(`/search?q=${isin}`);
+    const r=(d.result||[]).find(x=>x.type==='Common Stock'||x.type==='ETP')||d.result?.[0];
+    return r?.symbol||null;
+  }catch{return null;}
+}
+
+// Zahl aus deutschem Format lesen (1.234,56 → 1234.56)
+function parseDeNum(s){
+  if(!s) return NaN;
+  return parseFloat(s.replace(/\./g,'').replace(',','.'));
+}
+
+// Erkennt ob Eintrag ein Derivat ist (Turbo/Faktor/ETP kein Aktien-Kauf)
+function isDerivative(desc){
+  return /turbo|faktor|factor|long|short|open end|zertifikat|etp staking/i.test(desc);
+}
+
+async function parsePfCSV(txt){
   const lines=txt.split(/\r?\n/).filter(l=>l.trim());
+  if(!lines.length){toast('Leere Datei','error');return;}
+
+  const header=lines[0].toLowerCase();
+  const isScalable = header.includes('date') && header.includes('isin') && header.includes('assettype');
+
+  if(isScalable){
+    await parseScalableCSV(lines);
+  } else {
+    parseGenericCSV(lines);
+  }
+}
+
+async function parseScalableCSV(lines){
+  toast('Scalable-Format erkannt — lade Positionen…');
+
+  // Header auslesen
+  const hdr=lines[0].split(';').map(h=>h.replace(/"/g,'').trim().toLowerCase());
+  const col=n=>hdr.indexOf(n);
+  const C={date:col('date'),desc:col('description'),type:col('type'),isin:col('isin'),
+            shares:col('shares'),price:col('price'),status:col('status'),asset:col('assettype')};
+
+  // Relevante Transaktionen filtern: Executed, Security, Buy oder Savings plan, kein Derivat
+  const buys={};
+  for(let i=1;i<lines.length;i++){
+    const parts=lines[i].split(';').map(s=>s.replace(/^"|"$/g,'').trim());
+    if(parts.length<10) continue;
+    const status=parts[C.status]?.toLowerCase();
+    const asset=parts[C.asset]?.toLowerCase();
+    const type=parts[C.type]?.toLowerCase();
+    const desc=parts[C.desc]||'';
+    const isin=parts[C.isin];
+    if(status!=='executed') continue;
+    if(asset!=='security') continue;
+    if(!['buy','savings plan','sparplan'].includes(type)) continue;
+    if(!isin||isin.length!==12) continue;
+    if(isDerivative(desc)) continue;
+
+    const sh=parseDeNum(parts[C.shares]);
+    const pr=parseDeNum(parts[C.price]);
+    const dt=parts[C.date]||'';
+    if(isNaN(sh)||isNaN(pr)||sh<=0||pr<=0) continue;
+
+    if(!buys[isin]){buys[isin]={isin,desc:desc.replace(/"/g,''),shares:0,totalCost:0,date:dt};}
+    buys[isin].shares+=sh;
+    buys[isin].totalCost+=sh*pr;
+    if(!buys[isin].date||dt<buys[isin].date) buys[isin].date=dt;
+  }
+
+  const positions=Object.values(buys);
+  if(!positions.length){toast('Keine Aktienkäufe gefunden (Derivate wurden ausgeschlossen)','error');return;}
+
+  toast(`${positions.length} Positionen gefunden — suche Ticker…`);
+
+  // ISIN → Ticker via Finnhub
+  let added=0;
+  for(const pos of positions){
+    const avgPrice=pos.totalCost/pos.shares;
+    let ticker=await isinToTicker(pos.isin);
+
+    // Fallback: Name aus Beschreibung
+    if(!ticker){
+      ticker=pos.desc.split(' ')[0].toUpperCase();
+    }
+
+    // Duplikat prüfen
+    if(pfPositions.some(p=>p.ticker===ticker&&Math.abs(p.shares-pos.shares)<0.001)) continue;
+
+    pfPositions.push({
+      id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),
+      ticker,
+      name:pos.desc,
+      isin:pos.isin,
+      shares:Math.round(pos.shares*1000)/1000,
+      buyPrice:Math.round(avgPrice*100)/100,
+      buyDate:pos.date
+    });
+    added++;
+  }
+
+  pfSave();renderPortfolio();
+  toast(`${added} Position(en) aus Scalable Capital importiert`);
+}
+
+function parseGenericCSV(lines){
   let added=0;
   lines.forEach(line=>{
-    // Semikolon oder Komma als Trennzeichen
     const sep=line.includes(';')?';':',';
     const parts=line.split(sep).map(s=>s.trim().replace(/['"]/g,''));
     if(parts.length<3)return;
     const tk=parts[0].toUpperCase();
-    const sh=parseFloat(parts[1].replace(',','.'));
-    const bp=parseFloat(parts[2].replace(',','.'));
+    const sh=parseDeNum(parts[1]);
+    const bp=parseDeNum(parts[2]);
     const dt=parts[3]||new Date().toISOString().slice(0,10);
-    // Kopfzeile überspringen
     if(isNaN(sh)||isNaN(bp)||sh<=0||bp<=0)return;
     if(tk.match(/^[A-Z0-9.\-]{1,12}$/)){
       pfPositions.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),ticker:tk,shares:sh,buyPrice:bp,buyDate:dt});
