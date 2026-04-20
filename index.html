@@ -283,6 +283,12 @@ textarea.form-input { min-height:90px;resize:vertical; }
 .rpt-stamp { font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:10px; }
 .rpt-err { color:var(--red);font-size:12px;padding:8px 0; }
 
+/* LOGOS */
+.q-logo-wrap { width:32px;height:32px;border-radius:7px;overflow:hidden;background:var(--surface);border:1px solid var(--border);flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle; }
+.q-logo-wrap img { width:28px;height:28px;object-fit:contain;border-radius:5px; }
+.q-logo-fallback { font-family:var(--mono);font-size:9px;font-weight:700;color:var(--gold); }
+.q-cell-inner { display:flex;align-items:center;gap:10px; }
+
 /* PORTFOLIO */
 .pf-toolbar { display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap; }
 .pf-summary { display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px; }
@@ -839,18 +845,24 @@ async function loadDashboard(){
   document.getElementById('dashCount').textContent=`${stocks.length} Aktie${stocks.length!==1?'n':''}`;
   if(!stocks.length){document.getElementById('dashBody').innerHTML='<tr><td colspan="6" class="table-empty">Keine Favoriten — klicke „Neue Aktie"</td></tr>';return;}
   const btn=document.getElementById('dashRefBtn');btn.classList.add('spinning');
-  await Promise.allSettled(stocks.map(async s=>{try{const sym=fhSym(s.ticker);const[q,m]=await Promise.all([fhGet(`/quote?symbol=${sym}`),fhGet(`/stock/metric?symbol=${sym}&metric=all`)]);DD[s.ticker]={q,m:m.metric||{}};}catch(err){DD[s.ticker]={err:err.message};}}));
+  await Promise.allSettled(stocks.map(async s=>{try{const sym=fhSym(s.ticker);const[q,m,p]=await Promise.all([fhGet(`/quote?symbol=${sym}`),fhGet(`/stock/metric?symbol=${sym}&metric=all`),fhGet(`/stock/profile2?symbol=${sym}`)]);DD[s.ticker]={q,m:m.metric||{},logo:p.logo||null};}catch(err){DD[s.ticker]={err:err.message};}}));
   renderDashTbl(stocks);btn.classList.remove('spinning');
   document.getElementById('lastUpd').textContent='Stand '+new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
   if(selTicker)openDetail(selTicker);
 }
 
+function logoHtml(ticker, logo){
+  if(logo) return `<div class="q-logo-wrap"><img src="${e(logo)}" alt="${e(ticker)}" onerror="this.parentNode.innerHTML='<span class=q-logo-fallback>${e(ticker.slice(0,4))}</span>'"></div>`;
+  return `<div class="q-logo-wrap"><span class="q-logo-fallback">${e(ticker.slice(0,4))}</span></div>`;
+}
+
 function renderDashTbl(stocks){
   document.getElementById('dashBody').innerHTML=stocks.map(s=>{
     const d=DD[s.ticker];
-    if(!d||d.err)return`<tr onclick="openDetail('${s.ticker}')"><td><div class="q-tick">${e(s.ticker)}</div><div class="q-name">${e(s.name)}</div></td><td colspan="5" style="color:var(--text3);font-size:12px">Keine Daten</td></tr>`;
+    const logo=logoHtml(s.ticker, d?.logo||null);
+    if(!d||d.err)return`<tr onclick="openDetail('${s.ticker}')"><td><div class="q-cell-inner">${logo}<div><div class="q-tick">${e(s.ticker)}</div><div class="q-name">${e(s.name)}</div></div></div></td><td colspan="5" style="color:var(--text3);font-size:12px">Keine Daten</td></tr>`;
     const q=d.q,m=d.m,dp=q.dp??0,cls=dp>0?'pos':dp<0?'neg':'neu',arrow=dp>0?'▲':dp<0?'▼':'',sel=selTicker===s.ticker?' sel':'';
-    return`<tr class="${sel}" onclick="openDetail('${s.ticker}')"><td><div class="q-tick">${e(s.ticker)}</div><div class="q-name">${e(s.name)}</div></td><td><span class="q-price">${q.c>0?fN(q.c):'—'}</span></td><td><span class="q-chg ${cls}">${arrow} ${fN(Math.abs(dp))}%</span></td><td><span class="q-sm">${m['52WeekHigh']?fN(m['52WeekHigh']):'—'} / ${m['52WeekLow']?fN(m['52WeekLow']):'—'}</span></td><td><span class="q-sm">${m.marketCapitalization?fB(m.marketCapitalization*1e6):'—'}</span></td><td><span class="q-sm">${m.peNormalizedAnnual?fN(m.peNormalizedAnnual,1):'—'}</span></td></tr>`;
+    return`<tr class="${sel}" onclick="openDetail('${s.ticker}')"><td><div class="q-cell-inner">${logo}<div><div class="q-tick">${e(s.ticker)}</div><div class="q-name">${e(s.name)}</div></div></div></td><td><span class="q-price">${q.c>0?fN(q.c):'—'}</span></td><td><span class="q-chg ${cls}">${arrow} ${fN(Math.abs(dp))}%</span></td><td><span class="q-sm">${m['52WeekHigh']?fN(m['52WeekHigh']):'—'} / ${m['52WeekLow']?fN(m['52WeekLow']):'—'}</span></td><td><span class="q-sm">${m.marketCapitalization?fB(m.marketCapitalization*1e6):'—'}</span></td><td><span class="q-sm">${m.peNormalizedAnnual?fN(m.peNormalizedAnnual,1):'—'}</span></td></tr>`;
   }).join('');
 }
 
@@ -859,12 +871,16 @@ async function openDetail(ticker){
   document.querySelectorAll('.quote-table tr').forEach(r=>{r.classList.toggle('sel',r.onclick?.toString().includes(`'${ticker}'`));});
   const s=ST.stocks.find(x=>x.ticker===ticker);
   const d=DD[ticker]||{};const q=d.q||{},dp=q.dp??0,cls=dp>0?'pos':dp<0?'neg':'neu';
+  const logo=logoHtml(ticker, d?.logo||null);
   const bottom=document.getElementById('dashBottom');
   bottom.innerHTML=`
     <div class="dash-chart-area">
-      <div class="dash-chart-title">
-        <span class="dash-chart-ticker">${e(ticker)}</span>
-        <span class="dash-chart-name">${e(s?.name||'')}</span>
+      <div class="dash-chart-title" style="display:flex;align-items:center;gap:10px">
+        ${logo}
+        <div>
+          <span class="dash-chart-ticker">${e(ticker)}</span>
+          <span class="dash-chart-name">${e(s?.name||'')}</span>
+        </div>
       </div>
       <div class="dash-chart-price">${q.c?fN(q.c):'—'}</div>
       <div class="dash-chart-chg"><span class="q-chg ${cls}">${dp>0?'▲':'▼'} ${fN(Math.abs(dp))}% (${fN(q.d??0)})</span></div>
@@ -899,10 +915,14 @@ function buildWinnersLosersList(activeTicker){
 
   const item = (r,cls) => {
     const active = r.ticker===activeTicker ? 'background:var(--gold-dim);' : '';
+    const lg = logoHtml(r.ticker, DD[r.ticker]?.logo||null);
     return `<div class="wl-item" style="${active}" onclick="openDetail('${r.ticker}')">
-      <div>
-        <div class="wl-ticker">${e(r.ticker)}</div>
-        <div class="wl-name">${e(r.name)}</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        ${lg}
+        <div>
+          <div class="wl-ticker">${e(r.ticker)}</div>
+          <div class="wl-name">${e(r.name)}</div>
+        </div>
       </div>
       <div class="wl-right">
         <div class="wl-price">${fN(r.c)}</div>
