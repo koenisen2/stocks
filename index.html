@@ -1833,8 +1833,9 @@
 
   // ============ Finnhub API-Key ============
   const FINNHUB_KEY = 'finnhub-api-key';
+  const FINNHUB_DEFAULT_KEY = 'd7i3qkpr01qu8vfn8q8gd7i3qkpr01qu8vfn8q90';
 
-  function getApiKey() { return localStorage.getItem(FINNHUB_KEY) || ''; }
+  function getApiKey() { return localStorage.getItem(FINNHUB_KEY) || FINNHUB_DEFAULT_KEY; }
 
   function saveApiKey() {
     const key = document.getElementById('finnhubKeyInput').value.trim();
@@ -1961,32 +1962,6 @@
     const contentEl  = document.getElementById('reportContent');
     const cancelBtn  = document.getElementById('cancelReportBtn');
     contentEl.innerHTML = '';
-
-    if (!apiKey) {
-      progressEl.innerHTML = '';
-      contentEl.innerHTML = `
-        <div class="report-card open">
-          <div class="report-card-header">
-            <div class="report-card-name" style="font-size:16px;">API-Schlüssel erforderlich</div>
-          </div>
-          <div class="report-card-body">
-            <p style="margin-bottom:14px;">Der Wochenbericht läuft über <strong>Finnhub</strong> — kostenlos, kein Abonnement, keine Kreditkarte.</p>
-            <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;">
-              <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-subtle);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">So geht's</div>
-              <ol style="padding-left:20px;line-height:2.2;font-size:14px;">
-                <li>Auf <strong>finnhub.io</strong> kostenlos registrieren</li>
-                <li>API-Schlüssel aus dem Dashboard kopieren</li>
-                <li>In den Einstellungen dieser App eintragen</li>
-              </ol>
-            </div>
-            <button class="btn btn-primary" onclick="navigate('settings')">
-              Zu den Einstellungen →
-            </button>
-          </div>
-        </div>
-      `;
-      return;
-    }
 
     reportAborted = false;
     cancelBtn.style.display = '';
