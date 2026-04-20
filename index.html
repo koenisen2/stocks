@@ -1029,39 +1029,38 @@ function logoHtml(ticker,logo){
 // ═══════════════════════════════════════════
 // DEPOT LOAD + RENDER
 // ═══════════════════════════════════════════
-// ─── YAHOO FINANCE QUOTE (primäre Kursquelle) ───────────────────────────────
-// Yahoo liefert korrektere Tageswerte als Finnhub Free
+// ─── YAHOO FINANCE QUOTE ────────────────────────────────────────────────────
+// Wichtig: Original-Ticker übergeben (z.B. NN.AS, ENR.DE) — NICHT fhSym()
 const PROX_Y=[
   u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
   u=>`https://corsproxy.io/?url=${encodeURIComponent(u)}`
 ];
 
 async function yahooQuote(ticker){
-  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=5d`;
+  // Yahoo versteht .DE, .AS, .SW etc direkt — original Ticker verwenden
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=2d&includePrePost=false`;
   for(const proxy of PROX_Y){
     try{
-      const r=await fetch(proxy(url),{cache:'no-store'});
+      const r=await fetch(proxy(url),{signal:AbortSignal.timeout(6000)});
       if(!r.ok) continue;
       const d=await r.json();
-      const meta=d?.chart?.result?.[0]?.meta;
+      const result=d?.chart?.result?.[0];
+      if(!result) continue;
+      const meta=result.meta;
       if(!meta?.regularMarketPrice) continue;
 
-      const cur  = meta.regularMarketPrice;
-      // regularMarketPreviousClose ist der echte Vortagesschluss
-      const prev = meta.regularMarketPreviousClose || meta.previousClose || cur;
-      const chg  = cur - prev;
-      const chgP = prev ? (chg / prev) * 100 : 0;
+      const cur   = meta.regularMarketPrice;
+      // regularMarketPreviousClose = echter Vortagesschluss (nicht chartPreviousClose!)
+      const prev  = meta.regularMarketPreviousClose || meta.previousClose;
+      if(!prev || prev===0) continue;
 
-      return {
-        c:  cur,
-        pc: prev,
-        d:  chg,
-        // Wenn Yahoo direkt den korrekten Prozentsatz liefert → nutzen
-        dp: meta.regularMarketChangePercent ?? chgP,
-        h:  meta.regularMarketDayHigh  || cur,
-        l:  meta.regularMarketDayLow   || cur,
-        o:  meta.regularMarketOpen     || cur,
-      };
+      const chgAbs = cur - prev;
+      // regularMarketChangePercent direkt von Yahoo nehmen wenn vorhanden (am zuverlässigsten)
+      const chgPct = (meta.regularMarketChangePercent != null)
+        ? meta.regularMarketChangePercent
+        : (chgAbs / prev) * 100;
+
+      return { c:cur, pc:prev, d:chgAbs, dp:chgPct };
     } catch { continue; }
   }
   return null;
@@ -1086,33 +1085,30 @@ async function loadDepot(){
   const btn=document.getElementById('depotRefBtn');btn.classList.add('spinning');
   const tickers=[...new Set(pf.positions.map(p=>p.ticker))];
 
-  // Parallel: Yahoo für Kurse + Finnhub für Metriken/Logo
   await Promise.allSettled(tickers.map(async t=>{
-    const sym=fhSym(t);
+    const sym=fhSym(t); // nur für Finnhub-Metriken/Logo
 
-    // Yahoo Quote (primäre Kursquelle — korrektere Tageswerte)
-    const yqPromise = yahooQuote(t);
+    // Yahoo für Kurs + Tagesveränderung (Original-Ticker!)
+    const yqPromise=yahooQuote(t);
 
-    // Finnhub Metriken + Logo (parallel, egal ob Kurs da ist)
-    const fhPromise = Promise.allSettled([
+    // Finnhub nur für Metriken + Logo (parallel)
+    const fhPromise=Promise.allSettled([
       fhGet(`/stock/metric?symbol=${sym}&metric=all`),
       fhGet(`/stock/profile2?symbol=${sym}`)
     ]);
 
-    const [yq, fhResults] = await Promise.all([yqPromise, fhPromise]);
-    const m = fhResults[0].status==='fulfilled' ? fhResults[0].value.metric||{} : {};
-    const logo = fhResults[1].status==='fulfilled' ? fhResults[1].value.logo||null : null;
+    const [yq, fhRes]=await Promise.all([yqPromise, fhPromise]);
+    const m   = fhRes[0].status==='fulfilled' ? fhRes[0].value.metric||{} : {};
+    const logo= fhRes[1].status==='fulfilled' ? fhRes[1].value.logo||null  : null;
 
     if(yq){
-      DD[t] = {q:yq, m, logo};
+      DD[t]={q:yq, m, logo};
     } else {
-      // Yahoo gescheitert → Finnhub Quote als letzter Versuch
+      // Yahoo fehlgeschlagen → Finnhub Quote als letzter Versuch
       try{
         const fhQ=await fhGet(`/quote?symbol=${sym}`);
-        DD[t] = {q:fhQ, m, logo};
-      } catch(e) {
-        DD[t] = {err:e.message, m, logo};
-      }
+        DD[t]={q:fhQ, m, logo};
+      }catch(e){ DD[t]={err:e.message, m, logo}; }
     }
   }));
 
@@ -1126,7 +1122,15 @@ async function loadDepot(){
 
 function renderDepotTable(){
   const pf=activePortfolio();
-  document.getElementById('depotBody').innerHTML=pf.positions.map(pos=>{
+
+  // Sortierung: aktueller Positionswert absteigend, Einstand als Fallback
+  const sorted=[...pf.positions].sort((a,b)=>{
+    const va=(DD[a.ticker]?.q?.c||0)*a.shares || a.shares*a.buyPrice;
+    const vb=(DD[b.ticker]?.q?.c||0)*b.shares || b.shares*b.buyPrice;
+    return vb-va;
+  });
+
+  document.getElementById('depotBody').innerHTML=sorted.map(pos=>{
     const d=DD[pos.ticker];
     const logo=logoHtml(pos.ticker,d?.logo||null);
     const q=d?.q||{};const cur=q.c||null,dp=q.dp??0;
