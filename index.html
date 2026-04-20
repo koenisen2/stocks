@@ -911,6 +911,13 @@
   .report-error { color: var(--danger); font-style: italic; padding: 10px 0; }
   .report-stamp { font-family: var(--font-mono); font-size: 10px; color: var(--text-subtle); margin-top: 12px; }
 
+  @media (max-width: 500px) {
+    .hide-xs { display: none !important; }
+  }
+  @media (max-width: 700px) {
+    .hide-sm { display: none !important; }
+  }
+
   /* ============ DESKTOP ============ */
   @media (min-width: 768px) {
     body {
@@ -1034,6 +1041,9 @@
       margin-top: 20px;
     }
 
+    .hide-xs { display: table-cell; }
+    .hide-sm { display: table-cell; }
+
     .screen-title { font-size: 30px; margin-bottom: 26px; }
 
     .form-row { grid-template-columns: 160px 1fr; gap: 14px; }
@@ -1083,7 +1093,277 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
-  /* ============ AUTH SCREEN ============ */
+  /* ============ DASHBOARD ============ */
+  .dash-table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .dash-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .dash-table th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-subtle);
+    padding: 10px 14px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .dash-table th:first-child { text-align: left; }
+  .dash-table th:hover { color: var(--text); }
+  .dash-table th.sorted { color: var(--accent); }
+
+  .dash-table td {
+    padding: 12px 14px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  .dash-table td:first-child { text-align: left; }
+  .dash-table tr:last-child td { border-bottom: none; }
+
+  .dash-table tr {
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+
+  .dash-table tr:hover td { background: var(--surface-2); }
+
+  .dash-ticker {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+
+  .dash-name {
+    font-size: 12px;
+    color: var(--text-dim);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 140px;
+  }
+
+  .dash-price {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .dash-change.pos { color: var(--success); }
+  .dash-change.neg { color: var(--danger); }
+  .dash-change.neu { color: var(--text-dim); }
+
+  .dash-sparkline { display: block; }
+
+  /* Loading skeleton */
+  .dash-skeleton {
+    display: inline-block;
+    width: 60px;
+    height: 14px;
+    background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface-3) 50%, var(--surface-2) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+  }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+  .dash-refresh-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 14px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .dash-refresh-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .dash-refresh-btn svg { width: 13px; height: 13px; }
+  .dash-refresh-btn.spinning svg { animation: spin 1s linear infinite; }
+
+  .dash-last-update {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-subtle);
+    margin-left: auto;
+  }
+
+  .dash-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  /* Detail modal */
+  .dash-detail {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 14px;
+    animation: fadeIn 0.2s ease-out;
+    display: none;
+  }
+
+  .dash-detail.show { display: block; }
+
+  .dash-detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+
+  .dash-detail-ticker {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  .dash-detail-name {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .dash-detail-price {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text);
+    text-align: right;
+  }
+
+  .dash-detail-change {
+    font-size: 14px;
+    text-align: right;
+    margin-top: 2px;
+  }
+
+  .dash-close-btn {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: var(--text-dim);
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: all 0.15s;
+  }
+  .dash-close-btn:hover { color: var(--text); border-color: var(--border-strong); }
+
+  .dash-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  @media (min-width: 500px) { .dash-metrics { grid-template-columns: repeat(4, 1fr); } }
+
+  .dash-metric {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  .dash-metric-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-subtle);
+    margin-bottom: 4px;
+  }
+
+  .dash-metric-value {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .chart-wrap {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .chart-periods {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .chart-period-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .chart-period-btn.active {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  #dashCanvas { width: 100% !important; height: 180px !important; }
+
+  @media (min-width: 768px) {
+    #screen-dashboard {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+    .dash-metrics { grid-template-columns: repeat(4, 1fr); }
+    #dashCanvas { height: 240px !important; }
+    .dash-name { max-width: 220px; }
+  }
+
+</style>
   #authScreen {
     position: fixed;
     inset: 0;
@@ -1309,6 +1589,7 @@
         <span>Synced</span>
       </div>
       <button class="desktop-nav-item active" data-nav="list">Favoriten</button>
+      <button class="desktop-nav-item" data-nav="dashboard">Dashboard</button>
       <button class="desktop-nav-item" data-nav="settings">Einstellungen</button>
       <button class="desktop-add-btn" id="desktopAddBtn">
         <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
@@ -1418,6 +1699,64 @@
     <div id="detailContent"></div>
   </div>
 
+  <!-- Screen: Dashboard -->
+  <div class="screen" id="screen-dashboard">
+    <div class="dash-toolbar">
+      <button class="dash-refresh-btn" id="dashRefreshBtn" onclick="loadDashboard()">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 4v5h5M20 20v-5h-5M4 9a9 9 0 0115 0M20 15a9 9 0 01-15 0"/></svg>
+        Aktualisieren
+      </button>
+      <span class="dash-last-update" id="dashLastUpdate"></span>
+    </div>
+
+    <!-- Detail-Panel (versteckt bis Klick) -->
+    <div class="dash-detail" id="dashDetail">
+      <div class="dash-detail-header">
+        <div>
+          <div class="dash-detail-ticker" id="ddTicker">—</div>
+          <div class="dash-detail-name" id="ddName">—</div>
+        </div>
+        <div>
+          <div class="dash-detail-price" id="ddPrice">—</div>
+          <div class="dash-detail-change" id="ddChange">—</div>
+        </div>
+        <button class="dash-close-btn" onclick="closeDashDetail()">✕</button>
+      </div>
+
+      <div class="dash-metrics" id="ddMetrics"></div>
+
+      <div class="chart-wrap">
+        <div class="chart-periods" id="chartPeriods">
+          <button class="chart-period-btn active" data-res="D" data-days="7">1W</button>
+          <button class="chart-period-btn" data-res="D" data-days="30">1M</button>
+          <button class="chart-period-btn" data-res="D" data-days="90">3M</button>
+          <button class="chart-period-btn" data-res="W" data-days="365">1J</button>
+        </div>
+        <canvas id="dashCanvas"></canvas>
+      </div>
+    </div>
+
+    <!-- Tabelle -->
+    <div class="dash-table-wrap">
+      <table class="dash-table" id="dashTable">
+        <thead>
+          <tr>
+            <th>Aktie</th>
+            <th>Kurs</th>
+            <th>Tag %</th>
+            <th class="hide-xs">Hoch 52W</th>
+            <th class="hide-xs">Tief 52W</th>
+            <th class="hide-sm">Marktk.</th>
+            <th class="hide-sm">KGV</th>
+          </tr>
+        </thead>
+        <tbody id="dashBody">
+          <tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-subtle)">Wird geladen…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- Screen: Bericht -->
   <div class="screen" id="screen-report">
     <button class="back-link" onclick="cancelReport(); navigate('list')">
@@ -1496,6 +1835,10 @@
   </button>
   <button class="nav-item nav-item-fab" id="fabAdd" aria-label="Neue Aktie hinzufügen">
     <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
+  </button>
+  <button class="nav-item" data-nav="dashboard">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <span class="nav-item-label">Dashboard</span>
   </button>
   <button class="nav-item" data-nav="settings">
     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H3a2 2 0 010-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V3a2 2 0 014 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H21a2 2 0 010 4h-.1a1.6 1.6 0 00-1.5 1z"/></svg>
@@ -1588,6 +1931,7 @@
     if (screen === 'form') renderForm(opts.id);
     if (screen === 'report') startReport();
     if (screen === 'settings') loadApiKeyField();
+    if (screen === 'dashboard') {} // handled by navigate override
 
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
@@ -2572,6 +2916,230 @@
 
   // syncToFirestore global verfügbar machen
   window.syncToFirestore = syncToFirestore;
+
+  // ============ Dashboard ============
+  let dashData = {};
+  let dashChart = null;
+  let dashDetailStock = null;
+
+  function fmtNum(n, digits = 2) {
+    if (n == null || isNaN(n)) return '—';
+    return Number(n).toLocaleString('de-DE', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  }
+
+  function fmtBig(n) {
+    if (!n || isNaN(n)) return '—';
+    if (n >= 1e12) return (n / 1e12).toFixed(2) + ' Bio.';
+    if (n >= 1e9)  return (n / 1e9).toFixed(2) + ' Mrd.';
+    if (n >= 1e6)  return (n / 1e6).toFixed(2) + ' Mio.';
+    return n.toLocaleString('de-DE');
+  }
+
+  async function finnhubGet(path) {
+    const key = getApiKey();
+    const r = await fetch(`https://finnhub.io/api/v1${path}&token=${key}`);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }
+
+  async function loadDashboard() {
+    const stocks = state.stocks;
+    if (!stocks.length) {
+      document.getElementById('dashBody').innerHTML =
+        '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-subtle)">Keine Aktien in der Favoritenliste</td></tr>';
+      return;
+    }
+
+    const btn = document.getElementById('dashRefreshBtn');
+    btn.classList.add('spinning');
+
+    // Alle Aktien parallel laden
+    await Promise.allSettled(stocks.map(async s => {
+      try {
+        const sym = finnhubSymbol(s.ticker);
+        const [quote, metrics] = await Promise.all([
+          finnhubGet(`/quote?symbol=${sym}`),
+          finnhubGet(`/stock/metric?symbol=${sym}&metric=all`)
+        ]);
+        dashData[s.ticker] = { quote, metrics: metrics.metric || {} };
+      } catch (e) {
+        dashData[s.ticker] = { error: e.message };
+      }
+    }));
+
+    renderDashTable(stocks);
+    btn.classList.remove('spinning');
+    document.getElementById('dashLastUpdate').textContent =
+      'Stand: ' + new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function renderDashTable(stocks) {
+    const tbody = document.getElementById('dashBody');
+    tbody.innerHTML = stocks.map(s => {
+      const d = dashData[s.ticker];
+      if (!d || d.error) {
+        return `<tr onclick="openDashDetail('${s.ticker}')">
+          <td><div class="dash-ticker">${escape(s.ticker)}</div><div class="dash-name">${escape(s.name)}</div></td>
+          <td colspan="6" style="color:var(--text-subtle);font-size:12px;">Keine Daten</td></tr>`;
+      }
+      const q = d.quote;
+      const m = d.metrics;
+      const change = q.dp ?? 0;
+      const cls = change > 0 ? 'pos' : change < 0 ? 'neg' : 'neu';
+      const arrow = change > 0 ? '▲' : change < 0 ? '▼' : '';
+      const cur = q.c > 0 ? fmtNum(q.c) : '—';
+      const w52h = m['52WeekHigh'] ? fmtNum(m['52WeekHigh']) : '—';
+      const w52l = m['52WeekLow']  ? fmtNum(m['52WeekLow'])  : '—';
+      const mcap = m.marketCapitalization ? fmtBig(m.marketCapitalization * 1e6) : '—';
+      const pe   = m.peNormalizedAnnual   ? fmtNum(m.peNormalizedAnnual, 1)      : '—';
+
+      return `<tr onclick="openDashDetail('${s.ticker}')">
+        <td><div class="dash-ticker">${escape(s.ticker)}</div><div class="dash-name">${escape(s.name)}</div></td>
+        <td><span class="dash-price">${cur}</span></td>
+        <td><span class="dash-change ${cls}">${arrow} ${fmtNum(Math.abs(change))}%</span></td>
+        <td class="hide-xs" style="font-family:var(--font-mono);font-size:12px;">${w52h}</td>
+        <td class="hide-xs" style="font-family:var(--font-mono);font-size:12px;">${w52l}</td>
+        <td class="hide-sm" style="font-family:var(--font-mono);font-size:12px;">${mcap}</td>
+        <td class="hide-sm" style="font-family:var(--font-mono);font-size:12px;">${pe}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  async function openDashDetail(ticker) {
+    const stock = state.stocks.find(s => s.ticker === ticker);
+    if (!stock) return;
+    dashDetailStock = ticker;
+
+    const detail = document.getElementById('dashDetail');
+    detail.classList.add('show');
+    detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    const d = dashData[ticker] || {};
+    const q = d.quote || {};
+    const m = d.metrics || {};
+    const change = q.dp ?? 0;
+    const cls = change > 0 ? 'pos' : change < 0 ? 'neg' : 'neu';
+
+    document.getElementById('ddTicker').textContent = ticker;
+    document.getElementById('ddName').textContent = stock.name;
+    document.getElementById('ddPrice').textContent = q.c ? fmtNum(q.c) + (q.c > 100 ? ' $' : '') : '—';
+    document.getElementById('ddChange').innerHTML =
+      `<span class="dash-change ${cls}">${change > 0 ? '▲' : '▼'} ${fmtNum(Math.abs(change))}% (${fmtNum(q.d ?? 0)})</span>`;
+
+    // Metriken
+    const metrics = [
+      ['52W Hoch',    m['52WeekHigh'] ? fmtNum(m['52WeekHigh']) : '—'],
+      ['52W Tief',    m['52WeekLow']  ? fmtNum(m['52WeekLow'])  : '—'],
+      ['Marktk.',     m.marketCapitalization ? fmtBig(m.marketCapitalization * 1e6) : '—'],
+      ['KGV',         m.peNormalizedAnnual   ? fmtNum(m.peNormalizedAnnual, 1) : '—'],
+      ['KBV',         m.pbAnnual             ? fmtNum(m.pbAnnual, 1) : '—'],
+      ['Dividende',   m.dividendYieldIndicatedAnnual ? fmtNum(m.dividendYieldIndicatedAnnual, 2) + '%' : '—'],
+      ['Beta',        m.beta ? fmtNum(m.beta, 2) : '—'],
+      ['Ø Vol. 10T',  m['10DayAverageTradingVolume'] ? fmtBig(m['10DayAverageTradingVolume'] * 1e6) : '—']
+    ];
+
+    document.getElementById('ddMetrics').innerHTML = metrics.map(([l, v]) =>
+      `<div class="dash-metric"><div class="dash-metric-label">${l}</div><div class="dash-metric-value">${v}</div></div>`
+    ).join('');
+
+    // Chart laden
+    await loadChart(ticker, 'D', 7);
+
+    // Period-Buttons
+    document.querySelectorAll('.chart-period-btn').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.chart-period-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        loadChart(ticker, btn.dataset.res, parseInt(btn.dataset.days));
+      };
+    });
+  }
+
+  async function loadChart(ticker, resolution, days) {
+    const sym = finnhubSymbol(ticker);
+    const to   = Math.floor(Date.now() / 1000);
+    const from = to - days * 86400;
+
+    try {
+      const data = await finnhubGet(`/stock/candle?symbol=${sym}&resolution=${resolution}&from=${from}&to=${to}`);
+      if (!data.c || data.s === 'no_data') { renderChart([], [], ticker); return; }
+
+      const labels = data.t.map(ts =>
+        new Date(ts * 1000).toLocaleDateString('de-DE', { day: '2-digit', month: 'short' }));
+      renderChart(labels, data.c, ticker);
+    } catch (e) {
+      renderChart([], [], ticker);
+    }
+  }
+
+  function renderChart(labels, prices, ticker) {
+    // Chart.js dynamisch laden
+    if (!window.Chart) {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+      s.onload = () => renderChart(labels, prices, ticker);
+      document.head.appendChild(s);
+      return;
+    }
+
+    if (dashChart) { dashChart.destroy(); dashChart = null; }
+
+    const canvas = document.getElementById('dashCanvas');
+    const ctx = canvas.getContext('2d');
+
+    if (!prices.length) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'var(--text-subtle)';
+      ctx.font = '13px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Keine Chart-Daten verfügbar', canvas.width / 2, 80);
+      return;
+    }
+
+    const isUp = prices[prices.length - 1] >= prices[0];
+    const color = isUp ? '#6fae7e' : '#d97559';
+
+    dashChart = new window.Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          data: prices,
+          borderColor: color,
+          backgroundColor: color + '22',
+          borderWidth: 2,
+          pointRadius: 0,
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: {
+          callbacks: { label: ctx => ' ' + fmtNum(ctx.raw) }
+        }},
+        scales: {
+          x: { ticks: { color: '#585b66', maxTicksLimit: 6, font: { size: 10 } }, grid: { color: '#2a2d37' } },
+          y: { ticks: { color: '#585b66', font: { size: 10 }, callback: v => fmtNum(v) }, grid: { color: '#2a2d37' } }
+        }
+      }
+    });
+  }
+
+  function closeDashDetail() {
+    document.getElementById('dashDetail').classList.remove('show');
+    if (dashChart) { dashChart.destroy(); dashChart = null; }
+    dashDetailStock = null;
+    document.querySelectorAll('.chart-period-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  }
+
+  // Dashboard-Screen: beim Öffnen laden
+  const _origNavigate = navigate;
+  navigate = function(screen, opts = {}) {
+    _origNavigate(screen, opts);
+    if (screen === 'dashboard') loadDashboard();
+  };
 
   // ============ Firebase Auth & Sync ============
   let currentUser = null;
