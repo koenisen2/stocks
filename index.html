@@ -1029,30 +1029,45 @@ function logoHtml(ticker,logo){
 // ═══════════════════════════════════════════
 // DEPOT LOAD + RENDER
 // ═══════════════════════════════════════════
-// Yahoo Finance Quote-Fallback via CORS-Proxy
+// ─── YAHOO FINANCE QUOTE (primäre Kursquelle) ───────────────────────────────
+// Yahoo liefert korrektere Tageswerte als Finnhub Free
 const PROX_Y=[
   u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
   u=>`https://corsproxy.io/?url=${encodeURIComponent(u)}`
 ];
+
 async function yahooQuote(ticker){
-  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=1d`;
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=5d`;
   for(const proxy of PROX_Y){
     try{
-      const r=await fetch(proxy(url));if(!r.ok)continue;
+      const r=await fetch(proxy(url),{cache:'no-store'});
+      if(!r.ok) continue;
       const d=await r.json();
       const meta=d?.chart?.result?.[0]?.meta;
-      if(!meta?.regularMarketPrice)continue;
-      return{
-        c:meta.regularMarketPrice,
-        pc:meta.chartPreviousClose||meta.previousClose||meta.regularMarketPrice,
-        d:meta.regularMarketPrice-(meta.chartPreviousClose||meta.previousClose||meta.regularMarketPrice),
-        dp:((meta.regularMarketPrice-(meta.chartPreviousClose||meta.previousClose||meta.regularMarketPrice))/(meta.chartPreviousClose||meta.previousClose||meta.regularMarketPrice))*100
+      if(!meta?.regularMarketPrice) continue;
+
+      const cur  = meta.regularMarketPrice;
+      // regularMarketPreviousClose ist der echte Vortagesschluss
+      const prev = meta.regularMarketPreviousClose || meta.previousClose || cur;
+      const chg  = cur - prev;
+      const chgP = prev ? (chg / prev) * 100 : 0;
+
+      return {
+        c:  cur,
+        pc: prev,
+        d:  chg,
+        // Wenn Yahoo direkt den korrekten Prozentsatz liefert → nutzen
+        dp: meta.regularMarketChangePercent ?? chgP,
+        h:  meta.regularMarketDayHigh  || cur,
+        l:  meta.regularMarketDayLow   || cur,
+        o:  meta.regularMarketOpen     || cur,
       };
-    }catch{continue;}
+    } catch { continue; }
   }
   return null;
 }
 
+// ─── DEPOT LADEN ────────────────────────────────────────────────────────────
 async function loadDepot(){
   const pf=activePortfolio();
   document.getElementById('depotTableTitle').textContent=pf.name;
@@ -1071,30 +1086,33 @@ async function loadDepot(){
   const btn=document.getElementById('depotRefBtn');btn.classList.add('spinning');
   const tickers=[...new Set(pf.positions.map(p=>p.ticker))];
 
+  // Parallel: Yahoo für Kurse + Finnhub für Metriken/Logo
   await Promise.allSettled(tickers.map(async t=>{
-    try{
-      const sym=fhSym(t);
-      const[q,m,logo]=await Promise.all([
-        fhGet(`/quote?symbol=${sym}`),
-        fhGet(`/stock/metric?symbol=${sym}&metric=all`),
-        fhGet(`/stock/profile2?symbol=${sym}`)
-      ]);
-      // Prüfen ob Kurs wirklich vorhanden (Finnhub gibt manchmal c:0 zurück)
-      if(q.c && q.c>0){
-        DD[t]={q,m:m.metric||{},logo:logo.logo||null};
-      } else {
-        // Finnhub hat keinen Kurs → Yahoo-Fallback
-        const yq=await yahooQuote(t);
-        if(yq) DD[t]={q:{...q,...yq},m:m.metric||{},logo:logo.logo||null,src:'yahoo'};
-        else DD[t]={q,m:m.metric||{},logo:logo.logo||null};
-      }
-    }catch(err){
-      // Finnhub komplett fehlgeschlagen → Yahoo-Fallback
+    const sym=fhSym(t);
+
+    // Yahoo Quote (primäre Kursquelle — korrektere Tageswerte)
+    const yqPromise = yahooQuote(t);
+
+    // Finnhub Metriken + Logo (parallel, egal ob Kurs da ist)
+    const fhPromise = Promise.allSettled([
+      fhGet(`/stock/metric?symbol=${sym}&metric=all`),
+      fhGet(`/stock/profile2?symbol=${sym}`)
+    ]);
+
+    const [yq, fhResults] = await Promise.all([yqPromise, fhPromise]);
+    const m = fhResults[0].status==='fulfilled' ? fhResults[0].value.metric||{} : {};
+    const logo = fhResults[1].status==='fulfilled' ? fhResults[1].value.logo||null : null;
+
+    if(yq){
+      DD[t] = {q:yq, m, logo};
+    } else {
+      // Yahoo gescheitert → Finnhub Quote als letzter Versuch
       try{
-        const yq=await yahooQuote(t);
-        if(yq) DD[t]={q:yq,m:{},logo:null,src:'yahoo'};
-        else DD[t]={err:err.message};
-      }catch{DD[t]={err:err.message};}
+        const fhQ=await fhGet(`/quote?symbol=${sym}`);
+        DD[t] = {q:fhQ, m, logo};
+      } catch(e) {
+        DD[t] = {err:e.message, m, logo};
+      }
     }
   }));
 
