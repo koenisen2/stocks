@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0d0f14">
-<title>Aktien — Watchlist</title>
+<title>SKONYX</title>
 <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230d0f14'/><path d='M50 22l7 17 18 1-14 12 4 18-15-10-15 10 4-18-14-12 18-1z' fill='%23c9a84c'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -167,10 +167,10 @@ main{margin-left:var(--sidebar);flex:1;min-width:0;display:flex;flex-direction:c
   overflow: hidden;
 }
 
-/* Oben: Tabellenkarte — feste Höhe 45% */
+/* Oben: Tabellenkarte — feste Höhe 58% */
 .depot-top-card {
   background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
-  overflow: hidden; flex: 0 0 45%;
+  overflow: hidden; flex: 0 0 58%;
   display: flex; flex-direction: column; min-height: 0;
 }
 .depot-top-card .col-header {
@@ -415,7 +415,7 @@ textarea.form-input{min-height:90px;resize:vertical}
 @media(max-width:768px){
   aside{width:60px}
   .nav-label,.nav-section,.sidebar-brand,.user-email,.logout-btn,.pf-selector{display:none}
-  .sidebar-brand::after{content:'A';font-size:18px;font-weight:700;color:var(--gold);display:block;padding:18px 0;text-align:center}
+  .sidebar-brand::after{content:'S';font-size:18px;font-weight:700;color:var(--gold);display:block;padding:18px 0;text-align:center}
   aside .sidebar-brand{padding:0;border-bottom:1px solid var(--border)}
   .nav-item{justify-content:center;padding:12px}
   .user-pill{justify-content:center}
@@ -440,8 +440,8 @@ window._fb={auth:getAuth(app),db:getFirestore(app),createUserWithEmailAndPasswor
 <!-- AUTH -->
 <div id="authOverlay">
   <div class="auth-box">
-    <div class="auth-brand">Aktien<span>.</span></div>
-    <div class="auth-sub">Deine persönliche Aktienwatchlist</div>
+    <div class="auth-brand">SKONYX<span>.</span></div>
+    <div class="auth-sub">Dein persönliches Depot & Watchlist</div>
     <div class="auth-tabs">
       <button class="auth-tab active" onclick="authTab('login')">Anmelden</button>
       <button class="auth-tab" onclick="authTab('register')">Registrieren</button>
@@ -455,7 +455,7 @@ window._fb={auth:getAuth(app),db:getFirestore(app),createUserWithEmailAndPasswor
 
 <div id="shell">
 <aside>
-  <div class="sidebar-brand">Aktien<span>.</span></div>
+  <div class="sidebar-brand">SKONYX<span>.</span></div>
   <nav class="sidebar-nav">
     <div class="nav-section">Depots</div>
     <button class="nav-item active" data-nav="depot">
